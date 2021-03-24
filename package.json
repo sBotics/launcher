@@ -1,0 +1,38 @@
+{
+  "name": "sBotics",
+  "version": "1.0.0",
+  "description": "sBotics",
+  "main": "main.js",
+  "author": "Thiago Nascimento",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "asar": "true",
+    "productName": "sBotics",
+    "icon": "icon.ico",
+    "win": {
+      "publisherName": "LAICA"
+    },
+    "linux": {
+      "icon": "icon.png",
+      "target": "AppImage"
+    }
+  },
+  "dependencies": {
+    "@xmcl/unzip": "^1.2.0",
+    "axios": "^0.19.2",
+    "chmodr": "^1.2.0",
+    "jQuery": "^1.7.4",
+    "luxon": "^1.24.1",
+    "mkdirp": "^1.0.4",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-builder": "^22.7.0",
+    "electron-packager": "^15.0.0"
+  }
+}

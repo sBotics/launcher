@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sBotics Launcher</title>
+        <link rel="stylesheet" href="../css/errorwin.css">
+<style>
+
+
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="img">
+            <img src="../../assets/choro.png">
+            </div>
+            <p>Não conseguimos nos conectar aos nossos servidores.</p>
+            <p>Por favor, verifique sua conexão com a internet e tente novamente.</p>
+            <a href="#" id="close">Entendi!</a>
+        </div>
+  </body>
+    <script>
+        document.getElementById('close').addEventListener(
+    'click', function(event){
+        
+        event.preventDefault();
+        var {ipcRenderer} = require('electron');
+        ipcRenderer.send("fim");
+        }
+    );
+    </script>
+</html>

@@ -1,0 +1,244 @@
+/* Nouveau CSS by llucmou */
+/* Date: 23/09/2020 */
+
+/* Settings */
+@font-face {
+  font-family: sfpro-regular;
+  src: url("../../assets/fonts/SFProDisplay-Regular.ttf");
+}
+@font-face {
+  font-family: sfpro-light;
+  src: url("../../assets/fonts/SFProDisplay-Light.ttf");
+}
+@keyframes top-down {
+  0% {
+    padding-top: 2%;
+  }
+  50% {
+    padding-top: 3%;
+  }
+  100% {
+    padding-top: 2%;
+  }
+}
+
+/* Global variables */
+:root {
+  --sidebar-size: 105px;
+  --progress-background: rgba(255, 255, 255, 0.3);
+  --main: #2fa9c1;
+  --alt: var(--info);
+  --sidebar-bg: #131313;
+  --border: #414141;
+  --card: #181818;
+  --body: #171717;
+  --body-text: #fcfcfc;
+}
+
+html,
+body {
+  height: 100%;
+}
+/* Extra small devices (phones, less than 768px) */
+body {
+  font-family: "sfpro-regular", sans-serif;
+  background-color: var(--body);
+  color: var(--body-text);
+}
+.custom-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.col-right,
+.col-left {
+  position: relative;
+}
+.col-left {
+  background-color: var(--sidebar-bg);
+}
+.col-left img {
+  height: 50px;
+  margin: 5px;
+}
+ul.top,
+ul.bot {
+  margin: 15px 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+}
+ul.bot {
+  float: right;
+}
+ul.top li,
+ul.bot li {
+  position: relative;
+  display: inline-block;
+}
+.top-alert {
+  text-align: center;
+  color: var(--body-text);
+  padding: 10px 60px 10px 10px;
+  margin: 0;
+}
+.top-alert .fas {
+  font-size: 22px;
+}
+.top-alert .close-alert {
+  position: absolute;
+  transition: all 0.3s ease-out;
+  font-size: 20px;
+  right: 20px;
+  text-decoration: none;
+  color: var(--body-text);
+  text-shadow: 0 1px 0 var(--body);
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.top-alert .close-alert:hover {
+  opacity: 0.8;
+}
+.backdrop {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.3;
+  height: 500px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.download {
+  padding-top: 300px;
+}
+.download .box {
+  margin-top: 10px;
+  background-color: var(--card);
+  border-radius: 15px;
+  padding: 15px;
+}
+.btn-wide {
+  width: 100%;
+  padding: 10px 0px;
+}
+.line-separator {
+  position: relative;
+  color: var(--body-text);
+  margin: 4px 0;
+  opacity: 0.8;
+  text-align: center;
+  width: 100%;
+}
+.line-separator span {
+  height: 54px;
+  font-size: 1rem;
+  padding: 15px 15px;
+  background: var(--card);
+  display: inline-block;
+}
+.line-separator .line {
+  opacity: 0.3;
+  height: 0.5px;
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  background-color: var(--body-text);
+}
+.logo {
+  height: 50px;
+  display: block;
+}
+.light {
+  font-family: "sfpro-light", sans-serif;
+}
+.small-text {
+  word-break: break-all;
+  opacity: 0.7;
+}
+.col-bottom {
+  margin: 30px 0;
+  padding: 55px 0;
+  border-top: 1px solid var(--border);
+}
+.progress {
+  background-color: var(--progress-background);
+  border-radius: 0;
+}
+.progress .progress-bar {
+  width: var(--progress);
+  background-color: var(--success);
+  transition: all 1s ease-out;
+}
+.animated {
+  animation-name: top-down;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.absolute-centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .col-left {
+    position: fixed;
+    z-index: 10;
+    float: left;
+    height: 100%;
+    width: var(--sidebar-size);
+  }
+  .col-right {
+    width: calc(100% - var(--sidebar-size));
+    margin-left: var(--sidebar-size);
+  }
+  .col-left img {
+    height: unset;
+    --img-margin: 10px;
+    margin: var(--img-margin);
+    width: calc(100% - calc(2 * var(--img-margin)));
+  }
+  ul.top li,
+  ul.bot li {
+    width: 100%;
+  }
+  ul.bot,
+  ul.top {
+    position: absolute;
+    float: unset;
+    left: 15px;
+    width: calc(100% - 30px); /* 15px * 2 (default bootstrap row padding) */
+  }
+  ul.bot {
+    bottom: 0;
+  }
+  .logo {
+    height: 60px;
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .logo {
+    height: 70px;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .download .box {
+    margin-top: 0px;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
