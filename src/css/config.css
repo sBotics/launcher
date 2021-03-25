@@ -147,14 +147,6 @@ button:focus{background: none;
     position: absolute;
     margin-top: -6px;
 }
-#closeButton{
-  position: fixed;
-  top: 2vh;
-  right:2vw;
-  font-size: 10vh;
-  color: #FAFAFA;
-}
-
 #reparar{
   margin-top: 20%;
   position: relative;

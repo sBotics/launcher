@@ -25,16 +25,47 @@
 /* Global variables */
 :root {
   --sidebar-size: 105px;
+  --topbar-size: 35px;
   --progress-background: rgba(255, 255, 255, 0.3);
   --main: #2fa9c1;
   --alt: var(--info);
   --sidebar-bg: #131313;
+  --topbar-bg: #101010;
   --border: #414141;
   --card: #181818;
   --body: #171717;
   --body-text: #fcfcfc;
 }
-
+.close-button {
+  position: absolute;
+  right: 5px;
+  border-radius: 50px;
+  margin: 8px;
+  height: calc(var(--topbar-size) - 16px);
+  width: calc(var(--topbar-size) - 16px);
+  background-color: #FF605C;
+  border: 2px solid #ef4244;
+  cursor: pointer;
+  transition: all .3s ease-out;
+  color: transparent;
+}
+.close-button span {
+  margin-left: 3.5px;
+  margin-top: -5px;
+  font-size: 16px;
+  position: absolute;
+}
+.close-button:hover {
+  color: #464646;
+  border-color: #FF605C;
+  background-color: #ef4244;
+}
+body.config {
+  background-color: var(--border);
+}
+.container.config {
+  margin-top: 60px;
+}
 html,
 body {
   height: 100%;
@@ -44,6 +75,7 @@ body {
   font-family: "sfpro-regular", sans-serif;
   background-color: var(--body);
   color: var(--body-text);
+  padding-top: 1px;
 }
 .custom-row {
   display: flex;
@@ -75,6 +107,15 @@ ul.bot li {
   position: relative;
   display: inline-block;
 }
+.action-bar {
+  z-index: 15;
+  position: fixed;
+  width: 100%;
+  height: var(--topbar-size);
+  background-color: var(--topbar-bg);
+  top: 0px;
+  left: 0px;
+}
 .top-alert {
   text-align: center;
   color: var(--body-text);
@@ -95,6 +136,9 @@ ul.bot li {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+.pointer {
+  cursor: pointer !important;
 }
 .top-alert .close-alert:hover {
   opacity: 0.8;
@@ -186,19 +230,24 @@ ul.bot li {
   text-align: center;
   transform: translateY(-50%) translateX(-50%);
 }
-
+.contents {
+  height: calc(100% - var(--topbar-size));
+}
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
   .col-left {
     position: fixed;
     z-index: 10;
     float: left;
-    height: 100%;
+    height: calc(100% - 30px);
+    top: var(--topbar-size);
     width: var(--sidebar-size);
   }
   .col-right {
     width: calc(100% - var(--sidebar-size));
+    height: calc(100% - var(--topbar-size));
     margin-left: var(--sidebar-size);
+    margin-top: var(--topbar-size);
   }
   .col-left img {
     height: unset;

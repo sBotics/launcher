@@ -20,8 +20,6 @@ document.getElementById('reparar').addEventListener(
         document.getElementById('confirmacao').style.visibility="visible"
 
 })
-
-
 document.getElementById('no').addEventListener(
     'click', function(event){
         document.getElementById('confirmacao').style.visibility="collapse"

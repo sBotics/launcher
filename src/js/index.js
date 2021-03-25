@@ -1,5 +1,5 @@
 var isConfigOpened = false;
-const tutorialLink = "https://weduc.natalnet.br/sbotics/tutorial/";
+const tutorialLink = "file:///C:/Users/lucas/tutorial/index.html";
 const { ipcRenderer } = require("electron");
 
 document.getElementById("tutorial").addEventListener("click", OpenTutorial);
@@ -17,13 +17,7 @@ function ShowLauncher() {
 function OpenTutorial() {
   ipcRenderer.send(
     "open-external-link",
-    "https://weduc.natalnet.br/sbotics/tutorial/"
-  );
-}
-function OpenTutorial() {
-  ipcRenderer.send(
-    "open-external-link",
-    "https://weduc.natalnet.br/sbotics/tutorial/"
+    tutorialLink
   );
 }
 
