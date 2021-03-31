@@ -7,10 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build-win": "electron-builder build --win --publish never",
-    "deploy-win": "electron-builder build --win --publish always",
-    "build-mac": "electron-builder build --win --publish never",
-    "deploy-mac": "electron-builder build --win --publish always"
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always"
   },
   "build": {
     "asar": "true",
