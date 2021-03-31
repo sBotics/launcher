@@ -32,11 +32,13 @@
             background: #555;
             }
             :root {
-                --progress: 40%;
+                --progress: 0%;
             }
         </style>
     </head>
     <body>
+    <div id="overlay">
+    </div>
         <div class="action-bar">
             <div class="close-button">
                 <span>x</span>
@@ -70,9 +72,7 @@
                 </ul>
             </div>
             <div id="sbotics" class="col-right">
-                <div class="top-alert bg-info position-relative">
-                    <i class="fas fa-exclamation-triangle mr-3"></i>Este é um alerta para o usuário, aqui todo tipo de informação cabe.
-                    <i class="fas fa-times close-alert"></i>
+                <div class="top-alert bg-info position-relative" id="alerta_div" >
                 </div>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -84,17 +84,12 @@
                             <img class="logo mb-2" src="../../assets/logo.png">
                         </div>
                         <div class="col-lg-3 box">
-                            <!-- 
-                                success (fa-download) = atualizar ou iniciar
-                                info (fa-spinner fa-pulse) = atualizando
-                                danger = falhou
-                            -->
-                            <button class="btn btn-success w-100" onclick="closeAlerts();"><i class="fas fa-download mr-2"></i>Atualizar</button>
+                            <button id="updateButton" class="btn btn-success w-100" ><i class="fas fa-download mr-2"></i>Atualizar</button>
                             <div class="line-separator">
                                 <div class="line"></div>
-                                <span>OU</span>
+                                <span id="Or">OU</span>
                             </div>
-                            <button class="btn btn-outline-secondary w-100"><i class="fas fa-folder-open mr-2"></i>Abrir pasta</button>
+                            <button class="btn btn-outline-secondary w-100" id="OpenFolder"><i class="fas fa-folder-open mr-2"></i>Abrir pasta</button>
                         </div>
                     </div>
                     <div class="custom-row">
@@ -135,6 +130,7 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/slick.js"></script>
     <script src="../js/index.js"></script>
+
     </body>
 
     <script>

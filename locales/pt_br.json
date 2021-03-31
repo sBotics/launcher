@@ -1,0 +1,19 @@
+{
+  "UPDATE": "Atualizar",
+  "OPEN_FOLDER": "Abrir pasta  de instalação",
+  "LAST_VERSION": "Última versão",
+  "SETTINGS": "Configurações",
+  "LANGUAGE": "Idioma",
+  "EN": "Inglês",
+  "PT_BR": "Português (Brasileiro)",
+  "INSTALL_FOLDER": "Pasta de instalação",
+  "INSTALL_FOLDER_DESC": "Muda o diretório de instação",
+  "REPAIR_INSTALLATION": "Reparar instalação",
+  "REPAIR_WARNING": "Atenção! Isso apaga todas as suas configurações e texturas",
+  "REPAIR": "Reparar",
+  "OR": "Ou",
+  "LANGUAGE_MESSAGE": "Muda o idioma do sBotics e do Launcher",
+  "VERIFYING": "Verificando arquivos",
+  "PLAY": "Jogar",
+  "UPDATING": "Atualizando"
+}

@@ -7,7 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "build-win": "electron-builder build --win --publish never",
+    "deploy-win": "electron-builder build --win --publish always",
+    "build-mac": "electron-builder build --win --publish never",
+    "deploy-mac": "electron-builder build --win --publish always"
   },
   "build": {
     "asar": "true",
@@ -21,10 +24,16 @@
       "target": "AppImage"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sBotics/launcher.git"
+  },
   "dependencies": {
     "@xmcl/unzip": "^1.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chmodr": "^1.2.0",
+    "electron-updater": "^4.3.8",
+    "fs-extra": "^9.1.0",
     "jQuery": "^1.7.4",
     "luxon": "^1.24.1",
     "mkdirp": "^1.0.4",
@@ -33,6 +42,8 @@
   "devDependencies": {
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
-    "electron-packager": "^15.0.0"
+    "electron-packager": "^15.0.0",
+    "electron-reloader": "^1.2.0",
+    "prettier": "2.2.1"
   }
 }
