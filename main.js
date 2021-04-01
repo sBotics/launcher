@@ -62,6 +62,7 @@ autoUpdater.on("update-available", () => {
   OpenUpdateWindow();
 });
 autoUpdater.on("update-downloaded", () => {
+  app.quit();
   app.relaunch();
 });
 
