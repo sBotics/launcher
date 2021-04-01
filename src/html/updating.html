@@ -1,35 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>sBotics launcher</title>
     <style>
-      @font-face {
-        font-family: sfpro-regular;
-        src: url("../../assets/fonts/SFProDisplay-Regular.ttf");
-      }
-      @font-face {
-        font-family: sfpro-light;
-        src: url("../../assets/fonts/SFProDisplay-Light.ttf");
-      }
-      #main {
-        width: 90vw;
-        height: 90vh;
-        border-radius: 30px;
-        display: flex;
-        background-color: white;
-        justify-content: center;
-        align-items: center;
-      }
-      h1 {
-        font-family: sfpro-regular;
-        color: black;
-      }
+        @font-face {
+            font-family: sfpro-regular;
+            src: url("../../assets/fonts/SFProDisplay-Regular.ttf");
+        }
+        
+        @font-face {
+            font-family: sfpro-light;
+            src: url("../../assets/fonts/SFProDisplay-Light.ttf");
+        }
+        
+        #main {
+            width: 90vw;
+            height: 90vh;
+            border-radius: 30px;
+            display: flex;
+            background-color: white;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 600px;
+            height: 500px;
+            background: url('../../assets/Dark_Loader.svg') no-repeat;
+            background-color: #2E2E2E;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .img_zull {
+            width: 150px;
+        }
+        
+        .text_update_h1 {
+            font-family: sfpro-regular;
+            font-size: 25px;
+            color: #B9EFFB;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 20px;
+        }
+        
+        .text_update_h2 {
+            font-family: sfpro-regular;
+            font-size: 20px;
+            color: #47B8CF;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 15px;
+        }
+        
+        .text_update_h3 {
+            color: #EC3B3B;
+            margin-left: 2px;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body>
-    <div id="main">
-      <h1>Atualização em progresso. Favor não fechar</h1>
+</head>
+
+<body>
+    <div class="container">
+        <img class="img_zull" src="../../assets/feliz.png" alt="">
+        <h1 class="text_update_h1">Atualização disponivel!</h1>
+        <h1 class="text_update_h2">Atualização em progresso. <span class="text_update_h3"> Favor não fechar!</span> </h1>
     </div>
-  </body>
+</body>
+
 </html>
