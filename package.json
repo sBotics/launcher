@@ -1,6 +1,6 @@
 {
   "name": "sBotics",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "sBotics",
   "main": "main.js",
   "author": "Natalnet Labs",
@@ -8,7 +8,7 @@
   "scripts": {
     "start": "electron .",
     "build-win": "electron-builder build --win --publish never",
-    "deploy-win": "electron-builder build --win --publish always",
+    "deploy-win": "electron-builder build --win --ia32 --publish always",
     "build-mac": "electron-builder build --mac --publish never",
     "deploy-mac": "electron-builder build --mac --publish always",
     "build-linux": "electron-builder build --linux --publish never",
