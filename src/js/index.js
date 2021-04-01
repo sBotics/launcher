@@ -49,12 +49,8 @@ const AlertMessage = async () => {
     "https://raw.githubusercontent.com/sBotics/launcher/main/alerts.json"
   );
   if (config.lang in data) {
-    console.log("a");
-    $("#alerta_div").html(`<i class="fas fa-exclamation-triangle mr-3"></i>${
-      data[config.lang]
-    }
-    <i class="fas fa-times close-alert"></i>`);
-    $("#alerta_div").css("display", "block");
+    $("#alerta_msg").text(`${data[config.lang]}`);
+    $("#alerta_div").css("display", "flex");
   }
 };
 
