@@ -1,6 +1,6 @@
 const { ipcRenderer } = require("electron");
 const fs = require("fs-extra");
-const $ = require("jquery");
+const $ = require("jQuery");
 const pathlib = require("path");
 var config;
 
