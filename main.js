@@ -5,6 +5,7 @@ const ipc = electron.ipcMain;
 const dialog = electron.dialog;
 const shell = electron.shell;
 const axios = require("axios");
+const { autoUpdater } = require("electron-updater");
 const path = require("path");
 const fs = require("fs-extra");
 const { GetConfig, SetConfigs, SetUserData } = require("./utils/configs");
@@ -14,9 +15,9 @@ var screenElectron = electron.screen;
 var ScreenSize;
 var openWindows = {};
 var locale;
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+// try {
+//   require("electron-reloader")(module);
+// } catch (_) {}
 let userData;
 
 const LoadLocale = (lang = config.lang) => {
@@ -32,20 +33,40 @@ app.on("ready", () => {
   LoadLocale(config.lang);
   ScreenSize = screenElectron.getPrimaryDisplay();
   ScreenSize = ScreenSize.bounds;
+  autoUpdater.checkForUpdatesAndNotify();
+});
+
+const OpenUpdateWindow = () => {
+  if ("update" in openWindows) return;
+
+  var window = new BrowserWindow({
+    width: Math.round(ScreenSize.width * 0.3),
+    height: Math.round(ScreenSize.height * 0.6),
+    transparent: true,
+    resizable: false,
+    frame: false,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+  window.loadURL(`file://${__dirname}/src/html/updating.html`);
+  window.once("ready-to-show", () => {
+    window.show();
+  });
+  // window.webContents.openDevTools();
+  openWindows["update"] = window;
+};
+
+autoUpdater.on("update-available", () => {
+  OpenUpdateWindow();
+});
+autoUpdater.on("update-downloaded", () => {
   OpenMainWindow();
-  // request(
-  //   {
-  //     uri: "https://txiag.github.io/sbotics-updater/src/html/index.html",
-  //     timeout: 20000,
-  //   },
-  //   function (error, response, body) {
-  //     if (!error && response.statusCode == 200) {
-  //       OpenNewWindow("main", 0.8, 0.95, `newIndex.html`, true);
-  //     } else {
-  //       OpenNewWindow("deprecated", 0.4, 0.6, `error.html`, true);
-  //     }
-  //   }
-  // );
+});
+
+autoUpdater.on("update-not-available", () => {
+  OpenMainWindow();
 });
 app.on("window-all-closed", () => {
   app.quit();
@@ -67,7 +88,7 @@ const OpenMainWindow = () => {
   window.once("ready-to-show", () => {
     window.show();
   });
-  window.webContents.openDevTools();
+  // window.webContents.openDevTools();
   openWindows["main"] = window;
 };
 

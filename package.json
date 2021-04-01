@@ -1,25 +1,30 @@
 {
   "name": "sBotics",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "sBotics",
   "main": "main.js",
   "author": "Thiago Nascimento",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder build --win --publish never",
-    "deploy": "electron-builder build --win --publish always"
+    "build-win": "electron-builder build --win --publish never",
+    "deploy-win": "electron-builder build --win --publish always",
+    "build-mac": "electron-builder build --mac --publish never",
+    "deploy-mac": "electron-builder build --mac --publish always",
+    "build-linux": "electron-builder build --linux --publish never",
+    "deploy-linux": "electron-builder build --linux --publish always"
   },
   "build": {
     "asar": "true",
     "productName": "sBotics",
-    "icon": "icon.ico",
     "win": {
-      "publisherName": "LAICA"
+      "icon": "./icons/icon.ico"
     },
     "linux": {
-      "icon": "icon.png",
-      "target": "AppImage"
+      "icon": "./icons/icon.ico"
+    },
+    "mac": {
+      "icon": "./icons/icon.icns"
     }
   },
   "repository": {
