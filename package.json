@@ -1,9 +1,9 @@
 {
   "name": "sBotics",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "sBotics",
   "main": "main.js",
-  "author": "Thiago Nascimento",
+  "author": "Natalnet Labs",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
@@ -15,7 +15,7 @@
     "deploy-linux": "electron-builder build --linux --publish always"
   },
   "build": {
-    "asar": "true",
+    "asar": false,
     "productName": "sBotics",
     "win": {
       "icon": "./icons/icon.ico"
