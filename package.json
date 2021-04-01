@@ -12,7 +12,7 @@
     "build-mac": "electron-builder build --mac --publish never",
     "deploy-mac": "electron-builder build --mac --publish always",
     "build-linux": "electron-builder build --linux --publish never",
-    "deploy-linux": "electron-builder build --linux --publish always"
+    "deploy-linux": "electron-builder build --linux --x64 --publish always"
   },
   "build": {
     "asar": false,
