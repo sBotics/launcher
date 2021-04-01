@@ -25,6 +25,7 @@ const LoadStrings = () => {
 
 $(document).on("ready", () => {
   config = ipcRenderer.sendSync("get-config");
+  $("#ver").text(ipcRenderer.sendSync("get-version"));
   LoadStrings();
 });
 

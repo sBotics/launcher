@@ -62,7 +62,7 @@ autoUpdater.on("update-available", () => {
   OpenUpdateWindow();
 });
 autoUpdater.on("update-downloaded", () => {
-  OpenMainWindow();
+  app.relaunch();
 });
 
 autoUpdater.on("update-not-available", () => {
@@ -145,7 +145,9 @@ ipc.on("get-config", (event) => {
 ipc.on("get-locale", (event) => {
   event.returnValue = locale;
 });
-
+ipc.on("get-version", (event) => {
+  event.returnValue = app.getVersion();
+});
 ipc.on("open-install-folder", (event) => {
   console.log("entrou");
   console.log(config.downloadPath);
