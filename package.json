@@ -21,10 +21,12 @@
       "icon": "./icons/icon.ico"
     },
     "linux": {
-      "icon": "./icons/icon.ico"
+      "icon": "./icons/icon.ico",
+      "target": "AppImage"
     },
     "mac": {
-      "icon": "./icons/icon.icns"
+      "icon": "./icons/icon.icns",
+      "target": "default"
     }
   },
   "repository": {
