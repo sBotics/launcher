@@ -10,9 +10,9 @@
     "build-win": "electron-builder build --win --ia32 --publish never",
     "deploy-win": "electron-builder build --win --ia32 --publish always",
     "build-mac": "electron-builder build --mac --publish never",
-    "deploy-mac": "electron-builder build --mac --publish always",
+    "deploy-mac": "electron-builder build --mac --publish onTagOrDraft",
     "build-linux": "electron-builder build --linux --publish never",
-    "deploy-linux": "electron-builder build --linux --x64 --publish always"
+    "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
   },
   "build": {
     "asar": false,
