@@ -158,7 +158,7 @@ const GetFolder = () => {
         ret = "W32";
       }
       break;
-    case "Linux ":
+    case "Linux":
       if (DetectArch() == "x64") {
         ret = "Linux AMD64";
       } else {
