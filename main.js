@@ -41,7 +41,7 @@ const OpenUpdateWindow = () => {
 
   var window = new BrowserWindow({
     width: Math.round(ScreenSize.width * 0.3),
-    height: Math.round(ScreenSize.height * 0.6),
+    height: Math.round(ScreenSize.height * 0.7),
     transparent: true,
     resizable: false,
     frame: false,
@@ -54,7 +54,6 @@ const OpenUpdateWindow = () => {
   window.once("ready-to-show", () => {
     window.show();
   });
-  // window.webContents.openDevTools();
   openWindows["update"] = window;
 };
 
@@ -62,13 +61,17 @@ autoUpdater.on("update-available", () => {
   OpenUpdateWindow();
 });
 autoUpdater.on("update-downloaded", () => {
-  app.quit();
-  app.relaunch();
+  autoUpdater.quitAndInstall();
 });
 
 autoUpdater.on("update-not-available", () => {
   OpenMainWindow();
 });
+
+autoUpdater.on("download-progress", (data) => {
+  openWindows["update"].webContents.send("progress", data);
+});
+
 app.on("window-all-closed", () => {
   app.quit();
 });
