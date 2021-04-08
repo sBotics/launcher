@@ -351,7 +351,6 @@ const StartSim = () => {
     case "mac":
       string_execute = path.join(
         config.downloadPath,
-        "sBotics",
         "sBotics.app",
         "Contents",
         "MacOS",
