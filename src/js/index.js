@@ -375,7 +375,6 @@ const StartSim = () => {
     fs.chmodSync(
       path.join(
         config.downloadPath,
-        "sBotics",
         "sBotics.app",
         "Contents",
         "MacOS",
