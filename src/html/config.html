@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html style="height: 100%">
-
-<head>
-    <title>sBotics launcher</title>
+  <head>
+    <title>sBotics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Stylesheets-->
@@ -13,71 +12,91 @@
     <link rel="stylesheet" href="../css/nouveau-diff.css" />
 
     <style>
-        /* width */
-        
-         ::-webkit-scrollbar {
-            width: 10px;
-        }
-        /* Track */
-        
-         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        /* Handle */
-        
-         ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
-        /* Handle on hover */
-        
-         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        
-         :root {
-            --progress: 40%;
-        }
+      /* width */
+
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      /* Track */
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      /* Handle */
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+      /* Handle on hover */
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      :root {
+        --progress: 40%;
+      }
     </style>
-</head>
+  </head>
 
-<body class="config">
+  <body class="config">
     <div class="container config">
-        <h1 class="display-4" id="title">Settings</h1>
-        <p class="lead mb-0" id="ver"></p>
+      <h1 class="display-4" id="title">Settings</h1>
+      <p class="lead mb-0" id="ver"></p>
 
-        <p class="lead mb-0" id="lang">Language</p>
-        <p class="mb-0" id="langMsg">
-            Changes the launcher and sBotics' language
-        </p>
-        <select class="form-select mb-3 w-100" size="3" aria-label="size 3 select example" id="langSelect">
+      <p class="lead mb-0" id="lang">Language</p>
+      <p class="mb-0" id="langMsg">
+        Changes the launcher and sBotics' language
+      </p>
+      <select
+        class="form-select mb-3 w-100"
+        size="3"
+        aria-label="size 3 select example"
+        id="langSelect"
+      >
         <option id="en_us" value="en">English</option>
         <option id="pt_br" value="pt_BR">Brazilian Portuguese</option>
         <!-- <option value="2">Spanish</option>
             <option value="3">French</option> -->
       </select>
 
-        <p class="lead mb-0" id="folder">Installation folder</p>
-        <p class="mb-0" id="foldermsg">
-            View the sBotics installation directory.
-        </p>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend pointer">
-                <span class="input-group-text" id="basic-addon1"><i class="fa fa-folder"></i
+      <p class="lead mb-0" id="folder">Installation folder</p>
+      <p class="mb-0" id="foldermsg">
+        View the sBotics installation directory.
+      </p>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend pointer">
+          <span class="input-group-text" id="basic-addon1"
+            ><i class="fa fa-folder"></i
           ></span>
-            </div>
-            <input type="text" class="form-control" placeholder="Folder" aria-label="Folder" id="installFolder" aria-describedby="basic-addon1" readonly />
         </div>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Folder"
+          aria-label="Folder"
+          id="installFolder"
+          aria-describedby="basic-addon1"
+          readonly
+        />
+      </div>
 
-        <p class="lead mb-0" id="repairinstall">Repair installation</p>
-        <p class="mb-0" id="repairwarning">
-            Warning! This resets all your sBotics settings and textures.
-        </p>
-        <p class="lead mb-3">
-            <a id="repairbutton" onclick="RepairsBotics()" class="btn btn-danger w-100" href="#" role="button">Repair</a>
-        </p>
+      <p class="lead mb-0" id="repairinstall">Repair installation</p>
+      <p class="mb-0" id="repairwarning">
+        Warning! This resets all your sBotics settings and textures.
+      </p>
+      <p class="lead mb-3">
+        <a
+          id="repairbutton"
+          onclick="RepairsBotics()"
+          class="btn btn-danger w-100"
+          href="#"
+          role="button"
+          >Repair</a
+        >
+      </p>
     </div>
     <script src="../js/config.js"></script>
     <script src="../js/index.js"></script>
-</body>
-
+  </body>
 </html>
