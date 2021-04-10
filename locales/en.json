@@ -15,5 +15,6 @@
   "LANGUAGE_MESSAGE": "Changes the launcher and sBotics' language",
   "VERIFYING": "Verifying files",
   "PLAY": "Play",
-  "UPDATING": "Updating"
+  "UPDATING": "Updating",
+  "ERROR_VERIFICATION": "Reparar instalação"
 }
