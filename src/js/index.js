@@ -13,6 +13,7 @@ const { writer } = require("repl");
 const { ipcRenderer } = require("electron");
 const util = require("util");
 const unziper = require("@xmcl/unzip");
+const { doc } = require("prettier");
 const exec = util.promisify(require("child_process").exec);
 const states = {
     verifying: 1,
@@ -285,7 +286,8 @@ const verify = async(res) => {
     //   ipcRenderer.sendSync("deprecated");
     //   return;
     // }
-
+    document.getElementById("updateButton").classList.remove('btn-danger');
+    document.getElementById("updateButton").classList.add('btn-success');
     try {
         const data = res.data.data;
         deltaProgress = 100 / data.length;
@@ -330,6 +332,8 @@ const verify = async(res) => {
     } catch (error) {
         $("#updateButton").text(`${translation["ERROR_VERIFICATION"]}`);
         state = states.repair;
+        document.getElementById("updateButton").classList.add('btn-danger');
+        document.getElementById("updateButton").classList.remove('btn-success');
     }
 
 
