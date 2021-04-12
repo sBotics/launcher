@@ -33,11 +33,10 @@ app.on("ready", () => {
     LoadLocale(config.lang);
     ScreenSize = screenElectron.getPrimaryDisplay();
     ScreenSize = ScreenSize.bounds;
-    //OpenUpdateWindow();
     autoUpdater.checkForUpdatesAndNotify();
 });
 
-const OpenMainWindow = () => {
+const OpenUpdateWindow = () => {
     if ("update" in openWindows) return;
 
     var window = new BrowserWindow({
