@@ -16,5 +16,7 @@
   "VERIFYING": "Verificando arquivos",
   "PLAY": "Jogar",
   "UPDATING": "Atualizando",
-  "ERROR_VERIFICATION": "Reparar instalação"
+  "ERROR_VERIFICATION": "Reparar instalação",
+  "TEXT_UPDATE_TITLE": "Atualização disponivel!",
+  "TEXT_UPDATE_PROCESSING": "Atualização em progresso. <span id=\"text_update_B\" class=\"text_update_h3\"> Favor não fechar!</span>"
 }

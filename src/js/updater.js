@@ -12,9 +12,9 @@ const util = require("util");
 const unziper = require("@xmcl/unzip");
 const exec = util.promisify(require("child_process").exec);
 const states = {
-  verifying: 1,
-  downloading: 2,
-  done: 3,
+    verifying: 1,
+    downloading: 2,
+    done: 3,
 };
 
 const filesToDownload = []
@@ -28,101 +28,119 @@ var variantWidth;
 
 var localsystem = {};
 
+const SetStrings = () => {
+    $("#text_update_title").text(translation["TEXT_UPDATE_TITLE"]);
+    $("#text_update_processing").text(translation["TEXT_UPDATE_PROCESSING"]);
+};
+
+const LoadStrings = () => {
+    translation = ipcRenderer.sendSync("get-locale");
+    SetStrings();
+};
+
+$(document).on("ready", () => {
+    config = ipcRenderer.sendSync("get-config");
+    LoadStrings();
+});
+
 const RecursiveMkdir = (pathToCreate) => {
-  var subpaths = pathToCreate.split(path.sep);
-  if (array[0] == "") {
-    array[0] = "/";
-  }
-  var new_array;
-  for (var i = 1; i < subpaths.length + 1; i++) {
-    new_array = subpaths.slice(0, i);
-    new_array = new_array.join(path.sep);
-    if (!fs.existsSync(new_array)) {
-      fs.mkdirSync(new_array);
+    var subpaths = pathToCreate.split(path.sep);
+    if (array[0] == "") {
+        array[0] = "/";
     }
-  }
+    var new_array;
+    for (var i = 1; i < subpaths.length + 1; i++) {
+        new_array = subpaths.slice(0, i);
+        new_array = new_array.join(path.sep);
+        if (!fs.existsSync(new_array)) {
+            fs.mkdirSync(new_array);
+        }
+    }
 };
 
 const DetectOs = () => {
-  const platforms = {
-    win32: "W",
-    darwin: "mac",
-    linux: "Linux",
-  };
-  var os = process.platform.toLowerCase();
-  return platforms[os];
+    const platforms = {
+        win32: "W",
+        darwin: "mac",
+        linux: "Linux",
+    };
+    var os = process.platform.toLowerCase();
+    return platforms[os];
 };
 const DetectArch = () => process.arch;
 
 const GetFolder = () => {
-  var ret;
-  switch (UserOs) {
-    case "mac":
-      ret = "mac";
-      break;
-    case "W":
-      if (DetectArch() == "x64") {
-        ret = "W64";
-      } else {
-        ret = "W32";
-      }
-      break;
-    case "Linux ":
-      if (DetectArch() == "x64") {
-        ret = "Linux AMD64";
-      } else {
-        ret = "Linux i386";
-      }
-      break;
-  }
-  return ret;
+    var ret;
+    switch (UserOs) {
+        case "mac":
+            ret = "mac";
+            break;
+        case "W":
+            if (DetectArch() == "x64") {
+                ret = "W64";
+            } else {
+                ret = "W32";
+            }
+            break;
+        case "Linux ":
+            if (DetectArch() == "x64") {
+                ret = "Linux AMD64";
+            } else {
+                ret = "Linux i386";
+            }
+            break;
+    }
+    return ret;
 };
 const getFilesizeInBytes = (filepath) => {
-  var stats = fs.statSync(filepath);
-  var fileSizeInBytes = stats["size"];
-  return fileSizeInBytes;
+    var stats = fs.statSync(filepath);
+    var fileSizeInBytes = stats["size"];
+    return fileSizeInBytes;
 }
-const ParseTime=(filedate) => {
-  var year = parseInt(filedate.slice(0, 4));
-  var month = parseInt(filedate.slice(5, 7));
-  var day = parseInt(filedate.slice(8, 10));
-  var hour = parseInt(filedate.slice(11, 13));
-  var minute = parseInt(filedate.slice(14, 16));
-  var second = parseInt(filedate.slice(17, 19));
-  var date = luxon.DateTime.utc(year, month, day, hour, minute, second);
-  return date.toMillis();
+const ParseTime = (filedate) => {
+    var year = parseInt(filedate.slice(0, 4));
+    var month = parseInt(filedate.slice(5, 7));
+    var day = parseInt(filedate.slice(8, 10));
+    var hour = parseInt(filedate.slice(11, 13));
+    var minute = parseInt(filedate.slice(14, 16));
+    var second = parseInt(filedate.slice(17, 19));
+    var date = luxon.DateTime.utc(year, month, day, hour, minute, second);
+    return date.toMillis();
 }
 
-const download = async (url, pathe, filename) => {
-  var u_path = path.join(homedir, "sBotics", pathe);
-  console.log(url);
-  if (!fs.existsSync(u_path)) {
-    RecursiveMkdir(u_path);
-  }
-  u_path = path.join(u_path, filename);
-  const writer = fs.createWriteStream(u_path);
-  await axios({
-    method: "get",
-    url: url,
-    responseType: "stream",
-  }).then(function (response) {
-    response.data.pipe(writer);
-  });
-  writer.on("finish", function () {
-    writer.close();
-  });
+const download = async(url, pathe, filename) => {
+    var u_path = path.join(homedir, "sBotics", pathe);
+    console.log(url);
+    if (!fs.existsSync(u_path)) {
+        RecursiveMkdir(u_path);
+    }
+    u_path = path.join(u_path, filename);
+    const writer = fs.createWriteStream(u_path);
+    await axios({
+        method: "get",
+        url: url,
+        responseType: "stream",
+    }).then(function(response) {
+        response.data.pipe(writer);
+    });
+    writer.on("finish", function() {
+        writer.close();
+    });
 
-  return new Promise((resolve, reject) => {
-    writer.on("finish", resolve);
-    writer.on("error", reject);
-  });
+    return new Promise((resolve, reject) => {
+        writer.on("finish", resolve);
+        writer.on("error", reject);
+    });
 };
 
-const unzip = async => (pathe, filename) {
-  var readpath = path.join(homedir, "sBotics", pathe, filename + ".zip");
-  var finalpath = path.join(homedir, "sBotics", pathe);
-  await unziper.extract(readpath, finalpath);
+const unzip = async => (pathe, filename) => {
+    var readpath = path.join(homedir, "sBotics", pathe, filename + ".zip");
+    var finalpath = path.join(homedir, "sBotics", pathe);
+    await unziper.extract(readpath, finalpath);
 }
+
+
+
 
 // async function main(res) {
 //   obj = res.data;

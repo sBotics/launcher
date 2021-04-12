@@ -16,5 +16,7 @@
   "VERIFYING": "Verifying files",
   "PLAY": "Play",
   "UPDATING": "Updating",
-  "ERROR_VERIFICATION": "Reparar instalação"
+  "ERROR_VERIFICATION": "Reparar instalação",
+  "TEXT_UPDATE_TITLE": "Update available",
+  "TEXT_UPDATE_PROCESSING": "Updating... <span id=\"text_update_B\" class=\"text_update_h3\"> Do not close this window!</span>"
 }
