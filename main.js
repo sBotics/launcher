@@ -33,7 +33,8 @@ app.on("ready", () => {
     LoadLocale(config.lang);
     ScreenSize = screenElectron.getPrimaryDisplay();
     ScreenSize = ScreenSize.bounds;
-    autoUpdater.checkForUpdatesAndNotify();
+    OpenMainWindow();
+    // autoUpdater.checkForUpdatesAndNotify();
 });
 
 const OpenUpdateWindow = () => {
@@ -79,9 +80,11 @@ app.on("window-all-closed", () => {
 const OpenMainWindow = () => {
     if ("main" in openWindows) return;
 
+    var newHeight = Math.round(ScreenSize.height * 0.60);
+
     var window = new BrowserWindow({
-        width: Math.round(ScreenSize.width * 0.7),
-        height: Math.round(ScreenSize.height * 0.60),
+        width: Math.round(16 * newHeight / 9),
+        height: newHeight,
         menu: null,
         resizable: true,
         frame: true,
@@ -102,9 +105,12 @@ const OpenMainWindow = () => {
 var CloseConfigContent = false;
 const OpenConfigWindow = (event) => {
     if ("config" in openWindows) return;
+
+    var newHeight = Math.round(ScreenSize.height * 0.4);
+
     var window = new BrowserWindow({
-        width: Math.round(ScreenSize.width * 0.4),
-        height: Math.round(ScreenSize.height * 0.4),
+        width: Math.round(16 * newHeight / 9),
+        height: newHeight,
         resizable: true,
         frame: true,
         show: false,
