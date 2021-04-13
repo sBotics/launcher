@@ -67,7 +67,18 @@ const PatchNote = () => {
         })
 
 };
+const VersionUpdate = () => {
+    axios.get('https://raw.githubusercontent.com/sBotics/builds/main/data.json')
+        .then(function(response) {
+            // handle success
+            $("#Text_Version").text(translation["TEXT_VERSION"] + " " + response["data"]["version"]);
+        })
+        .catch(function(error) {
+            // handle error
+            console.log(error);
+        })
 
+};
 const SetStrings = () => {
     $("#updateButton").text(translation["UPDATE"]);
     $("#Or").text(translation["OR"]);
@@ -75,8 +86,9 @@ const SetStrings = () => {
         `<i class="fas fa-folder-open mr-2"></i>` + translation["OPEN_FOLDER"]
     );
     $("#Path_Note_Description").text(translation["DESCRIPTION_SBOTICS"]);
-    $("#Text_Last_Version").text(translation["TEXT_VERSION"]);
-
+    $("#Text_Last_Version").text(translation["TEXT_LAST_VERSION"]);
+    $("#Text_Description").text(translation["TEXT_DESCRIPTION"]);
+    VersionUpdate();
     PatchNote();
 };
 
@@ -487,7 +499,6 @@ setInterval(() => {
     }
 
     const configClose = ipcRenderer.sendSync("close-config_mode");
-    console.log(configClose);
     if (configClose == true) {
         $("#overlay").removeClass("overlay");
         ipcRenderer.send("close-config");
