@@ -409,7 +409,7 @@ $("#updateButton").on("click", () => {
     } else if (state == states.done) {
         StartSim();
     } else if (state == states.error) {
-        repararIntalação();
+        repararIntalacao();
     }
 });
 
@@ -467,7 +467,7 @@ function attLoading() {
         .style.setProperty("--progress", `${currentProgress}%`);
 }
 
-function repararIntalação() {
+function repararIntalacao() {
     console.log("Apagando Tudo da pasta sBotics!");
     fs.remove(config.downloadPath)
         .then(() => {
