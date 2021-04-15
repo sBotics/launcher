@@ -164,7 +164,7 @@ ipc.on("get-config", (event) => {
 ipc.on("get-locale", (event) => {
     event.returnValue = locale;
 });
-ipc.on("get-version", (event) => {
+ipc.on("0 get-version", (event) => {
     event.returnValue = app.getVersion();
 });
 ipc.on("open-install-folder", (event) => {

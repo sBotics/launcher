@@ -50,7 +50,7 @@ const PatchNote = () => {
             }
 
             for (let i = 0; i < PatchNoteImprovement.length; i++) {
-                const e = PatchNoteAdd[i];
+                const e = PatchNoteImprovement[i];
                 DataPatchNoteAdd += `<change>${e}</change>`
             }
 
