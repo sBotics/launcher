@@ -55,7 +55,7 @@ const PatchNote = () => {
             }
 
             for (let i = 0; i < PatchNoteRemoved.length; i++) {
-                const e = PatchNoteAdd[i];
+                const e = PatchNoteRemoved[i];
                 DataPatchNoteAdd += `<remove>${e}</remove>`
             }
 
