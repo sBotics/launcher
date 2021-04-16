@@ -19,12 +19,15 @@ var locale;
 //   require("electron-reloader")(module);
 // } catch (_) {}
 let userData;
-
+var LocaleSystem = "";
 const LoadLocale = (lang = config.lang) => {
     console.log(lang);
-
-    console.log(app.getLocale())
-
+    LocaleSystem = app.getLocale();
+    if(LocaleSystem == "pt-BR"){
+      lang = "pt_BR"
+    }else{
+      lang = "en"
+    }
     locale = JSON.parse(
         fs.readFileSync(path.join(__dirname, "locales", `${lang}.json`))
     );
