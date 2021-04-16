@@ -5,7 +5,7 @@ const fs = require("fs");
 var config = null;
 const defaultConfig = {
   downloadPath: path.join(os.homedir(), "sBotics"),
-  lang: "pt_BR",
+  lang: "",
   addons: ["blockeduc"],
 };
 
