@@ -21,6 +21,10 @@ var locale;
 let userData;
 
 const LoadLocale = (lang = config.lang) => {
+    console.log(lang);
+
+    console.log(app.getLocale())
+
     locale = JSON.parse(
         fs.readFileSync(path.join(__dirname, "locales", `${lang}.json`))
     );
@@ -33,8 +37,8 @@ app.on("ready", () => {
     LoadLocale(config.lang);
     ScreenSize = screenElectron.getPrimaryDisplay();
     ScreenSize = ScreenSize.bounds;
-    //OpenMainWindow();
-    autoUpdater.checkForUpdatesAndNotify();
+    OpenMainWindow();
+    //autoUpdater.checkForUpdatesAndNotify();
 });
 
 const OpenUpdateWindow = () => {
