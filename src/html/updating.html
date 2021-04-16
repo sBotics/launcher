@@ -93,15 +93,6 @@
         </div>
     </div>
     <script src="../js/updateLang.js"></script>
-    <script>
-        const $ = require("jQuery");
-        const {
-            ipcRenderer
-        } = require("electron");
-        ipcRenderer.on("progress", (ev, data) => {
-            $(".progress-bar").css("width", `${data.percent}%`);
-        });
-    </script>
 </body>
 
 </html>

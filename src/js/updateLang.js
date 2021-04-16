@@ -12,6 +12,10 @@ const LoadStrings = () => {
     SetStrings();
 };
 
+ipcRenderer.on("progress", (ev, data) => {
+    $(".progress-bar").css("width", `${data.percent}%`);
+});
+
 $(document).on("ready", () => {
     config = ipcRenderer.sendSync("get-config");
     LoadStrings();
