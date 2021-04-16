@@ -20,14 +20,16 @@ var locale;
 // } catch (_) {}
 let userData;
 var LocaleSystem = "";
+
 const LoadLocale = (lang = config.lang) => {
-    console.log(lang);
     LocaleSystem = app.getLocale();
     if(LocaleSystem == "pt-BR"){
       lang = "pt_BR"
     }else{
       lang = "en"
     }
+    console.log("LanguageFIle: " + lang);
+    console.log("GetLocale: " + LocaleSystem);
     locale = JSON.parse(
         fs.readFileSync(path.join(__dirname, "locales", `${lang}.json`))
     );
