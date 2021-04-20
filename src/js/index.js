@@ -18,7 +18,7 @@ const states = {
   toDownload: 4,
 };
 const filesToDownload = [];
-var state = states.error;
+var state = states.verifying;
 var UserOs;
 var FolderPath;
 var currentProgress = 0;
