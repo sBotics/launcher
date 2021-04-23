@@ -265,6 +265,9 @@ const download = async (url, pathe, filename) => {
 };
 
 const unzip = async (pathe, filepath) => {
+  console.log(pathe);
+  if (fs.existsSync(pathe.replace(".zip", "")))
+    fs.unlinkSync(pathe.replace(".zip", ""));
   try {
     var readpath = pathe;
     var finalpath = path.join(config.downloadPath, filepath);
@@ -274,10 +277,17 @@ const unzip = async (pathe, filepath) => {
   }
 };
 
-const CheckFile = (file_path, file) =>
-  !fs.existsSync(file_path) ||
-  localsystem[file_path].downloaded < ParseTime(file.last_updated_at) ||
-  getFilesizeInBytes(file_path) != file.size;
+const CheckFile = (file_path, file) => {
+  try {
+    return (
+      !fs.existsSync(file_path) ||
+      localsystem[file_path].downloaded < ParseTime(file.last_updated_at) ||
+      getFilesizeInBytes(file_path) != file.size
+    );
+  } catch {
+    return false;
+  }
+};
 
 const Update = async () => {
   $("#updateButton").text(`${translation["UPDATING"]}`);
@@ -380,6 +390,7 @@ const verify = async (res) => {
       }
     }, 1500);
   } catch (error) {
+    console.log(error);
     $("#updateButton").text(`${translation["ERROR_VERIFICATION"]}`);
     state = states.repair;
     document.getElementById("updateButton").classList.add("btn-danger");
