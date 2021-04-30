@@ -1,6 +1,6 @@
 {
     "name": "sBotics",
-    "version": "2.4.0",
+    "version": "2.4.1",
     "description": "sBotics",
     "main": "main.js",
     "author": "Natalnet Labs <sboticssimulator@gmail.com>",
@@ -12,9 +12,7 @@
         "build-mac": "electron-builder build --mac --publish never",
         "deploy-mac": "electron-builder build --mac --publish onTagOrDraft",
         "build-linux": "electron-builder build --linux --publish never",
-        "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft",
-        "build-linux-deb": "electron-builder build --linux deb --publish never ",
-        "deploy-linux-deb": "electron-builder build --linux deb --publish onTagOrDraft"
+        "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
     },
     "build": {
         "asar": false,
@@ -23,6 +21,7 @@
             "icon": "./icons/icon.ico"
         },
         "linux": {
+            "icon": "icons/",
             "target": "AppImage"
         },
         "mac": {
