@@ -101,8 +101,8 @@ const AlertMessage = async () => {
   const { data } = await axios.get(
     'https://raw.githubusercontent.com/sBotics/launcher/main/alerts.json',
   );
-  if (data[config.lang] != '' && config.lang in data) {
-    $('#alerta_msg').text(`${data[config.lang]}`);
+  if (data['oldLauncher'][config.lang] != '' && config.lang in data) {
+    $('#alerta_msg').text(`${data['oldLauncher'][config.lang]}`);
     $('#alerta_div').css('display', 'flex');
   }
 };
