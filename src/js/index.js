@@ -56,9 +56,8 @@ const PatchNote = () => {
         DataPatchNoteAdd += `<remove>${e}</remove>`;
       }
 
-      document.getElementById(
-        'PatchNoteContainer',
-      ).innerHTML = DataPatchNoteAdd;
+      document.getElementById('PatchNoteContainer').innerHTML =
+        DataPatchNoteAdd;
     })
     .catch(function (error) {
       // handle error
@@ -99,9 +98,9 @@ const LoadStrings = () => {
 
 const AlertMessage = async () => {
   const { data } = await axios.get(
-    'https://raw.githubusercontent.com/sBotics/launcher/main/alerts.json',
+    'https://raw.githubusercontent.com/sBotics/launcher/launcherOld/alerts.json',
   );
-  if (data['oldLauncher'][config.lang] != '' && config.lang in data) {
+  if (data['oldLauncher'][config.lang] != '') {
     $('#alerta_msg').text(`${data['oldLauncher'][config.lang]}`);
     $('#alerta_div').css('display', 'flex');
   }
