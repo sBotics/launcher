@@ -1,0 +1,53 @@
+{
+  "name": "sbotics-launcher",
+  "version": "3.0.0",
+  "description": "sBotics",
+  "main": "main.js",
+  "author": "Natalnet Labs <sboticssimulator@gmail.com>",
+  "license": "GPL-3.0",
+  "scripts": {
+    "start": "electron .",
+    "build-win": "electron-builder build --win --ia32 --publish never",
+    "deploy-win": "electron-builder build --win --ia32 --publish always",
+    "build-mac": "electron-builder build --mac --publish never",
+    "deploy-mac": "electron-builder build --mac --publish onTagOrDraft",
+    "build-linux": "electron-builder build --linux --publish never",
+    "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
+  },
+  "build": {
+    "asar": false,
+    "productName": "sBotics Launcher",
+    "win": {
+      "icon": "./icons/icon.ico"
+    },
+    "linux": {
+      "icon": "icons/",
+      "target": "AppImage"
+    },
+    "mac": {
+      "icon": "./icons/icon.icns",
+      "target": "default"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sBotics/launcher.git"
+  },
+  "dependencies": {
+    "@xmcl/unzip": "^1.2.0",
+    "axios": "^0.21.1",
+    "chmodr": "^1.2.0",
+    "electron-updater": "^4.3.8",
+    "fs-extra": "^9.1.0",
+    "jQuery": "^1.7.4",
+    "luxon": "^1.24.1",
+    "mkdirp": "^1.0.4",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-builder": "^22.7.0",
+    "electron-packager": "^15.0.0",
+    "electron-reloader": "^1.2.0"
+  }
+}

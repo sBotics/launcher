@@ -1,0 +1,81 @@
+/* Settings */
+@font-face {
+  font-family: sfpro-regular;
+  src: url('../../assets/fonts/SFProDisplay-Regular.ttf');
+}
+
+@font-face {
+  font-family: sfpro-light;
+  src: url('../../assets/fonts/SFProDisplay-Light.ttf');
+}
+
+@keyframes top-down {
+  0% {
+    padding-top: 2%;
+  }
+  50% {
+    padding-top: 3%;
+  }
+  100% {
+    padding-top: 2%;
+  }
+}
+
+/* Global variables */
+:root {
+  --sidebar-size: 90px;
+  --topbar-size: 0px;
+  --progress-background: rgba(255, 255, 255, 0.3);
+  --main: #2fa9c1;
+  --alt: var(--info);
+  --sidebar-bg: #131313;
+  --topbar-bg: #101010;
+  --border: #414141;
+  --card: #181818;
+  --body: #171717;
+  --body-text: #fcfcfc;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  font-family: 'sfpro-regular', sans-serif;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  color: var(--body-text);
+}
+
+body {
+  background-color: var(--sidebar-bg);
+}
+.content {
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  opacity: 1;
+  height: 80px;
+  display: block;
+}
+
+.backdrop {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.4;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.text_info_footer {
+  font-size: 15px;
+}

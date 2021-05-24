@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Config -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sBotics Launcher</title>
+
+    <!-- Import Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="../src/import/Bootstrap/css/bootstrap.min.css"
+    />
+    <script src="../src/import/Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/import/Bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="../src/import/FontAwesome/css/all.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../src/css/nouveau-load.css" />
+
+    <!-- Import Utils -->
+    <script src="../src/utils/jquery.js"></script>
+
+    <!-- Interface Controller -->
+  </head>
+  <body>
+    <div
+      class="content d-flex flex-column justify-content-end align-items-start"
+    >
+      <div
+        class="
+          d-flex
+          w-100
+          h-100
+          justify-content-center
+          align-items-center
+          position-absolute
+        "
+      >
+        <img class="logo" src="../assets/logos/logo.png" alt="" />
+      </div>
+
+      <div class="w-100 p-4 d-flex align-items-center">
+        <h6 class=".text-black-50 text_info_footer">
+          Verificando integridade de dados...
+        </h6>
+        <div
+          class="spinner-border ms-auto text-secondary"
+          role="status"
+          aria-hidden="true"
+          style="width: 1.5rem; height: 1.5rem"
+        ></div>
+      </div>
+      <div class="d-block w-100">
+        <div class="progress" style="height: 3.5px; border-radius: 0px;">
+          <div
+            class="progress-bar bg-danger"
+            role="progressbar"
+            style="width: 50%"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            
+          ></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

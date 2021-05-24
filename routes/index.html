@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Config -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sBotics Launcher</title>
+
+    <!-- Import Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="../src/import/Bootstrap/css/bootstrap.min.css"
+    />
+    <script src="../src/import/Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/import/Bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="../src/import/FontAwesome/css/all.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../src/css/nouveau.css" />
+    <link rel="stylesheet" href="../src/css/nouveau-diff.css" />
+    <link rel="stylesheet" href="../src/css/nouveau-scroll-bar.css" />
+    <link rel="stylesheet" href="../src/css/nouveau-config.css" />
+
+    <!-- Import Utils -->
+    <script src="../src/utils/jquery.js"></script>
+
+    <!-- Interface Controller -->
+    <script src="../src/class/__Interface_settings.js" ></script>
+
+   
+
+  </head>
+  <body>
+    <div id="overlay"></div>
+
+    <div class="contents">
+      <div class="col-left">
+        <ul class="top">
+          <li>
+            <a id="logoimg" class="d-block" href="#">
+              <img class="menu-logo" src="../assets/zul/feliz.png" />
+            </a>
+          </li>
+          <li>
+            <a id="cboticsButton" class="d-block" href="#">
+              <img class="menu-icons" src="../assets/icons/cBotics.png" />
+            </a>
+          </li>
+        </ul>
+        <ul class="bot">
+          <li>
+            <a id="tutorial" class="d-block" href="#">
+              <img class="menu-icons" src="../assets/icons/book.png" />
+            </a>
+          </li>
+          <li>
+            <a id="settings" class="d-block" onclick="InterfaceSettings('true')">
+              <img class="menu-icons" src="../assets/icons/config.png" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div id="sbotics" class="col-right">
+        
+        <div id="config-content" class="config-content">
+          <div class="config-container config-bg-color">
+            <div class="p-2 h-100 d-flex flex-column justify-content-between"> 
+              <div>
+                <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+                  <h2 class="text-light">Configurações</h2>
+                  <button type="button" onclick="InterfaceSettings()" class="btn-close btn-close-white" aria-label="Close"></button>
+                </div>
+
+                <div style="margin-top: -5px" class="d-flex flex-row align-items-center" > 
+                  <hr class="w-50">
+                  <div style="width: 12px; height: 12px; border-radius: 50%; display: block;" class="border border-secondary"></div>
+                </div>
+              </div>
+              
+              <div class="d-flex justify-content-between align-items-center">
+                <i class="text-secondary">3.0.0</i>
+              </div>
+            </div>
+          </div>
+          <div onclick="InterfaceSettings()" class="config-close-background">asdasd</div>
+        </div>
+
+        <!-- Init Top Alert -->
+        <!-- <div class="top-alert-container">
+          <div class="top-alert alert d-flex justify-content-between align-items-center fade show rounded-0" style="background-color: #CC9A06;" role="alert">
+            <div class="d-flex flex-row">
+                <i class="fas fa-exclamation-triangle bi flex-shrink-0 me-2" style="color: #664D03; font-size: 22px;"></i>
+                <div>
+                Ocorreu um erro ao finalizar tarefas
+              </div>
+            </div>  
+            <div class="alert-dismissible-top">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+
+          <div class="top-alert alert bg-danger d-flex justify-content-between align-items-center fade show rounded-0" role="alert">
+            <div class="d-flex flex-row">
+              <i class="bi flex-shrink-0 me-2 fas fa-exclamation-circle"  style="color: #58151C; font-size: 24px;"></i>
+              <div>
+                Ocorreu um erro ao finalizar tarefas
+              </div>
+            </div>  
+            <div class="alert-dismissible-top">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+
+          <div class="top-alert alert bg-success d-flex justify-content-between align-items-center fade show rounded-0" role="alert">
+            <div class="d-flex flex-row">
+              <i class="fas fa-check-circle bi flex-shrink-0 me-2" style="color: #0A3622; font-size: 24px;"></i>
+              <div >
+                Ocorreu um erro ao finalizar tarefas
+              </div>
+            </div>  
+            <div class="alert-dismissible-top">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+
+          <div class="top-alert alert d-flex justify-content-between align-items-center fade show rounded-0" style="background-color: #0A9FBD;" role="alert">
+            <div class="d-flex flex-row">
+              <i class="fas fa-info-circle bi flex-shrink-0 me-2" style="color: #055160; font-size: 24px;"></i>
+              <div >
+                Ocorreu um erro ao finalizar tarefas
+              </div>
+            </div>  
+            <div class="alert-dismissible-top">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div> 
+
+        </div>-->
+
+        <!-- End Top Alert -->
+
+        <div class="progress">
+          <div
+            class="progress-bar"
+            style="width: 50%"
+            role="progressbar"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+
+        <div class="backdrop"></div>
+
+        <div class="container">
+          <div class="custom-row download">
+            <div
+              class="
+                col-12 col-lg-7
+                d-flex
+                justify-content-center
+                align-items-center
+                justify-content-lg-start
+                align-items-lg-center
+              "
+            >
+              <img class="logo mb-2" src="../assets/logos/logo.png" />
+            </div>
+            <div class="col-12 col-lg-5 box">
+              <button id="updateButton" class="btn btn-primary w-100">
+                <i class="fas fa-download mr-2"></i> Instalar
+              </button>
+              <div class="line-separator">
+                <div class="line"></div>
+                <span id="Or">OU</span>
+              </div>
+              <button class="btn btn-outline-secondary w-100" id="OpenFolder">
+                <i class="fas fa-folder-open mr-2"></i> Abrir pasta de
+                instalação
+              </button>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="col-12 col-bottom">
+              <span id="Text_Last_Version">Última versão</span>
+              <h2 id="Text_Version">Versão 5.2.0</h2>
+              <ul id="PatchNoteContainer" class="diff">
+                <add>Adicionado com sucesso</add>
+                <change>Adicionado com sucesso</change>
+                <remove>Adicionado com sucesso</remove>
+                <note>Olá Mundo!</note>
+              </ul>
+            </div>
+            <div class="col-12 col-bottom">
+              <h2 style="margin-left: 10px" class="mt-4" id="Text_Description">
+                Descrição
+              </h2>
+              <p
+                style="margin-left: 10px"
+                class="small-text light"
+                id="Path_Note_Description"
+              >
+                O sBotics é uma plataforma de simulação dos níveis 1 e 2 da
+                prova prática estadual da Olimpíada Brasileira de Robótica. Na
+                abordagem comum desta prova utiliza-se kits e robótica para
+                simular o resgate de uma vítima em um ambiente de desastre. O
+                sBotics oferece uma alternativa para aqueles que desejam testar
+                seus conhecimentos de robótica e programação.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-right" id="cbotics" style="display: none; height: 100%">
+        <iframe
+          src="https://cbotics.weduc.natalnet.br/"
+          style="height: 100%; display: block; width: 100%; border: none"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Scripts Init -->
+
+    <script type="module">
+      import {backdrop} from '../src/class/__interface_components.js';
+
+      $(document).ready(() => {
+
+        backdrop({ elementName: 'backdrop' });
+
+        $('.close-alert').click(function () {
+          $('.top-alert').css('display', 'none');
+        });
+
+        $('.close-config').click(function () {
+          $('.config-content').css('display', 'none');
+        });
+
+      });
+    </script>
+
+  </body>
+</html>
