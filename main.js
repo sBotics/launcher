@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen } = require('electron');
 let window;
 
 app.whenReady().then(() => {
@@ -6,19 +6,21 @@ app.whenReady().then(() => {
   ScreenSize = ScreenSize.bounds;
   // var height = Math.round(ScreenSize.height * 0.6);
   // const width = Math.round((16 * height) / 9);
-  var height = Math.round(ScreenSize.height * 0.4);
-  const width = Math.round((16 * height) / 8);
+  var height = Math.round(ScreenSize.height * 0.5);
+  const width = Math.round((16 * height) / 11);
   window = new BrowserWindow({
-    titleBarStyle: "hiddenInset",
+    titleBarStyle: 'sBotics Launcher',
     width: width,
     height: height,
-    backgroundColor: "#000",
+    backgroundColor: '#000',
+    titleBarStyle: 'hidden',
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
     },
   });
-  window.loadURL("file://" + __dirname + "/routes/load.html");
-  window.webContents.openDevTools();
+  window.setMenuBarVisibility(false);
+  window.loadURL('file://' + __dirname + '/routes/login.html');
 });

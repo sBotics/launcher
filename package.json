@@ -15,7 +15,7 @@
     "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
   },
   "build": {
-    "asar": false,
+    "asar": true,
     "productName": "sBotics Launcher",
     "win": {
       "icon": "./icons/icon.ico"
@@ -34,6 +34,9 @@
     "url": "https://github.com/sBotics/launcher.git"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "custom-electron-titlebar": "^3.2.7",
+    "dotenv": "^10.0.0",
     "electron-updater": "^4.3.8",
     "extend-shallow": "^3.0.2",
     "jquery": "^3.6.0"

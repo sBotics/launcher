@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <!-- Meta Config -->
     <meta charset="UTF-8" />
@@ -27,22 +27,11 @@
     <!-- Interface Controller -->
   </head>
   <body>
-    <div
-      class="content d-flex flex-column justify-content-end align-items-start"
-    >
-      <div
-        class="
-          d-flex
-          w-100
-          h-100
-          justify-content-center
-          align-items-center
-          position-absolute
-        "
-      >
+    <div class="content">
+      <div class="backdrop"></div>
+      <div class="container-logo">
         <img class="logo" src="../assets/logos/logo.png" alt="" />
       </div>
-
       <div class="w-100 p-4 d-flex align-items-center">
         <h6 class=".text-black-50 text_info_footer">
           Verificando integridade de dados...
@@ -55,18 +44,34 @@
         ></div>
       </div>
       <div class="d-block w-100">
-        <div class="progress" style="height: 3.5px; border-radius: 0px;">
+        <div class="progress" style="height: 3.7px; border-radius: 0px">
           <div
-            class="progress-bar bg-danger"
+            class="progress-bar bg-success"
             role="progressbar"
             style="width: 50%"
             aria-valuenow="100"
             aria-valuemin="0"
             aria-valuemax="100"
-            
           ></div>
         </div>
       </div>
     </div>
+
+    <!-- Script Interface Controller -->
+    <script type="module">
+      import {
+        TitleBar,
+        backdrop,
+      } from '../src/class/__interface_components.js';
+
+      $(document).ready(() => {
+        TitleBar();
+        backdrop({
+          elementName: 'backdrop',
+          colorBackground: '--backdrop',
+        });
+      });
+    </script>
+
   </body>
 </html>
