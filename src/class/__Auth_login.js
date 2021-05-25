@@ -1,6 +1,7 @@
 var extend = require('extend-shallow');
 const axios = require('axios').default;
 import { Email, Password } from '../utils/validade_data.js';
+import { CreateTopAlert } from '../utils/top-alert.js';
 
 const authFormLogin = document.getElementById('AuthLogin');
 
@@ -62,15 +63,12 @@ $(document).on('input', '#UserPassword', () => {
 
 authFormLogin.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const userEmail = document.getElementById('UserEmail');
   const userEmailValue = userEmail.value;
   const userEmailLabel = document.getElementById('UserEmailLabel');
-
   const userPassword = document.getElementById('UserPassword');
   const userPasswordValue = userPassword.value;
   const userPasswordLabel = document.getElementById('UserPasswordLabel');
-
   if (userEmailValue && userPasswordValue) {
     const email = Email(userEmailValue);
     const pass = Password({ pass: userPasswordValue });
@@ -83,9 +81,24 @@ authFormLogin.addEventListener('submit', (e) => {
         })
         .then(function (response) {
           console.log(response['data']);
+          CreateTopAlert({
+            states: 'success',
+            idInner: 'TopAlertError',
+            absolute: true,
+            message: 'Úsuario autenticado',
+          });
         })
         .catch(function (error) {
           console.log(error);
+          CreateTopAlert({
+            states: 'danger',
+            idInner: 'TopAlertError',
+            absolute: true,
+            message:
+              'Essas credenciais não foram encontradas em nossos registros.',
+          });
+          MessageLabel({ element: userEmail, label: userEmailLabel });
+          MessageLabel({ element: userPassword, label: userPasswordLabel });
         });
     } else {
       if (!email)

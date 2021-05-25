@@ -28,28 +28,7 @@
   </head>
   <body>
     <div class="content">
-      <div
-        class="top-alert alert bg-danger fade show container-alert-absolute"
-        role="alert"
-      >
-        <div class="d-flex flex-row">
-          <i
-            class="bi flex-shrink-0 me-2 fas fa-exclamation-circle"
-            style="color: #58151c; font-size: 24px"
-          ></i>
-          <div>
-            Essas credenciais não foram encontradas em nossos registros.
-          </div>
-        </div>
-        <div class="alert-dismissible-top">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
+      <div id="top-alert-container" class="top-alert-container"></div>
 
       <div class="backdrop"></div>
 
@@ -164,7 +143,7 @@
 
     <!-- Script Init -->
     <script src="../src/utils/env.js"></script>
-    <script type="module" src="../src/class/__Auth_login.js"></script>
+    <script type="module" src="../src/class/__auth_login.js"></script>
 
     <!-- Script Interface Controller -->
     <script type="module">

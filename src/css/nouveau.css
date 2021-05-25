@@ -84,6 +84,28 @@ body {
 a {
   cursor: pointer;
 }
+
+/* Color Scheme  */
+
+.bg-sbotics-warning {
+  background-color: #cc9a06 !important ;
+}
+.bg-sbotics-info {
+  background-color: #0a9fbd !important ;
+}
+.icon-sbotics-warning {
+  color: #664d03 !important;
+}
+.icon-sbotics-danger {
+  color: #58151C !important;
+}
+.icon-sbotics-success {
+  color: #0A3622 !important;
+}
+.icon-sbotics-info {
+  color: #055160 !important;
+}
+
 /* Extra small devices (phones, less than 768px) */
 
 body {
@@ -157,50 +179,10 @@ ul.bot li {
   left: 0px;
 }
 
-.top-alert-container {
+.top-container-absolute {
   width: 100%;
   margin: 0;
   position: absolute;
-}
-
-.top-alert {
-  /* text-align: center; */
-  /* color: var(--body-text); */
-  width: 100%;
-  padding: 10px 60px 10px 10px;
-  margin: 0;
-}
-.top-alert-stack {
-  width: 100%;
-  padding: 10px 60px 10px 10px;
-  margin: 0;
-  position: absolute;
-}
-/* .top-alert .fas {
-  font-size: 22px;
-} */
-
-.top-alert .close-alert {
-  position: absolute;
-  transition: all 0.3s ease-out;
-  font-size: 20px;
-  right: 20px;
-  text-decoration: none;
-  color: var(--body-text);
-  text-shadow: 0 1px 0 var(--body);
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-.alert-dismissible-top {
-  padding-right: 3rem;
-}
-.alert-dismissible-top .btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  padding: 0.8rem 0.8rem;
 }
 
 .pointer {
