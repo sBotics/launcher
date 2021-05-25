@@ -22,5 +22,5 @@ app.whenReady().then(() => {
     },
   });
   window.setMenuBarVisibility(false);
-  window.loadURL('file://' + __dirname + '/routes/load.html');
+  window.loadURL('file://' + __dirname + '/routes/login.html');
 });

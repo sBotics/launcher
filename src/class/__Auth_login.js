@@ -2,7 +2,7 @@ var extend = require('extend-shallow');
 const axios = require('axios').default;
 import { Email, Password } from '../utils/validade_data.js';
 import { CreateTopAlert } from '../utils/top-alert.js';
-
+console.log(process.env.APP_KEY);
 const authFormLogin = document.getElementById('AuthLogin');
 
 const MessageLabel = (options) => {
