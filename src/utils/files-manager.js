@@ -2,7 +2,7 @@ var sBoticsSaver = require('sbotics-saver');
 
 const __sBoticsSaver = new sBoticsSaver({
   useDirectoryHome: true,
-  nameFolderDefault: 'sBotics',
+  nameFolderDefault: 'wEduc',
   saveAllFromDefaultDirectory: true,
 });
 
