@@ -4,6 +4,7 @@ import {
   URLdictionary,
   ValidateConnection,
 } from '../utils/validate-connection.js';
+import { CreateConfig, OpenConfig } from '../class/__file_config.js';
 
 const InterfaceLoad = async () => {
   await TitleBar();
@@ -66,5 +67,12 @@ const Init = async () => {
 
 $(document).ready(() => {
   InterfaceLoad();
-  Init();
+  OpenConfig()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  
 });
