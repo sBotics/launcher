@@ -67,12 +67,7 @@ const Init = async () => {
 
 $(document).ready(() => {
   InterfaceLoad();
-  OpenConfig()
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-  
+
+  console.log(CreateConfig({ data: { language: 'julioneto' } }));
+  console.log(OpenConfig());
 });

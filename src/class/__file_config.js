@@ -4,7 +4,7 @@
 // Deleta o arquivo de configuração
 
 var extend = require('extend-shallow');
-import { Find, Save, Open } from '../utils/files-manager.js';
+import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
 
 const DefaultConfiguration = {
@@ -30,19 +30,10 @@ const CreateConfig = (options) => {
     data: JSON.stringify({ ...defaultConfig, ...options.data }),
   });
 
-  return new Promise((resolve, reject) => {
-    Save(options.defaultPathSave, data)
-      .then((value) => {
-        resolve(true);
-      })
-      .catch((e) => {
-        reject(false);
-      });
-  });
+  return SaveSync(options.defaultPathSave, data);
 };
 
 const OpenConfig = (options) => {
-  console.log('A');
   options = extend(
     {
       defaultPathSave: 'Launcher/data/Config.aes',
@@ -60,37 +51,29 @@ const OpenConfig = (options) => {
 
   if (!defaultPathSave) return false;
 
-  return new Promise((resolve, reject) => {
-    Find(defaultPathSave)
-      .then(() => {
-        Open(defaultPathSave)
-          .then((result) => {
-            return decrypted
-              ? !Decrypted({ data: result })
-                ? reject('falsee')
-                : resolve(
-                    JSONParse
-                      ? JSON.parse(Decrypted({ data: result }))
-                      : Decrypted({ data: result }),
-                  )
-              : resolve(result);
-          })
-          .catch((e) => {
-            return reject(e);
-          });
-      })
-      .catch((e) => {
-        if (createConfigNotFind)
-          CreateConfig()
-            .then((result) => {
-              console.log('AQUI');
-              OpenConfig();
-            })
-            .catch((e) => {
-              return reject(false);
-            });
-      });
-  });
+  const fileFind = !FindSync(defaultPathSave)
+    ? createConfigNotFind
+      ? !CreateConfig()
+        ? false
+        : true
+      : false
+    : true;
+
+  if (!fileFind) return false;
+
+  const file = OpenSync(defaultPathSave);
+
+  if (!file) return false;
+
+  const fileDecrypted = Decrypted({ data: file });
+
+  return decrypted
+    ? fileDecrypted
+      ? JSONParse
+        ? JSON.parse(fileDecrypted)
+        : fileDecrypted
+      : false
+    : file;
 };
 
 export { CreateConfig, OpenConfig };
