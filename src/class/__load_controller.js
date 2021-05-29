@@ -4,7 +4,11 @@ import {
   URLdictionary,
   ValidateConnection,
 } from '../utils/validate-connection.js';
-import { CreateConfig, OpenConfig } from '../class/__file_config.js';
+import {
+  CreateConfig,
+  OpenConfig,
+  UpdateConfig,
+} from '../class/__file_config.js';
 
 const InterfaceLoad = async () => {
   await TitleBar();
@@ -67,7 +71,9 @@ const Init = async () => {
 
 $(document).ready(() => {
   InterfaceLoad();
-
-  console.log(CreateConfig({ data: { language: 'julioneto' } }));
+  // console.log(CreateConfig());
+  // console.log(
+  //   UpdateConfig({ data: { language: 'pt-BR', user: 'juliocesar' } }),
+  // );
   console.log(OpenConfig());
 });

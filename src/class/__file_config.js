@@ -1,15 +1,12 @@
-// Localiza e abre o arquivo de configuração
-// Cria o arquivo de configuração
-// Altera dados do arquivo de configuração
 // Deleta o arquivo de configuração
 
 var extend = require('extend-shallow');
 import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
+import { GetLocaleLanguage } from '../utils/application-manager.js';
 
 const DefaultConfiguration = {
-  language: 'en_US',
-  JULIO: 'oLÁ',
+  language: GetLocaleLanguage(),
 };
 
 const CreateConfig = (options) => {
@@ -76,4 +73,34 @@ const OpenConfig = (options) => {
     : file;
 };
 
-export { CreateConfig, OpenConfig };
+const UpdateConfig = (options) => {
+  options = extend(
+    {
+      data: '',
+      defaultPath: 'Launcher/data/Config.aes',
+      createConfigNotFind: true,
+    },
+    options,
+  );
+
+  const defaultPath = options.defaultPath;
+  const createConfigNotFind = options.createConfigNotFind;
+  if (!options.data) return false;
+
+  if (FindSync(defaultPath)) {
+    console.log('Update');
+    const openFile = OpenSync(defaultPath);
+    if (!openFile) return false;
+    const decryptedFile = Decrypted({ data: openFile });
+    if (!decryptedFile) return false;
+    const content = JSON.parse(decryptedFile);
+    if (!content) return false;
+    const data = Encrypted({
+      data: JSON.stringify({ ...content, ...options.data }),
+    });
+    return SaveSync(defaultPath, data);
+  } else if (createConfigNotFind) return CreateConfig({ data: options.data });
+  else return false;
+};
+
+export { CreateConfig, OpenConfig, UpdateConfig };
