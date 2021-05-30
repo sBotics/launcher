@@ -3,10 +3,10 @@
 var extend = require('extend-shallow');
 import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
-import { GetLocaleLanguage } from '../utils/application-manager.js';
+import { LanguageInit } from '../utils/language-manager.js';
 
 const DefaultConfiguration = {
-  language: GetLocaleLanguage(),
+  language: 'pt_BR',
 };
 
 const CreateConfig = (options) => {

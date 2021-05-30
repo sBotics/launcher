@@ -30,6 +30,6 @@ const ValidateConnection = (options) => {
         return reject(false);
       });
   });
-};
+};;
 
 export { URLdictionary, ValidateConnection };

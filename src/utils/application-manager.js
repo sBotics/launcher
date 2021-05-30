@@ -1,8 +1,12 @@
-const { app } = require('electron');
+var { app, ipcRenderer } = require('electron');
 
-const GetLocaleLanguage = () => {
+const SystemGetLocale = () => {
   const locale = app.getLocale().replace('-', '_');
   return locale ? locale : 'en_US';
 };
 
-export { GetLocaleLanguage };
+const AppDefaultPath = () => {
+  return ipcRenderer.sendSync("app-defaultpath");
+};
+
+export { SystemGetLocale, AppDefaultPath };

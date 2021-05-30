@@ -42,6 +42,7 @@
     "electron-window-manager": "^1.0.6",
     "extend-shallow": "^3.0.2",
     "jquery": "^3.6.0",
+    "read-json-sync": "^2.0.1",
     "sbotics-files-manager": "^1.2.7"
   },
   "devDependencies": {
