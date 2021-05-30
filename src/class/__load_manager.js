@@ -4,11 +4,7 @@ import {
   URLdictionary,
   ValidateConnection,
 } from '../utils/validate-connection.js';
-import {
-  CreateConfig,
-  OpenConfig,
-  UpdateConfig,
-} from '../class/__file_config.js';
+import { OpenConfig } from '../class/__file_config.js';
 import {
   CreateUserFile,
   OpenUserFile,
@@ -16,6 +12,7 @@ import {
 } from '../class/__file_user.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
 import { syncWait, asyncWait } from '../utils/wait-manager.js';
+import { UpdateInit, UpdateChecking } from '../utils/autoupdate-manager.js';
 
 const InterfaceLoad = async () => {
   await TitleBar();
@@ -29,53 +26,7 @@ const InterfaceLoad = async () => {
   });
 };
 
-const Init = async () => {
-  Update({
-    id: 'LoadBar',
-    addState: 'info',
-    percentage: 7,
-    text: [
-      {
-        textContainer: 'TextProgress',
-        message:
-          '<i class="fas fa-wifi text-info"></i> Verificando Conexão com a internet. Aguarde!',
-      },
-    ],
-  });
-
-  ValidateConnection({ url: URLdictionary['GitHub'] })
-    .then((value) => {
-      Update({
-        id: 'LoadBar',
-        addState: 'success',
-        percentage: 15,
-        text: [
-          {
-            textContainer: 'TextProgress',
-            message:
-              '<i class="fas fa-wifi text-success"></i> <strong> Conectado na Internet</strong>',
-          },
-        ],
-      });
-    })
-    .catch((e) => {
-      return Update({
-        id: 'LoadBar',
-        addState: 'danger',
-        percentage: 100,
-        text: [
-          {
-            textContainer: 'TextProgress',
-            message:
-              '<i class="fas fa-wifi text-danger"></i> <strong> Sem conexão com a internet! </strong> Verifique sua conexão com a internet',
-          },
-        ],
-      });
-    });
-};
-
 const init = async () => {
-  // Verificar conexão com o github
   // Verificar versão do launcher -> Auto Updatew
   // Verifica se os dados do user existe
 
@@ -87,7 +38,7 @@ const init = async () => {
       {
         textContainer: 'TextProgress',
         message:
-          '<i class="fas fa-wifi text-info"></i> Verificando Conexão com a internet. Aguarde!',
+          '<i class="fas fa-wifi text-info"></i> <span style="margin-left: 13px">Verificando Conexão com a internet. Aguarde! </span>',
       },
     ],
   });
@@ -95,7 +46,7 @@ const init = async () => {
   await asyncWait(800);
 
   try {
-    if (await ValidateConnection({ url: URLdictionary['GitHub'] })) {
+    if (await ValidateConnection({ url: URLdictionary['GitHub'] }))
       Update({
         id: 'LoadBar',
         addState: 'success',
@@ -105,26 +56,45 @@ const init = async () => {
           {
             textContainer: 'TextProgress',
             message:
-              '<i class="fas fa-wifi text-success"></i> <strong> Conectado na Internet</strong>',
+              '<i class="fas fa-wifi text-success"></i> <strong style="margin-left: 13px"> Conectado na Internet</strong>',
           },
         ],
       });
-    } else {
-      return Update({
+  } catch (error) {
+    return Update({
+      id: 'LoadBar',
+      addState: 'danger',
+      percentage: 100,
+      text: [
+        {
+          textContainer: 'TextProgress',
+          message:
+            '<i class="fas fa-wifi text-danger"></i> <strong style="margin-left: 13px"> Sem conexão com a internet! </strong> Verifique sua conexão com a internet',
+        },
+      ],
+    });
+  }
+
+  await asyncWait(800);
+
+  try {
+    //if(UpdateInit())
+    UpdateInit();
+    if (await UpdateChecking)
+      Update({
         id: 'LoadBar',
-        addState: 'danger',
-        percentage: 100,
+        addState: 'info',
+        percentage: 20,
         text: [
           {
             textContainer: 'TextProgress',
             message:
-              '<i class="fas fa-wifi text-danger"></i> <strong> Sem conexão com a internet! </strong> Verifique sua conexão com a internet',
+              '<i class="fas fa-wifi text-info"></i> <span style="margin-left: 13px">Procurando atualização do sBotics Launcher. Aguarde! </span>',
           },
         ],
       });
-    }
   } catch (error) {
-    return;
+    console.log('Ocorreu um erro ao verificar autoUpdate');
   }
 };
 
