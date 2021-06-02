@@ -16,7 +16,7 @@
   },
   "build": {
     "asar": true,
-    "productName": "sBotics Launcher",
+    "productName": "sBotics",
     "win": {
       "icon": "./icons/icon.ico"
     },
