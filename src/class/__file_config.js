@@ -1,12 +1,12 @@
-// Deleta o arquivo de configuração
-
 var extend = require('extend-shallow');
 import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
-import { LanguageInit } from '../utils/language-manager.js';
+import { folderPathGLauncher, SystemGetLocale } from '../utils/application-manager.js';
 
 const DefaultConfiguration = {
-  language: 'pt_BR',
+  language: SystemGetLocale(),
+  folderPath: folderPathGLauncher,
+  languageSimulator: SystemGetLocale().replace('_US', '')
 };
 
 const CreateConfig = (options) => {

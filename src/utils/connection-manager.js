@@ -32,4 +32,30 @@ const ValidateConnection = (options) => {
   });
 };
 
-export { URLdictionary, ValidateConnection };
+const UserData = (options) => {
+  options = extend(
+    {
+      accessToken: '',
+    },
+    options,
+  );
+  const accessToken = options.accessToken;
+
+  if (!accessToken) return false;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get('https://weduc.natalnet.br/api/user', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(function (response) {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        reject(false);
+      });
+  });
+};
+export { URLdictionary, ValidateConnection, UserData };

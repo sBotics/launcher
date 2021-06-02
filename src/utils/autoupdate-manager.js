@@ -14,22 +14,7 @@ const UpdateAvailable = new Promise((resolve, reject) => {
   ipcRenderer.on('update-available', (event, arg) => {
     resolve(arg);
   });
-});
-
-const UpdateNotAvailable = new Promise((resolve, reject) => {
   ipcRenderer.on('update-not-available', (event, arg) => {
-    resolve(arg);
-  });
-});
-
-const UpdateDownloadProgress = new Promise((resolve, reject) => {
-  ipcRenderer.on('update-download-progress', (event, arg) => {
-    resolve(arg);
-  });
-});
-
-const UpdateDownloaded = new Promise((resolve, reject) => {
-  ipcRenderer.on('update-downloaded', (event, arg) => {
     resolve(arg);
   });
 });
@@ -38,12 +23,4 @@ const UpdateInstall = () => {
   return ipcRenderer.sendSync('update-install');
 };
 
-export {
-  UpdateInit,
-  UpdateChecking,
-  UpdateAvailable,
-  UpdateNotAvailable,
-  UpdateDownloadProgress,
-  UpdateDownloaded,
-  UpdateInstall,
-};
+export { UpdateInit, UpdateChecking, UpdateAvailable, UpdateInstall };

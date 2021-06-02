@@ -2,6 +2,10 @@ var extend = require('extend-shallow');
 const axios = require('axios').default;
 import { Email, Password } from '../utils/validate-data.js';
 import { CreateTopAlert } from '../utils/top-alert.js';
+import { CreateUserFile, OpenUserFile } from '../class/__file_user.js';
+import { UserData } from '../utils/connection-manager.js';
+import { LoginClose, IndexOpen } from '../utils/window-manager.js';
+import { LanguageInit, Lang } from '../utils/language-manager.js';
 
 const authFormLogin = document.getElementById('AuthLogin');
 
@@ -47,7 +51,7 @@ $(document).on('input', '#UserPassword', () => {
   if (userPassword.value) {
     MessageLabel({
       element: userPassword,
-      label: document.getElementById('UserPasswordLabel'),
+      label: document.getElementById('UserPasswordLabell'),
       remove: 'is-invalid',
       remove_2: 'input',
       add: 'is-valid',
@@ -55,10 +59,26 @@ $(document).on('input', '#UserPassword', () => {
   } else
     MessageLabel({
       element: userPassword,
-      label: document.getElementById('UserPasswordLabel'),
+      label: document.getElementById('UserPasswordLabell'),
       remove: 'is-valid',
       add: 'input',
     });
+});
+var RememberCredential = false;
+$('#UserRememberCredential').on('change', function () {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'true');
+    $('.messageWarningLogin')
+      .removeClass('text-secondary')
+      .addClass('text-warning');
+    RememberCredential = true;
+  } else {
+    $(this).attr('value', 'false');
+    $('.messageWarningLogin')
+      .removeClass('text-warning')
+      .addClass('text-secondary');
+    RememberCredential = false;
+  }
 });
 
 authFormLogin.addEventListener('submit', (e) => {
@@ -68,7 +88,7 @@ authFormLogin.addEventListener('submit', (e) => {
   const userEmailLabel = document.getElementById('UserEmailLabel');
   const userPassword = document.getElementById('UserPassword');
   const userPasswordValue = userPassword.value;
-  const userPasswordLabel = document.getElementById('UserPasswordLabel');
+  const userPasswordLabel = document.getElementById('UserPasswordLabell');
   if (userEmailValue && userPasswordValue) {
     const email = Email(userEmailValue);
     const pass = Password({ pass: userPasswordValue });
@@ -80,13 +100,57 @@ authFormLogin.addEventListener('submit', (e) => {
           device_name: 'sBotics',
         })
         .then(function (response) {
-          console.log(response['data']);
-          CreateTopAlert({
-            states: 'success',
-            idInner: 'TopAlertError',
-            absolute: true,
-            message: 'Úsuario autenticado',
-          });
+          const access_token = response['data']['access_token'];
+          UserData({
+            accessToken: access_token,
+          })
+            .then((response) => {
+              if (
+                !CreateUserFile({
+                  data: {
+                    name: response['email'],
+                    email: response['email'],
+                    profilePicture: response['profile_photo_url'],
+                    locale: response['locale'],
+                    accessToken: access_token,
+                    logged: RememberCredential,
+                  },
+                })
+              ) {
+                CreateTopAlert({
+                  states: 'danger',
+                  idInner: 'TopAlertError',
+                  absolute: true,
+                  message: Lang(
+                    'An unexpected failure happened! Try again later.',
+                  ),
+                });
+                MessageLabel({ element: userEmail, label: userEmailLabel });
+                MessageLabel({
+                  element: userPassword,
+                  label: userPasswordLabel,
+                });
+                return;
+              }
+
+              LoginClose();
+              IndexOpen();
+            })
+            .catch((err) => {
+              CreateTopAlert({
+                states: 'danger',
+                idInner: 'TopAlertError',
+                absolute: true,
+                message: Lang(
+                  'An unexpected failure to find data! Try again later.',
+                ),
+              });
+              MessageLabel({ element: userEmail, label: userEmailLabel });
+              MessageLabel({
+                element: userPassword,
+                label: UserPasswordLabell,
+              });
+            });
         })
         .catch(function (error) {
           console.log(error);
@@ -94,24 +158,23 @@ authFormLogin.addEventListener('submit', (e) => {
             states: 'danger',
             idInner: 'TopAlertError',
             absolute: true,
-            message:
-              'Essas credenciais não foram encontradas em nossos registros.',
+            message: Lang('These credentials were not found in our records.'),
           });
           MessageLabel({ element: userEmail, label: userEmailLabel });
-          MessageLabel({ element: userPassword, label: userPasswordLabel });
+          MessageLabel({ element: userPassword, label: UserPasswordLabell });
         });
     } else {
       if (!email)
         MessageLabel({
           element: userEmail,
           label: userEmailLabel,
-          message: 'Digite um email valido.',
+          message: Lang('Enter a valid email address.'),
         });
       if (!pass)
         MessageLabel({
           element: userPassword,
           label: userPasswordLabel,
-          message: 'A senha deve ter pelo menos 8 caracteres.',
+          message: Lang('The password must be at least 8 characters long.'),
         });
     }
   } else {
@@ -119,13 +182,13 @@ authFormLogin.addEventListener('submit', (e) => {
       MessageLabel({
         element: userEmail,
         label: userEmailLabel,
-        message: 'Digite um email.',
+        message: Lang('Enter an email.'),
       });
     if (!userPasswordValue)
       MessageLabel({
         element: userPassword,
         label: userPasswordLabel,
-        message: 'Digite uma senha.',
+        message: Lang('Enter a password.'),
       });
   }
 });

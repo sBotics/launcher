@@ -28,19 +28,24 @@
   <body>
     <div class="content">
       <div class="backdrop"></div>
+      <div class="w-100 d-flex justify-content-end aling-items-center p-3">
+        <span class="text-secondary fw-bold" id="TextVersion"></span>
+      </div>
       <div class="container-logo">
         <img class="logo" src="../assets/logos/logo.png" alt="" />
       </div>
-      <div class="w-100 p-4 d-flex align-items-center">
+      <div class="w-100 p-4 d-flex justify-content-between align-items-center">
         <div>
           <h6 id="TextProgress" class=".text-black-50 text_info_footer"></h6>
         </div>
-        <div
-          class="spinner-border ms-auto text-secondary"
-          role="status"
-          aria-hidden="true"
-          style="width: 1.5rem; height: 1.5rem"
-        ></div>
+        <div style="padding: 10px">
+          <div
+            class="spinner-border ms-auto text-secondary"
+            role="status"
+            aria-hidden="true"
+            style="width: 1.5rem; height: 1.5rem"
+          ></div>
+        </div>
       </div>
       <div class="d-block w-100">
         <div
@@ -52,7 +57,7 @@
     </div>
 
     <!-- Script Interface Controller -->
-     <script src="../src/utils/env.js"></script>
+    <script src="../src/utils/env.js"></script>
     <script type="module" src="../src/class/__load_manager.js"></script>
   </body>
 </html>

@@ -1,11 +1,13 @@
 var extend = require('extend-shallow');
 const customTitlebar = require('custom-electron-titlebar');
+import { AppVersion } from '../utils/application-manager.js';
 
 const TitleBar = () => {
   new customTitlebar.Titlebar({
     backgroundColor: customTitlebar.Color.fromHex('#131313'),
     menu: false,
     titleHorizontalAlignment: 'left',
+    maximizable: false,
   });
 };
 
@@ -36,5 +38,16 @@ const backdrop = (options) => {
   );
 };
 
+const TextVersion = (options) => {
+  options = extend(
+    {
+      elementName: '',
+    },
+    options,
+  );
 
-export { TitleBar, backdrop };
+  const elementName = options.elementName;
+  document.getElementById(elementName).innerHTML = `v1.${AppVersion()}`;
+};
+
+export { TitleBar, backdrop, TextVersion };

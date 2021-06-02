@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="../src/css/nouveau-alert.css" />
     <!-- Import Utils -->
     <script src="../src/utils/jquery.js"></script>
-
-    <!-- Interface Controller -->
   </head>
   <body>
     <div class="content">
@@ -32,8 +30,9 @@
 
       <div class="backdrop"></div>
 
-      <div class="w-100 d-flex justify-content-start aling-items-center p-3">
+      <div class="w-100 d-flex justify-content-between aling-items-center p-3">
         <img class="logo" src="../assets/logos/logo.png" alt="" />
+        <span class="text-secondary fw-bold" id="TextVersion"></span>
       </div>
 
       <div
@@ -79,7 +78,12 @@
                 <div id="UserEmailLabel" class="invalid-feedback"></div>
               </div>
               <div class="mb-3">
-                <label for="UserPassword" class="form-label">Senha:</label>
+                <label
+                  for="UserPassword"
+                  id="UserPasswordLabel"
+                  class="form-label"
+                  >Password:</label
+                >
                 <input
                   type="password"
                   class="
@@ -90,10 +94,10 @@
                     input
                   "
                   id="UserPassword"
-                  placeholder="Senha"
+                  placeholder="Password"
                   aria-describedby="UserPassword"
                 />
-                <div id="UserPasswordLabel" class="invalid-feedback"></div>
+                <div id="UserPasswordLabell" class="invalid-feedback"></div>
               </div>
               <div class="mb-3 form-check">
                 <input
@@ -101,16 +105,19 @@
                   class="form-check-input"
                   id="UserRememberCredential"
                 />
-                <label class="form-check-label" for="exampleCheck1"
-                  >Lembrar-se de mim</label
-                >
+                <label
+                  class="form-check-label"
+                  for="UserRememberCredential"
+                  id="Text_remember_me"
+                  >Remember me
+                </label>
                 <br />
                 <small
-                  id="UserRememberCredential"
-                  class="form-text text-warning"
-                  >No proximo acesso este computador lembrará seu email e
-                  senha</small
-                >
+                  id="Text_alert_save_credentials"
+                  class="form-text text-secondary messageWarningLogin"
+                  >On the next login, your computer will remember your
+                  credentials.
+                </small>
               </div>
             </div>
           </div>
@@ -124,17 +131,17 @@
             "
           >
             <div class="d-flex flex-row">
-              <a href="" class="text-white btn btn-sm bg-sbotics"
-                >Criar uma conta wEduc</a
-              >
+              <a id="RegisterwEduc" class="text-white btn btn-sm bg-sbotics"
+                >Create a wEduc account
+              </a>
               <a
-                href=""
+                id="ForgotPasswordwEduc"
                 class="text-white ms-3 btn btn-sm btn-outline-secondary"
-                >Esqueceu sua Senha?</a
-              >
+                >Forgot your password?
+              </a>
             </div>
             <button type="submit" id="ButtonSubmit" class="btn btn-entrar">
-              Entrar
+              Access
             </button>
           </div>
         </form>
@@ -143,21 +150,7 @@
 
     <!-- Script Init -->
     <script src="../src/utils/env.js"></script>
+    <script type="module" src="../src/class/__login_manager.js"></script>
     <script type="module" src="../src/class/__auth_login.js"></script>
-
-    <!-- Script Interface Controller -->
-    <script type="module">
-      import {
-        TitleBar,
-        backdrop,
-      } from '../src/class/__interface_components.js';
-
-      $(document).ready(() => {
-        TitleBar();
-        backdrop({
-          elementName: 'backdrop',
-        });
-      });
-    </script>
   </body>
 </html>

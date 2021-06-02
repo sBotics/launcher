@@ -3,10 +3,12 @@ import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
 
 const DefaultUser = {
-  Name: '',
-  Email: '',
+  name: '',
+  email: '',
   profilePicture: '',
   locale: '',
+  accessToken: '',
+  logged: '',
 };
 
 const CreateUserFile = (options) => {
@@ -50,7 +52,7 @@ const OpenUserFile = (options) => {
 
   const fileFind = !FindSync(defaultPathSave)
     ? createUserNotFind
-      ? !CreateConfig()
+      ? !CreateUserFile()
         ? false
         : true
       : false
@@ -98,7 +100,7 @@ const UpdateUserFile = (options) => {
       data: JSON.stringify({ ...content, ...options.data }),
     });
     return SaveSync(defaultPath, data);
-  } else if (createUserNotFind) return CreateConfig({ data: options.data });
+  } else if (createUserNotFind) return CreateUserFile({ data: options.data });
   else return false;
 };
 

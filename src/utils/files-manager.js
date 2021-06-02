@@ -1,5 +1,4 @@
 var sBoticsFilesManager = require('sbotics-files-manager');
-
 const __sBoticsFilesManager = new sBoticsFilesManager({
   useDirectoryHome: true,
   nameFolderDefault: 'wEduc',
@@ -69,4 +68,20 @@ const OpenAsync = (path) => {
   });
 };
 
-export { FindSync, FindAsync, SaveSync, SaveAsync, OpenSync, OpenAsync };
+const FileSizeSync = (path) => {
+  try {
+    return __sBoticsFilesManager.stat(path);
+  } catch (error) {
+    return false;
+  }
+};
+
+export {
+  FindSync,
+  FindAsync,
+  SaveSync,
+  SaveAsync,
+  OpenSync,
+  OpenAsync,
+  FileSizeSync,
+};

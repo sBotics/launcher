@@ -93,19 +93,67 @@ a {
 .bg-sbotics-info {
   background-color: #0a9fbd !important ;
 }
+.bg-sbotics-okfiles {
+  background-color: #8540F5 !important ;
+}
 .icon-sbotics-warning {
   color: #664d03 !important;
 }
 .icon-sbotics-danger {
-  color: #58151C !important;
+  color: #58151c !important;
 }
 .icon-sbotics-success {
-  color: #0A3622 !important;
+  color: #0a3622 !important;
 }
 .icon-sbotics-info {
   color: #055160 !important;
 }
 
+/* Color MagicButton */
+.MagicButtonCenter {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+}
+
+.textoMagicButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconMagicButton {
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 14px;
+  position: absolute;
+}
+
+.bg-success .iconMagicButton {
+  background-color: #198754 !important;
+  color: #a3cfbb;
+  font-size: 25px;
+  padding: 0px;
+}
+
+.bg-primary .iconMagicButton {
+  background-color: #9ec5fe !important;
+  color: #0a58ca;
+}
+
+.bg-sbotics-info .iconMagicButton {
+  background-color: #9EEAF9 !important;
+  color: #055160;
+}
+
+.bg-danger .iconMagicButton {
+  background-color: #F1AEB5 !important;
+  color: #DC3545;
+}
 /* Extra small devices (phones, less than 768px) */
 
 body {
@@ -181,8 +229,14 @@ ul.bot li {
 
 .top-container-absolute {
   width: 100%;
-  margin: 0;
-  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 99999;
+  padding-left: 0px;
 }
 
 .pointer {
@@ -361,6 +415,9 @@ ul.bot li {
   }
   .logo {
     height: 60px;
+  }
+  .top-container-absolute {
+    padding-left: 90px;
   }
 }
 
