@@ -2,7 +2,7 @@ var remote = require('electron').remote;
 var { screen } = remote;
 var windowManager = remote.require('electron-window-manager');
 
-var GlobalShowDevTools = true;
+var GlobalShowDevTools = false;
 
 const LoadClose = () => {
   windowManager.close('load');
