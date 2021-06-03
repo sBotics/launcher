@@ -3,7 +3,7 @@ var { screen } = remote;
 var windowManager = remote.require('electron-window-manager');
 import { DetectOS } from '../utils/application-manager.js';
 
-var GlobalShowDevTools = true;
+var GlobalShowDevTools = false;
 
 const LoadClose = () => {
   windowManager.close('load');
