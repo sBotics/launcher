@@ -133,8 +133,8 @@ authFormLogin.addEventListener('submit', (e) => {
                 return;
               }
 
-              LoginClose();
               IndexOpen();
+              LoginClose();
             })
             .catch((err) => {
               CreateTopAlert({
