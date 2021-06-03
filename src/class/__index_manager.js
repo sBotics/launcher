@@ -111,7 +111,7 @@ const DonwnloadsBotics = async (modeText = '') => {
 const FilesVerification = async () => {
   MagicButton({
     mode: 'process',
-    text: Lang('Looking for update! Hold...'),
+    text: Lang('Looking for update! Please wait...'),
   });
 
   const dataUpdate = await DataUpdate();
@@ -152,11 +152,11 @@ $(document).on('click', '#MagicButtonClick', () => {
 
   switch (mode) {
     case 'install':
-      DonwnloadsBotics(Lang('Installing sBotics! Hold...'));
+      DonwnloadsBotics(Lang('Installing sBotics! Please wait...'));
       break;
 
     case 'update':
-      DonwnloadsBotics(Lang('Updating sBotics! Hold...'));
+      DonwnloadsBotics(Lang('Updating sBotics! Please wait...'));
       break;
     case 'start':
       OpenSbotics();

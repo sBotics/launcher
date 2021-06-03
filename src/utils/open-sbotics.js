@@ -7,6 +7,7 @@ import { OpenUserFile } from '../class/__file_user.js';
 const path = require('path');
 const url = require('url');
 var child = require('child_process').spawn;
+const fs = require('fs-extra');
 
 const OpenSbotics = () => {
   var string_execute;

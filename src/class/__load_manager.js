@@ -38,7 +38,7 @@ const InterfaceLoad = async () => {
       {
         textContainer: 'TextProgress',
         message: `<i class="fas fa-rocket text-rainbow"></i> <span style="margin-left: 13px">${Lang(
-          'Warming up engines! Hold...',
+          'Warming up engines! Please wait...',
         )}</span`,
       },
     ],
@@ -56,7 +56,7 @@ const init = async () => {
       {
         textContainer: 'TextProgress',
         message: `<i class="fas fa-wifi text-info"></i> <span style="margin-left: 13px">${Lang(
-          'Checking Internet Connection! Hold...',
+          'Checking Internet Connection! Please wait...',
         )}</span>`,
       },
     ],
@@ -106,7 +106,7 @@ const init = async () => {
       {
         textContainer: 'TextProgress',
         message: `<i class="fas fa-wifi text-info"></i> <span style="margin-left: 13px">${Lang(
-          'Checking Connection to Our Servers! Hold...',
+          'Checking Connection to Our Servers! Please wait...',
         )}</span>`,
       },
     ],
@@ -156,7 +156,7 @@ const init = async () => {
       {
         textContainer: 'TextProgress',
         message: `<i class="fas fa-file-archive text-info"></i> <span style="margin-left: 13px">${Lang(
-          'Looking for sBotics Launcher update! Hold...',
+          'Looking for sBotics Launcher update! Please wait...',
         )}</span>`,
       },
     ],
@@ -175,7 +175,7 @@ const init = async () => {
             {
               textContainer: 'TextProgress',
               message: `<i class="fas fa-file-archive text-info"></i> <strong style="margin-left: 13px">${Lang(
-                'Update available by downloading! Hold...',
+                'Update available by downloading! Please wait...',
               )}</strong>`,
             },
           ],
@@ -241,7 +241,7 @@ const init = async () => {
         {
           textContainer: 'TextProgress',
           message: `<i class="fas fa-file-archive text-info"></i> <span style="margin-left: 13px">${Lang(
-            'Searching and loading your data! Hold...',
+            'Searching and loading your data! Please wait...',
           )}</span>`,
         },
       ],
@@ -391,7 +391,7 @@ ipcRenderer.on('update-download-progress', (event, arg) => {
         {
           textContainer: 'TextProgress',
           message: `<i class="fas fa-file-archive text-success"></i> <strong style="margin-left: 13px">${Lang(
-            'Update available by downloading! Hold...',
+            'Update available by downloading! Please wait...',
           )}</strong>`,
         },
       ],
