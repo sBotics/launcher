@@ -13,10 +13,15 @@ import { Create, Update, Reset } from '../utils/progress-bar.js';
 import { MagicButton } from '../utils/magic-button-manager.js';
 import { OpenSbotics } from '../utils/open-sbotics.js';
 import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
-import { LoginOpen, IndexClose } from '../utils/window-manager.js';
+import {
+  LoginOpen,
+  IndexClose,
+  IndexOpen,
+  IndexReload,
+} from '../utils/window-manager.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
 import { LinkOpen } from '../utils/window-manager.js';
-import { OpenConfig } from './__file_config.js';
+import { OpenConfig, UpdateConfig } from './__file_config.js';
 import { IndexTranslator } from '../utils/language-window.js';
 
 // Interface Manager
@@ -185,4 +190,11 @@ $(document).on('click', '#UserSettings', () => {
 
 $(document).on('click', '#OpenFolderInstall', () => {
   OpenInstallFolder();
+});
+
+$(document).on('click', '#UpdateLanguageSbotics', () => {
+  console.log(OpenConfig()['language']);
+  const language = OpenConfig()['language'] == 'pt_BR' ? 'en_US' : 'pt_BR';
+  UpdateConfig({ data: { language: language } });
+  IndexReload();
 });
