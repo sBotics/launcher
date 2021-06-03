@@ -18,7 +18,7 @@ import {
   UpdateAvailable,
   UpdateInstall,
 } from '../utils/autoupdate-manager.js';
-import { SLMP } from '../utils/application-manager.js';
+import { SLMP, DetectOS } from '../utils/application-manager.js';
 import { LoadClose, LoginOpen, IndexOpen } from '../utils/window-manager.js';
 const { ipcRenderer } = require('electron');
 
@@ -26,7 +26,7 @@ var donwloadStateInit = false;
 var donwloadStateCallback = true;
 
 const InterfaceLoad = async () => {
-  await TitleBar();
+  if (DetectOS() != 'darwin') TitleBar();
   await backdrop({
     elementName: 'backdrop',
   });

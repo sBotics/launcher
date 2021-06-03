@@ -34,13 +34,17 @@ const SaveSync = (path, data) => {
   }
 };
 
-const SaveAsync = (path, data) => {
+const SaveAsync = (path, data, format = '') => {
   return new Promise((resolve, reject) => {
     try {
-      __sBoticsFilesManager.save(path, { data: data }, (err, resp) => {
-        if (err) reject(false);
-        else resolve(true);
-      });
+      __sBoticsFilesManager.save(
+        path,
+        { data: data, format: format },
+        (err, resp) => {
+          if (err) reject(false);
+          else resolve(true);
+        },
+      );
     } catch (error) {
       reject(false);
     }

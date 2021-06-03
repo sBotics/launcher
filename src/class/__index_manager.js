@@ -12,11 +12,12 @@ import {
 import { Create, Update, Reset } from '../utils/progress-bar.js';
 import { MagicButton } from '../utils/magic-button-manager.js';
 import { OpenSbotics } from '../utils/open-sbotics.js';
-import { UpdateUserFile } from '../class/__file_user.js';
+import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
 import { LoginOpen, IndexClose } from '../utils/window-manager.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
 import { LinkOpen } from '../utils/window-manager.js';
 import { OpenConfig } from './__file_config.js';
+import { IndexTranslator } from '../utils/language-window.js';
 
 // Interface Manager
 $('.close-alert').click(function () {
@@ -27,8 +28,15 @@ $('.close-config').click(function () {
   $('.config-content').css('display', 'none');
 });
 
+const GetImageUser = () => {
+  document.getElementById('UserImgSettings').src =
+    OpenUserFile()['profilePicture'];
+};
+
 const InterfaceLoad = async () => {
   await backdrop({ elementName: 'backdrop' });
+  IndexTranslator();
+  GetImageUser();
 };
 
 // Download sBotics Manager
@@ -59,6 +67,7 @@ const DonwnloadsBotics = async (modeText = '') => {
       size: dataUpdate.size,
       prefix: `${DetecOSFolder()}/`,
       id: fileID,
+      format: dataUpdate.format,
     })
       .then((resp) => {
         if (resp.state == 'ok') {

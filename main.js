@@ -13,6 +13,7 @@ const path = require('path');
 const url = require('url');
 
 var load_application;
+const SystemOS = process.platform.toLowerCase();
 
 const ScreenCalc = () => {
   var ScreenSize = screen.getPrimaryDisplay();
@@ -38,7 +39,7 @@ const Load_OpenApplication = (screenSizeCalc) => {
       showDevTools: false,
       DevTools: false,
       menu: null,
-      frame: false,
+      frame: SystemOS != 'darwin' ? false : true,
       resizable: false,
       webPreferences: {
         nodeIntegration: true,
@@ -62,8 +63,6 @@ ipcMain.on('get-version', (event) => {
 ipcMain.on('app-defaultpath', (event) => {
   event.returnValue = __dirname;
 });
-
-
 
 // AutoUpdater
 ipcMain.on('update-init', (event) => {

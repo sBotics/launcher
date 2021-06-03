@@ -40,7 +40,8 @@ const LangElement = (element, defaultText, input = false) => {
     .trim()
     .replace(/(\r\n|\n|\r)/gm, '')
     .replace(/\s+/g, ' ');
-  console.log('estou aqui1');
+
+  // console.log(textElmenteResolve);
   // if (oldDefaultLanguage == defaultLanguage) return;
   if (!element || !textElmenteResolve)
     return input

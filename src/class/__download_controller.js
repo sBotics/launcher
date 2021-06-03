@@ -135,6 +135,7 @@ const DownloadsUpdate = (options) => {
       prefix: '',
       size: '',
       id: '',
+      format: '',
     },
     options,
   );
@@ -144,6 +145,7 @@ const DownloadsUpdate = (options) => {
   const prefix = options.prefix;
   const size = options.size;
   const id = options.id;
+  const format = options.format;
 
   if (!name || !prefix) return 'teste';
 
@@ -158,7 +160,7 @@ const DownloadsUpdate = (options) => {
       { savePath: `sBotics/${path + name}` },
       (err, resp) => {
         if (err) return reject(false);
-        SaveAsync(resp.path, resp.file)
+        SaveAsync(resp.path, resp.file, format)
           .then((resp) => resolve({ state: 'update', id: id }))
           .catch((err) => reject({ state: false, id: id }));
       },
