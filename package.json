@@ -34,6 +34,7 @@
     "url": "https://github.com/sBotics/launcher.git"
   },
   "dependencies": {
+    "@sweetalert2/theme-dark": "^5.0.0",
     "axios": "^0.21.1",
     "cryptr": "^6.0.2",
     "custom-electron-titlebar": "^3.2.7",

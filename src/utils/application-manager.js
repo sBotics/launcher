@@ -13,7 +13,8 @@ const SLMP = () => {
 
 const SystemGetLocale = () => {
   const locale = app.getLocale().replace('-', '_');
-  return locale ? locale : 'en_US';
+  const languageAvarible = ['pt_BR'];
+  return languageAvarible.indexOf(locale) > -1 ? locale : 'en_US';
 };
 
 const AppDefaultPath = () => {
@@ -21,7 +22,8 @@ const AppDefaultPath = () => {
 };
 
 const OpenInstallFolder = () => {
-  shell.openPath(`${os.homedir()}/wEduc/sBotics/`);
+  const pathInstallsBotics = `${os.homedir()}/wEduc/sBotics/`;
+  shell.openPath(pathInstallsBotics);
 };
 
 const AppVersion = () => {

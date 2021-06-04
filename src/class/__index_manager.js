@@ -24,6 +24,7 @@ import { LanguageInit, Lang } from '../utils/language-manager.js';
 import { LinkOpen } from '../utils/window-manager.js';
 import { OpenConfig, UpdateConfig } from './__file_config.js';
 import { IndexTranslator } from '../utils/language-window.js';
+import { FindSync } from '../utils/files-manager.js';
 
 // Interface Manager
 $('.close-alert').click(function () {
@@ -83,7 +84,7 @@ const DonwnloadsBotics = async (modeText = '') => {
             removeState: 'info',
           });
         } else if (resp.state == 'update') {
-          console.log(dataUpdate.path + dataUpdate.name);
+          // console.log(dataUpdate.path + dataUpdate.name);
           Update({
             id: resp.id,
             addState: 'success',
@@ -115,6 +116,7 @@ const DonwnloadsBotics = async (modeText = '') => {
 };
 
 const FilesVerification = async () => {
+  Reset();
   MagicButton({
     mode: 'process',
     text: Lang('Looking for update! Please wait...'),
@@ -144,52 +146,81 @@ const FilesVerification = async () => {
   }
 };
 
-const ModalTest = () => {
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger',
-    },
-    buttonsStyling: false,
+const FilesVerificationStart = async () => {
+  Reset();
+  MagicButton({
+    mode: 'process',
+    text: Lang('Checking file integrity to open sBotics! Please wait...'),
   });
 
-  swalWithBootstrapButtons
-    .fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true,
-      background:
-        'linear-gradient(163deg, rgba(61,180,110,1) 0%, rgba(169,218,111,1) 100%)',
-    })
-    .then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success',
-        );
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error',
-        );
-      }
-    });
+  const dataUpdate = await DataUpdate();
+  const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
+
+  const filesFind = checkAllUpdate.filesFind;
+  const filesNotFind = checkAllUpdate.filesNotFind;
+  const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
+
+  if (filesFind == dataUpdateFiles) {
+     OpenSbotics();
+  } else {
+    if (filesFind > 0) {
+      MagicButton({
+        mode: 'update',
+      });
+    } else {
+      MagicButton({
+        mode: 'install',
+      });
+    }
+  }
 };
+
+// const ModalTest = () => {
+//   const swalWithBootstrapButtons = Swal.mixin({
+//     customClass: {
+//       confirmButton: 'btn btn-success',
+//       cancelButton: 'btn btn-danger',
+//     },
+//     buttonsStyling: false,
+//   });
+
+//   swalWithBootstrapButtons
+//     .fire({
+//       title: 'Are you sure?',
+//       text: "You won't be able to revert this!",
+//       icon: 'warning',
+//       showCancelButton: true,
+//       confirmButtonText: 'Yes, delete it!',
+//       cancelButtonText: 'No, cancel!',
+//       reverseButtons: true,
+//       background:
+//         'linear-gradient(163deg, rgba(61,180,110,1) 0%, rgba(169,218,111,1) 100%)',
+//     })
+//     .then((result) => {
+//       if (result.isConfirmed) {
+//         swalWithBootstrapButtons.fire(
+//           'Deleted!',
+//           'Your file has been deleted.',
+//           'success',
+//         );
+//       } else if (
+//         /* Read more about handling dismissals below */
+//         result.dismiss === Swal.DismissReason.cancel
+//       ) {
+//         swalWithBootstrapButtons.fire(
+//           'Cancelled',
+//           'Your imaginary file is safe :)',
+//           'error',
+//         );
+//       }
+//     });
+// };
 
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
   FilesVerification();
-  ModalTest();
+  // ModalTest();
 });
 
 $(document).on('click', '#MagicButtonClick', () => {
@@ -207,7 +238,7 @@ $(document).on('click', '#MagicButtonClick', () => {
       DonwnloadsBotics(Lang('Updating sBotics! Please wait...'));
       break;
     case 'start':
-      OpenSbotics();
+      FilesVerificationStart();
       break;
     default:
       break;
@@ -232,12 +263,31 @@ $(document).on('click', '#UserSettings', () => {
 });
 
 $(document).on('click', '#OpenFolderInstall', () => {
-  OpenInstallFolder();
+  if (FindSync('sBotics/')) OpenInstallFolder();
+  else {
+    FilesVerification();
+    Swal.fire({
+      icon: 'error',
+      title: Lang('Failed to open!'),
+      text: Lang('Installation folder not found! Try installing again.'),
+      showCancelButton: false,
+      confirmButtonText: Lang('Install sBotics'),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DonwnloadsBotics(Lang('Installing sBotics! Please wait...'));
+      }
+    });
+  }
 });
 
 $(document).on('click', '#UpdateLanguageSbotics', () => {
   console.log(OpenConfig()['language']);
   const language = OpenConfig()['language'] == 'pt_BR' ? 'en_US' : 'pt_BR';
-  UpdateConfig({ data: { language: language } });
+  UpdateConfig({
+    data: {
+      language: language,
+      languageSimulator: language.replace('_US', ''),
+    },
+  });
   IndexReload();
 });
