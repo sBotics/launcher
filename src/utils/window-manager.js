@@ -26,7 +26,7 @@ const LoginOpen = () => {
       showDevTools: GlobalShowDevTools,
       DevTools: GlobalShowDevTools,
       menu: null,
-      frame: DetectOS() != 'darwin' ? false : true,
+      frame: DetectOS() == 'darwin',
       resizable: false,
       webPreferences: {
         nodeIntegration: true,

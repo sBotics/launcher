@@ -39,7 +39,7 @@ const Load_OpenApplication = (screenSizeCalc) => {
       showDevTools: false,
       DevTools: false,
       menu: null,
-      frame: SystemOS != 'darwin' ? false : true,
+      frame: SystemOS == 'darwin',
       resizable: false,
       webPreferences: {
         nodeIntegration: true,
