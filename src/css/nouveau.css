@@ -177,7 +177,7 @@ body {
   position: fixed;
   width: 100%;
   background-color: var(--sidebar-bg);
-  z-index: 999;
+  z-index: 99999;
   top: 1;
   padding-left: 10px;
   padding-right: 10px;
