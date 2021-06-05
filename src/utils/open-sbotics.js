@@ -47,12 +47,12 @@ const OpenSbotics = () => {
     );
   }
   var executablePath = string_execute;
-  var parameters = [
-    '--lang',
-    fileConfig['languageSimulator'],
-    '--auth_token',
-    fileUser['accessToken'],
-  ];
+  const languageAvarible = ['pt_BR'];
+  const lang =
+    languageAvarible.indexOf(fileConfig['languageSimulator']) > -1
+      ? 'pt_BR'
+      : 'en';
+  var parameters = ['--lang', lang, '--auth_token', fileUser['accessToken']];
   child(executablePath, parameters, { detached: true });
   IndexClose();
 };

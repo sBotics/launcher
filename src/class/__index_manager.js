@@ -145,11 +145,13 @@ const FilesVerification = async (options) => {
   options = extend(
     {
       modeText: '',
+      start: false,
     },
     options,
   );
 
   const modeText = options.modeText;
+  const start = options.start;
 
   MagicButton({
     mode: 'process',
@@ -181,9 +183,11 @@ const FilesVerification = async (options) => {
       });
 
   if (filesFind == dataUpdateFiles) {
-    MagicButton({
-      mode: 'start',
-    });
+    if (start) OpenSbotics();
+    else
+      MagicButton({
+        mode: 'start',
+      });
   } else {
     if ((filesFind > 0 || !newVersion) && findFolderInstall) {
       MagicButton({
@@ -196,7 +200,6 @@ const FilesVerification = async (options) => {
     }
   }
 };
-
 
 // const ModalTest = () => {
 //   const swalWithBootstrapButtons = Swal.mixin({
@@ -273,6 +276,7 @@ $(document).on('click', '#MagicButtonClick', () => {
         modeText: Lang(
           'Checking file integrity to open sBotics! Please wait...',
         ),
+        start: true,
       });
       break;
     default:
