@@ -92,11 +92,15 @@ const CheckAllUpdate = (options) => {
   options = extend(
     {
       dataUpdate: '',
+      newVersion: '',
+      findFolderInstall: '',
     },
     options,
   );
 
   const dataUpdate = options.dataUpdate;
+  const newVersion = options.newVersion;
+  const findFolderInstall = options.findFolderInstall;
   const dataUpdateFilesSize = dataUpdate['data'].length;
   var filesID = dataUpdateFilesSize + 1;
   var filesFind = 0;
@@ -118,18 +122,34 @@ const CheckAllUpdate = (options) => {
         size: dataUpdate.size,
       })
     ) {
-      Update({
-        id: fileID,
-        addState: 'sbotics-okfiles',
-        removeState: 'info',
-      });
+      if (newVersion)
+        Update({
+          id: fileID,
+          addState: 'warning',
+          removeState: 'info',
+        });
+      else
+        Update({
+          id: fileID,
+          addState: 'sbotics-okfiles',
+          removeState: 'info',
+        });
       filesFind = filesFind + 1;
     } else {
-      Update({
-        id: fileID,
-        addState: 'warning',
-        removeState: 'info',
-      });
+      console.log('newVersion: ' + newVersion);
+      console.log('findFolderInstall: ' + findFolderInstall);
+      if (!newVersion && findFolderInstall)
+        Update({
+          id: fileID,
+          addState: 'danger',
+          removeState: 'info',
+        });
+      else
+        Update({
+          id: fileID,
+          addState: 'warning',
+          removeState: 'info',
+        });
       filesNotFind = filesNotFind + 1;
     }
   });
@@ -194,10 +214,17 @@ const CheckNewVersion = async () => {
   return versionSbotics != newVersion;
 };
 
+const CheckNormalInstall = () => {
+  if (OpenConfig()['normalInstall'] == undefined)
+    UpdateConfig({ data: { normalInstall: true } });
+  return OpenConfig()['normalInstall'];
+};
+
 export {
   DataUpdate,
   CheckUpdate,
   CheckAllUpdate,
   DownloadsUpdate,
   CheckNewVersion,
+  CheckNormalInstall,
 };

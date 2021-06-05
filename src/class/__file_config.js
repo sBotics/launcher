@@ -7,7 +7,8 @@ const DefaultConfiguration = {
   language: SystemGetLocale(),
   folderPath: folderPathGLauncher,
   languageSimulator: SystemGetLocale().replace('_US', ''),
-  versionSbotics: '',
+  versionSbotics: '1.6.0.1',
+  normalInstall: true,
 };
 
 const CreateConfig = (options) => {
@@ -89,7 +90,6 @@ const UpdateConfig = (options) => {
   if (!options.data) return false;
 
   if (FindSync(defaultPath)) {
-    console.log('Update');
     const openFile = OpenSync(defaultPath);
     if (!openFile) return false;
     const decryptedFile = Decrypted({ data: openFile });

@@ -7,6 +7,7 @@ import {
   CheckUpdate,
   CheckAllUpdate,
   CheckNewVersion,
+  CheckNormalInstall,
 } from '../class/__download_controller.js';
 import {
   OpenInstallFolder,
@@ -38,15 +39,22 @@ const GetImageUser = () => {
     OpenUserFile()['profilePicture'];
 };
 
+const GetPathNote = async () => {
+  const versionSbotics = await VersionSbotics();
+  document.getElementById('Version_sBotics').innerHTML = versionSbotics;
+};
+
 const InterfaceLoad = async () => {
   await backdrop({ elementName: 'backdrop' });
   IndexTranslator();
   GetImageUser();
+  GetPathNote();
 };
 
 // Download sBotics Manager
 const DonwnloadsBotics = async (options) => {
   Reset();
+
   options = extend(
     {
       modeText: '',
@@ -54,14 +62,17 @@ const DonwnloadsBotics = async (options) => {
     },
     options,
   );
+
   MagicButton({
     mode: 'process',
     text: options.modeText,
   });
+
   const dataUpdate = await DataUpdate();
   const dataUpdateLength = dataUpdate['data'].length;
   var filesID = dataUpdateLength + 1;
   var filesPast = 0;
+
   dataUpdate['data'].map((dataUpdate) => {
     const fileID = --filesID;
     Create({
@@ -114,7 +125,12 @@ const DonwnloadsBotics = async (options) => {
         filesPast = filesPast + 1;
         if (filesPast == dataUpdateLength)
           (async () => {
-            UpdateConfig({ data: { versionSbotics: await VersionSbotics() } });
+            UpdateConfig({
+              data: {
+                versionSbotics: await VersionSbotics(),
+                normalInstall: true,
+              },
+            });
             MagicButton({
               mode: 'start',
             });
@@ -123,32 +139,53 @@ const DonwnloadsBotics = async (options) => {
   });
 };
 
-const FilesVerification = async () => {
+const FilesVerification = async (options) => {
   Reset();
+
+  options = extend(
+    {
+      modeText: '',
+    },
+    options,
+  );
+
+  const modeText = options.modeText;
+
   MagicButton({
     mode: 'process',
-    text: Lang('Looking for update! Please wait...'),
+    text: modeText,
   });
 
+  const newVersion = await CheckNewVersion();
+  const findFolderInstall = FindSync('sBotics/');
+
   const dataUpdate = await DataUpdate();
-  const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
+  const checkAllUpdate = CheckAllUpdate({
+    dataUpdate: dataUpdate,
+    newVersion: newVersion,
+    findFolderInstall: findFolderInstall,
+  });
 
   const filesFind = checkAllUpdate.filesFind;
   const filesNotFind = checkAllUpdate.filesNotFind;
   const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
 
-  const newVersion = await CheckNewVersion();
-
   if (newVersion)
-    return MagicButton({
-      mode: 'update',
-    });
+    if (!findFolderInstall)
+      return MagicButton({
+        mode: 'install',
+      });
+    else
+      return MagicButton({
+        mode: 'update',
+      });
+
   if (filesFind == dataUpdateFiles) {
     MagicButton({
       mode: 'start',
     });
   } else {
-    if (filesFind > 0) {
+    if ((filesFind > 0 || !newVersion) && findFolderInstall) {
       MagicButton({
         mode: 'repair_installation',
       });
@@ -160,41 +197,6 @@ const FilesVerification = async () => {
   }
 };
 
-const FilesVerificationStart = async () => {
-  Reset();
-  MagicButton({
-    mode: 'process',
-    text: Lang('Checking file integrity to open sBotics! Please wait...'),
-  });
-
-  const dataUpdate = await DataUpdate();
-  const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
-
-  const filesFind = checkAllUpdate.filesFind;
-  const filesNotFind = checkAllUpdate.filesNotFind;
-  const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
-
-  const newVersion = await CheckNewVersion();
-
-  if (newVersion)
-    return MagicButton({
-      mode: 'update',
-    });
-
-  if (filesFind == dataUpdateFiles) {
-    OpenSbotics();
-  } else {
-    if (filesFind > 0) {
-      MagicButton({
-        mode: 'repair_installation',
-      });
-    } else {
-      MagicButton({
-        mode: 'install',
-      });
-    }
-  }
-};
 
 // const ModalTest = () => {
 //   const swalWithBootstrapButtons = Swal.mixin({
@@ -240,7 +242,7 @@ const FilesVerificationStart = async () => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  FilesVerification();
+  FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
 });
 
 $(document).on('click', '#MagicButtonClick', () => {
@@ -267,7 +269,11 @@ $(document).on('click', '#MagicButtonClick', () => {
       });
       break;
     case 'start':
-      FilesVerificationStart();
+      FilesVerification({
+        modeText: Lang(
+          'Checking file integrity to open sBotics! Please wait...',
+        ),
+      });
       break;
     default:
       break;
@@ -294,7 +300,7 @@ $(document).on('click', '#UserSettings', () => {
 $(document).on('click', '#OpenFolderInstall', () => {
   if (FindSync('sBotics/')) OpenInstallFolder();
   else {
-    FilesVerification();
+    FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
     Swal.fire({
       icon: 'error',
       title: Lang('Failed to open!'),
