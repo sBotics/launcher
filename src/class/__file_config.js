@@ -7,8 +7,8 @@ const DefaultConfiguration = {
   language: SystemGetLocale(),
   folderPath: folderPathGLauncher,
   languageSimulator: SystemGetLocale().replace('_US', ''),
-  versionSbotics: '1.6.0.1',
-  normalInstall: true,
+  versionSbotics: '',
+  normalInstall: false,
 };
 
 const CreateConfig = (options) => {
