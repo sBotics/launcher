@@ -1,9 +1,9 @@
 var remote = require('electron').remote;
 var { screen } = remote;
 var windowManager = remote.require('electron-window-manager');
-import { DetectOS } from '../utils/application-manager.js';
+import { SLMP, DetectOS } from '../utils/application-manager.js';
 
-var GlobalShowDevTools = true;
+var GlobalShowDevTools = SLMP();
 
 const LoadClose = () => {
   windowManager.close('load');

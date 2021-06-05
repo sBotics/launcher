@@ -240,9 +240,7 @@ const FilesVerificationStart = async () => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  console.log(OpenConfig());;
   FilesVerification();
-  // ModalTest();
 });
 
 $(document).on('click', '#MagicButtonClick', () => {

@@ -2,10 +2,12 @@ var { app, shell } = require('electron').remote;
 var { ipcRenderer } = require('electron');
 const remote = require('electron').remote;
 const os = require('os');
+import { StringToBoolean } from '../utils/conver-data.js';
 
 const SLMP = () => {
+  const slmp = StringToBoolean(process.env.SLMP);
   try {
-    return process.env.SLMP != undefined ? process.env.SLMP : false;
+    return slmp != undefined ? slmp : false;
   } catch (error) {
     return false;
   }
@@ -71,7 +73,7 @@ export {
   OpenInstallFolder,
   AppVersion,
   DetectOS,
-  DetecOSFolder,  
+  DetecOSFolder,
   DetectOsText,
   folderPathGenaral,
   folderPathGLauncher,
