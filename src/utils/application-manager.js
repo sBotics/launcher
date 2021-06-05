@@ -44,6 +44,16 @@ const DetecOSFolder = () => {
   return platforms[os];
 };
 
+const DetectOsText = () => {
+  const platforms = {
+    win32: 'windows',
+    darwin: 'mac_os',
+    linux: 'linux',
+  };
+  var os = process.platform.toLowerCase();
+  return platforms[os];
+};
+
 const folderPathGenaral = () => {
   return `${os.homedir()}/wEduc`;
 };
@@ -61,7 +71,8 @@ export {
   OpenInstallFolder,
   AppVersion,
   DetectOS,
-  DetecOSFolder,
+  DetecOSFolder,  
+  DetectOsText,
   folderPathGenaral,
   folderPathGLauncher,
   folderPathGsBotics,

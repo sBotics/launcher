@@ -3,6 +3,8 @@ var sBoticsDownloader = require('sbotics-downloader');
 import { FindSync, FileSizeSync, SaveAsync } from '../utils/files-manager.js';
 import { DetecOSFolder } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
+import { VersionSbotics } from '../utils/version-sbotics.js';
+import { OpenConfig, UpdateConfig } from '../class/__file_config.js';
 
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
@@ -17,6 +19,7 @@ const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-pt_BR.json',
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-en.json',
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-pt_BR.json',
+  'sBotics/sBotics_Data/StreamingAssets/Addons/BlockEduc.exe',
 ];
 
 const __sBoticsDownloader = new sBoticsDownloader({
@@ -50,6 +53,7 @@ const CheckUpdate = (options) => {
       path: '',
       name: '',
       size: '',
+      force: false,
     },
     options,
   );
@@ -57,8 +61,17 @@ const CheckUpdate = (options) => {
   const path = options.path;
   const name = options.name;
   const size = options.size;
+  const force = options.force;
 
   const pathDownload = `sBotics/${path + name}`;
+
+  if (force) {
+    if (BlackList.indexOf(pathDownload) > -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   if (FindSync(pathDownload)) {
     if (FileSizeSync(pathDownload).size != size) {
@@ -136,6 +149,7 @@ const DownloadsUpdate = (options) => {
       size: '',
       id: '',
       format: '',
+      force: false,
     },
     options,
   );
@@ -146,13 +160,14 @@ const DownloadsUpdate = (options) => {
   const size = options.size;
   const id = options.id;
   const format = options.format;
+  const force = options.force;
 
   if (!name || !prefix) return 'teste';
 
   const pathFile = (prefix + path + name).replace('#', '%23');
 
   return new Promise((resolve, reject) => {
-    if (CheckUpdate({ path: path, name: name, size: size }))
+    if (CheckUpdate({ path: path, name: name, size: size, force: force }))
       return resolve({ state: 'ok', id: id });
 
     __sBoticsDownloader.file(
@@ -168,4 +183,21 @@ const DownloadsUpdate = (options) => {
   });
 };
 
-export { DataUpdate, CheckUpdate, CheckAllUpdate, DownloadsUpdate };
+const CheckNewVersion = async () => {
+  const newVersion = await VersionSbotics();
+  const openConfig = OpenConfig();
+
+  if (!openConfig['versionSbotics']) return true;
+
+  const versionSbotics = openConfig['versionSbotics'];
+
+  return versionSbotics != newVersion;
+};
+
+export {
+  DataUpdate,
+  CheckUpdate,
+  CheckAllUpdate,
+  DownloadsUpdate,
+  CheckNewVersion,
+};

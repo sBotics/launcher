@@ -6,7 +6,8 @@ import { folderPathGLauncher, SystemGetLocale } from '../utils/application-manag
 const DefaultConfiguration = {
   language: SystemGetLocale(),
   folderPath: folderPathGLauncher,
-  languageSimulator: SystemGetLocale().replace('_US', '')
+  languageSimulator: SystemGetLocale().replace('_US', ''),
+  versionSbotics: '',
 };
 
 const CreateConfig = (options) => {

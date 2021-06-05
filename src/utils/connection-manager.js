@@ -6,6 +6,7 @@ const URLdictionary = {
   GitHub: 'https://github.com',
   wEduc: 'https://weduc.natalnet.br',
   sBotics: 'https://sbotics.weduc.natalnet.br',
+  DataGithub: 'https://raw.githubusercontent.com/sBotics/builds/main/data.json',
 };
 
 const ValidateConnection = (options) => {
@@ -58,4 +59,28 @@ const UserData = (options) => {
       });
   });
 };
-export { URLdictionary, ValidateConnection, UserData };
+
+const DataRequest = (options) => {
+  options = extend(
+    {
+      url: '',
+    },
+    options,
+  );
+
+  const url = options.url;
+  if (!url) return false;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(function (response) {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        reject(false);
+      });
+  });
+};
+
+export { URLdictionary, ValidateConnection, UserData, DataRequest };

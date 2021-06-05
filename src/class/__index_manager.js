@@ -1,3 +1,4 @@
+var extend = require('extend-shallow');
 const Swal = require('sweetalert2');
 import { TitleBar, backdrop } from '../class/__interface_components.js';
 import {
@@ -5,6 +6,7 @@ import {
   DownloadsUpdate,
   CheckUpdate,
   CheckAllUpdate,
+  CheckNewVersion,
 } from '../class/__download_controller.js';
 import {
   OpenInstallFolder,
@@ -14,17 +16,13 @@ import { Create, Update, Reset } from '../utils/progress-bar.js';
 import { MagicButton } from '../utils/magic-button-manager.js';
 import { OpenSbotics } from '../utils/open-sbotics.js';
 import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
-import {
-  LoginOpen,
-  IndexClose,
-  IndexOpen,
-  IndexReload,
-} from '../utils/window-manager.js';
+import { LoginOpen, IndexClose, IndexReload } from '../utils/window-manager.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
 import { LinkOpen } from '../utils/window-manager.js';
 import { OpenConfig, UpdateConfig } from './__file_config.js';
 import { IndexTranslator } from '../utils/language-window.js';
 import { FindSync } from '../utils/files-manager.js';
+import { VersionSbotics } from '../utils/version-sbotics.js';
 
 // Interface Manager
 $('.close-alert').click(function () {
@@ -47,13 +45,19 @@ const InterfaceLoad = async () => {
 };
 
 // Download sBotics Manager
-const DonwnloadsBotics = async (modeText = '') => {
+const DonwnloadsBotics = async (options) => {
   Reset();
+  options = extend(
+    {
+      modeText: '',
+      force: false,
+    },
+    options,
+  );
   MagicButton({
     mode: 'process',
-    text: modeText,
+    text: options.modeText,
   });
-
   const dataUpdate = await DataUpdate();
   const dataUpdateLength = dataUpdate['data'].length;
   var filesID = dataUpdateLength + 1;
@@ -75,6 +79,7 @@ const DonwnloadsBotics = async (modeText = '') => {
       prefix: `${DetecOSFolder()}/`,
       id: fileID,
       format: dataUpdate.format,
+      force: options.force,
     })
       .then((resp) => {
         if (resp.state == 'ok') {
@@ -108,9 +113,12 @@ const DonwnloadsBotics = async (modeText = '') => {
       .then(() => {
         filesPast = filesPast + 1;
         if (filesPast == dataUpdateLength)
-          MagicButton({
-            mode: 'start',
-          });
+          (async () => {
+            UpdateConfig({ data: { versionSbotics: await VersionSbotics() } });
+            MagicButton({
+              mode: 'start',
+            });
+          })();
       });
   });
 };
@@ -129,6 +137,12 @@ const FilesVerification = async () => {
   const filesNotFind = checkAllUpdate.filesNotFind;
   const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
 
+  const newVersion = await CheckNewVersion();
+
+  if (newVersion)
+    return MagicButton({
+      mode: 'update',
+    });
   if (filesFind == dataUpdateFiles) {
     MagicButton({
       mode: 'start',
@@ -136,7 +150,7 @@ const FilesVerification = async () => {
   } else {
     if (filesFind > 0) {
       MagicButton({
-        mode: 'update',
+        mode: 'repair_installation',
       });
     } else {
       MagicButton({
@@ -160,12 +174,19 @@ const FilesVerificationStart = async () => {
   const filesNotFind = checkAllUpdate.filesNotFind;
   const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
 
+  const newVersion = await CheckNewVersion();
+
+  if (newVersion)
+    return MagicButton({
+      mode: 'update',
+    });
+
   if (filesFind == dataUpdateFiles) {
-     OpenSbotics();
+    OpenSbotics();
   } else {
     if (filesFind > 0) {
       MagicButton({
-        mode: 'update',
+        mode: 'repair_installation',
       });
     } else {
       MagicButton({
@@ -219,6 +240,7 @@ const FilesVerificationStart = async () => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
+  console.log(OpenConfig());;
   FilesVerification();
   // ModalTest();
 });
@@ -231,11 +253,20 @@ $(document).on('click', '#MagicButtonClick', () => {
 
   switch (mode) {
     case 'install':
-      DonwnloadsBotics(Lang('Installing sBotics! Please wait...'));
+      DonwnloadsBotics({
+        modeText: Lang('Installing sBotics! Please wait...'),
+      });
       break;
-
     case 'update':
-      DonwnloadsBotics(Lang('Updating sBotics! Please wait...'));
+      DonwnloadsBotics({
+        modeText: Lang('Updating sBotics! Please wait...'),
+        force: true,
+      });
+      break;
+    case 'repair_installation':
+      DonwnloadsBotics({
+        modeText: Lang('Repairing sBotics installation! Please wait...'),
+      });
       break;
     case 'start':
       FilesVerificationStart();
