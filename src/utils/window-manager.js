@@ -106,6 +106,52 @@ const LinkOpen = (url, pageName = 'sBotics Launcher') => {
   link.open();
 };
 
+const OpenCbotics = (url, pageName = 'sBotics Launcher') => {
+  var ScreenSize = screen.getPrimaryDisplay();
+  ScreenSize = ScreenSize.bounds;
+  const height = Math.round(ScreenSize.height * 0.6);
+  const width = Math.round((16 * height) / 9);
+
+  var cBotics = windowManager.createNew('cBotics', pageName, url, false, {
+    title: pageName,
+    width: width,
+    height: height,
+    showDevTools: GlobalShowDevTools,
+    DevTools: GlobalShowDevTools,
+    menu: null,
+    frame: true,
+    resizable: true,
+  });
+
+  cBotics.open();
+};
+
+const OpenTutorialWiki = (url, pageName = 'sBotics Launcher') => {
+  var ScreenSize = screen.getPrimaryDisplay();
+  ScreenSize = ScreenSize.bounds;
+  const height = Math.round(ScreenSize.height * 0.6);
+  const width = Math.round((16 * height) / 9);
+
+  var tutorialWiki = windowManager.createNew(
+    'tutorialWiki',
+    pageName,
+    url,
+    false,
+    {
+      title: pageName,
+      width: width,
+      height: height,
+      showDevTools: GlobalShowDevTools,
+      DevTools: GlobalShowDevTools,
+      menu: null,
+      frame: true,
+      resizable: true,
+    },
+  );
+
+  tutorialWiki.open();
+};
+
 export {
   LoadClose,
   LoginOpen,
@@ -114,4 +160,6 @@ export {
   IndexClose,
   IndexReload,
   LinkOpen,
+  OpenCbotics,
+  OpenTutorialWiki,
 };

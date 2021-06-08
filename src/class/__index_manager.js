@@ -19,7 +19,7 @@ import { OpenSbotics } from '../utils/open-sbotics.js';
 import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
 import { LoginOpen, IndexClose, IndexReload } from '../utils/window-manager.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
-import { LinkOpen } from '../utils/window-manager.js';
+import { OpenCbotics, OpenTutorialWiki } from '../utils/window-manager.js';
 import { OpenConfig, UpdateConfig } from './__file_config.js';
 import { IndexTranslator } from '../utils/language-window.js';
 import { FindSync } from '../utils/files-manager.js';
@@ -285,11 +285,11 @@ $(document).on('click', '#MagicButtonClick', () => {
 });
 
 $(document).on('click', '#cBoticsButton', () => {
-  LinkOpen('https://cbotics.weduc.natalnet.br/', 'cBotics');
+  OpenCbotics('https://cbotics.weduc.natalnet.br/', 'cBotics');
 });
 
 $(document).on('click', '#TutorialButton', () => {
-  LinkOpen(
+  OpenTutorialWiki(
     'https://sbotics.github.io/tutorial/content/index.html',
     'sBotics Tutorial',
   );
