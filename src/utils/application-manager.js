@@ -38,9 +38,9 @@ const DetectOS = () => {
 
 const DetecOSFolder = () => {
   const platforms = {
-    win32: 'W32',
-    darwin: 'mac',
-    linux: 'Linux AMD64',
+    win32: 'Windows',
+    darwin: 'macOS',
+    linux: 'Linux',
   };
   var os = process.platform.toLowerCase();
   return platforms[os];

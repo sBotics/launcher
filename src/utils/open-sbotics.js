@@ -6,7 +6,6 @@ import { OpenConfig } from '../class/__file_config.js';
 import { OpenUserFile } from '../class/__file_user.js';
 import { IndexClose } from '../utils/window-manager.js';
 const path = require('path');
-const url = require('url');
 var child = require('child_process').spawn;
 const fs = require('fs-extra');
 
@@ -15,7 +14,7 @@ const OpenSbotics = () => {
   const fileConfig = OpenConfig();
   const fileUser = OpenUserFile();
   switch (DetecOSFolder()) {
-    case 'mac':
+    case 'macOS':
       string_execute = path.join(
         folderPathGsBotics(),
         'sBotics.app',
@@ -24,17 +23,17 @@ const OpenSbotics = () => {
         'sBotics',
       );
       break;
-    case 'W32':
+    case 'Windows':
       string_execute = path.join(folderPathGsBotics(), 'sBotics.exe');
       break;
-    case 'Linux AMD64':
+    case 'Linux':
       string_execute = path.join(folderPathGsBotics(), 'sBotics.x86_64');
       break;
   }
   if (DetecOSFolder().includes('Linux')) {
     fs.chmodSync(path.join(folderPathGsBotics(), 'sBotics.x86_64'), 0o777);
   }
-  if (DetecOSFolder().includes('mac')) {
+  if (DetecOSFolder().includes('macOS')) {
     fs.chmodSync(
       path.join(
         folderPathGsBotics(),
