@@ -2,10 +2,12 @@ var { app, shell } = require('electron').remote;
 var { ipcRenderer } = require('electron');
 const remote = require('electron').remote;
 const os = require('os');
+import { StringToBoolean } from '../utils/conver-data.js';
 
 const SLMP = () => {
+  const slmp = StringToBoolean(process.env.SLMP);
   try {
-    return process.env.SLMP != undefined ? process.env.SLMP : false;
+    return slmp != undefined ? slmp : false;
   } catch (error) {
     return false;
   }
@@ -36,9 +38,9 @@ const DetectOS = () => {
 
 const DetecOSFolder = () => {
   const platforms = {
-    win32: 'W32',
-    darwin: 'mac',
-    linux: 'Linux AMD64',
+    win32: 'Windows',
+    darwin: 'macOS',
+    linux: 'Linux',
   };
   var os = process.platform.toLowerCase();
   return platforms[os];
