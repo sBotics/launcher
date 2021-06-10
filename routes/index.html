@@ -207,33 +207,34 @@
             </div>
           </div>
 
-          <div class="custom-row">
-            <div class="col-12 col-bottom">
-              <span id="Text_Last_Version">Latest Version</span>
-              <h2 id="Text_Version">Version 1.6.0.2</h2>
-              <!-- <ul id="PatchNoteContainer" class="diff">
-                <add>Adicionado com sucesso</add>
-                <change>Adicionado com sucesso</change>
-                <remove>Adicionado com sucesso</remove>
-                <note>Olá Mundo!</note>
-              </ul> -->
+          <div class="custom-row mt-2">
+            <div class="col-12">
+              <div style="margin-left: 10px">
+                <span id="Text_Last_Version">Latest Version</span>
+                <h2>
+                  <span id="Text_Version">Version</span>
+                  <span id="Version_sBotics"></span>
+                </h2>
+                <!-- <ul id="PatchNoteContainer" class="diff">
+                  <add>Adicionado com sucesso</add>
+                  <change>Adicionado com sucesso</change>
+                  <remove>Adicionado com sucesso</remove>
+                  <note>Olá Mundo!</note>
+                </ul> -->
+              </div>
             </div>
             <div class="col-12 col-bottom">
-              <h2 style="margin-left: 10px" class="mt-4" id="Text_Description">
-                Description
-              </h2>
-              <p
-                style="margin-left: 10px"
-                class="small-text light"
-                id="Path_Note_Description"
-              >
-                sBotics is a simulation platform designed to emulate various
-                world-famous robotics competitions, where kits are commonly used
-                to perform the required actions. This platform offers an
-                alternative for those seeking to test and improve their skills
-                in the field as well as being able to test programs without the
-                risk of damaging physical parts.
-              </p>
+              <div style="margin-top: -35px; margin-left: 10px">
+                <h2 class="mt-4" id="Text_Description">Description</h2>
+                <p class="small-text light" id="Path_Note_Description">
+                  sBotics is a simulation platform designed to emulate various
+                  world-famous robotics competitions, where kits are commonly
+                  used to perform the required actions. This platform offers an
+                  alternative for those seeking to test and improve their skills
+                  in the field as well as being able to test programs without
+                  the risk of damaging physical parts.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -241,14 +242,6 @@
     </div>
 
     <!-- Scripts Init -->
-    <!-- <script>
-      var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]'),
-      );
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
-    </script> -->
     <script src="../src/utils/env.js"></script>
     <script type="module" src="../src/class/__index_manager.js"></script>
   </body>

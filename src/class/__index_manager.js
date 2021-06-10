@@ -1,5 +1,6 @@
+var extend = require('extend-shallow');
 const Swal = require('sweetalert2');
-import { TitleBar, backdrop } from '../class/__interface_components.js';
+import { backdrop } from '../class/__interface_components.js';
 import {
   DataUpdate,
   DownloadsUpdate,
@@ -17,14 +18,15 @@ import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
 import {
   LoginOpen,
   IndexClose,
-  IndexOpen,
+  OpenCbotics,
+  OpenTutorialWiki,
   IndexReload,
 } from '../utils/window-manager.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
-import { LinkOpen } from '../utils/window-manager.js';
 import { OpenConfig, UpdateConfig } from './__file_config.js';
 import { IndexTranslator } from '../utils/language-window.js';
 import { FindSync } from '../utils/files-manager.js';
+import { VersionSbotics } from '../utils/version-sbotics.js';
 
 // Interface Manager
 $('.close-alert').click(function () {
@@ -35,15 +37,21 @@ $('.close-config').click(function () {
   $('.config-content').css('display', 'none');
 });
 
-const GetImageUser = () => {
+const GetImageUser = async () => {
   document.getElementById('UserImgSettings').src =
     OpenUserFile()['profilePicture'];
 };
 
+const GetPathNote = async () => {
+  const versionSbotics = await VersionSbotics();
+  document.getElementById('Version_sBotics').innerHTML = versionSbotics;
+};
+
 const InterfaceLoad = async () => {
+  await IndexTranslator();
+  await GetImageUser();
+  await GetPathNote();
   await backdrop({ elementName: 'backdrop' });
-  IndexTranslator();
-  GetImageUser();
 };
 
 // Download sBotics Manager
@@ -151,7 +159,7 @@ const FilesVerificationStart = async () => {
   MagicButton({
     mode: 'process',
     text: Lang('Checking file integrity to open sBotics! Please wait...'),
-  });
+  }); 
 
   const dataUpdate = await DataUpdate();
   const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
@@ -161,7 +169,7 @@ const FilesVerificationStart = async () => {
   const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
 
   if (filesFind == dataUpdateFiles) {
-     OpenSbotics();
+    OpenSbotics();
   } else {
     if (filesFind > 0) {
       MagicButton({
@@ -223,17 +231,15 @@ $(document).ready(() => {
   // ModalTest();
 });
 
+// Magic Button Manager Config
 $(document).on('click', '#MagicButtonClick', () => {
   const mode = $('#MagicButtonClick').data('mode');
   const state = $('#MagicButtonClick').data('state');
-
   if (!state) return;
-
   switch (mode) {
     case 'install':
       DonwnloadsBotics(Lang('Installing sBotics! Please wait...'));
       break;
-
     case 'update':
       DonwnloadsBotics(Lang('Updating sBotics! Please wait...'));
       break;
@@ -245,12 +251,13 @@ $(document).on('click', '#MagicButtonClick', () => {
   }
 });
 
+// Controller Menu_Bar
 $(document).on('click', '#cBoticsButton', () => {
-  LinkOpen('https://cbotics.weduc.natalnet.br/', 'cBotics');
+  OpenCbotics('https://cbotics.weduc.natalnet.br/', 'cBotics');
 });
 
 $(document).on('click', '#TutorialButton', () => {
-  LinkOpen(
+  OpenTutorialWiki(
     'https://sbotics.github.io/tutorial/content/index.html',
     'sBotics Tutorial',
   );
@@ -265,7 +272,7 @@ $(document).on('click', '#UserSettings', () => {
 $(document).on('click', '#OpenFolderInstall', () => {
   if (FindSync('sBotics/')) OpenInstallFolder();
   else {
-    FilesVerification();
+    FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
     Swal.fire({
       icon: 'error',
       title: Lang('Failed to open!'),

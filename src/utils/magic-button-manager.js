@@ -61,4 +61,5 @@ const MagicButton = (options) => {
     elementContent,
   ).innerHTML = `<button id="MagicButtonClick" data-mode=${mode} data-state=${defaultModes.state} class="w-100 btn ${defaultModes.theme}">${textButton}</button>`;
 };
+
 export { MagicButton };

@@ -1,16 +1,11 @@
 const {
   app,
-  BrowserWindow,
   screen,
   ipcMain,
-  remote,
-  shell,
 } = require('electron');
 const { autoUpdater } = require('electron-updater');
 var windowManager = require('electron-window-manager');
-const os = require('os');
-const path = require('path');
-const url = require('url');
+const {SLMP} = require('./src/utils/main-manager.js')
 
 var load_application;
 const SystemOS = process.platform.toLowerCase();
@@ -36,8 +31,8 @@ const Load_OpenApplication = (screenSizeCalc) => {
     {
       width: width,
       height: height,
-      showDevTools: false,
-      DevTools: false,
+      showDevTools: SLMP(),
+      DevTools: SLMP(),
       menu: null,
       frame: SystemOS == 'darwin',
       resizable: false,

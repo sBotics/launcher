@@ -16,14 +16,11 @@ $(document).ready(() => {
 });
 
 $('#RegisterwEduc').click(() => {
-  LinkOpen(
-    'https://auth.weduc.natalnet.br/register',
-    'sBotics Launcher | Criar Conta no wEduc',
-  );
+  LinkOpen('https://auth.weduc.natalnet.br/register', 'sBotics Launcher');
 });
 $('#ForgotPasswordwEduc').click(() => {
   LinkOpen(
     'https://auth.weduc.natalnet.br/forgot-password',
-    'sBotics Launcher | Esqueceu a senha no wEduc',
+    'sBotics Launcher',
   );
 });

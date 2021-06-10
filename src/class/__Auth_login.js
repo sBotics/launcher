@@ -5,7 +5,7 @@ import { CreateTopAlert } from '../utils/top-alert.js';
 import { CreateUserFile, OpenUserFile } from '../class/__file_user.js';
 import { UserData } from '../utils/connection-manager.js';
 import { LoginClose, IndexOpen } from '../utils/window-manager.js';
-import { LanguageInit, Lang } from '../utils/language-manager.js';
+import { Lang } from '../utils/language-manager.js';
 
 const authFormLogin = document.getElementById('AuthLogin');
 

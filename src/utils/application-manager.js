@@ -1,6 +1,5 @@
 var { app, shell } = require('electron').remote;
 var { ipcRenderer } = require('electron');
-const remote = require('electron').remote;
 const os = require('os');
 import { StringToBoolean } from '../utils/conver-data.js';
 
@@ -46,6 +45,16 @@ const DetecOSFolder = () => {
   return platforms[os];
 };
 
+const DetectOsText = () => {
+  const platforms = {
+    win32: 'windows',
+    darwin: 'macOS',
+    linux: 'linux',
+  };
+  var os = process.platform.toLowerCase();
+  return platforms[os];
+};
+
 const folderPathGenaral = () => {
   return `${os.homedir()}/wEduc`;
 };
@@ -64,6 +73,7 @@ export {
   AppVersion,
   DetectOS,
   DetecOSFolder,
+  DetectOsText,
   folderPathGenaral,
   folderPathGLauncher,
   folderPathGsBotics,

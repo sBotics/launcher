@@ -14,12 +14,13 @@ const LoginTranslator = () => {
   LangElement('ForgotPasswordwEduc', 'Forgot your password?');
   LangElement('ButtonSubmit', 'Access');
 };
-const IndexTranslator = () => {
+
+const IndexTranslator = async () => {
   LanguageInit(OpenConfig());
   LangElement('Or', 'OR');
   LangElement('TextMagicButtonNewFolder', 'Open installation folder');
   LangElement('Text_Last_Version', 'Latest Version');
-  LangElement('Text_Version', 'Version 1.6.0.2');
+  LangElement('Text_Version', 'Version');
   LangElement('Text_Description', 'Description');
   LangElement(
     'Path_Note_Description',

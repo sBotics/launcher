@@ -115,7 +115,8 @@ const init = async () => {
   await asyncWait(600);
 
   try {
-    if (await ValidateConnection({ url: URLdictionary['wEduc'] }))
+    console.log(SLMP());
+    if ((await ValidateConnection({ url: URLdictionary['wEduc'] })) && !SLMP())
       Update({
         id: 'LoadBar',
         addState: 'success',
@@ -208,7 +209,9 @@ const init = async () => {
             textContainer: 'TextProgress',
             message: `<i class="fas fa-file-archive text-danger"></i> <strong style="margin-left: 13px">${Lang(
               'Failure!',
-            )}</strong>${Lang('Unable to look for updates. Try again later!')}`,
+            )} </strong>${Lang(
+              'Unable to look for updates. Try again later!',
+            )}`,
           },
         ],
       });
