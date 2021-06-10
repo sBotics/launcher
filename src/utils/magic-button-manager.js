@@ -35,6 +35,11 @@ const Modes = {
     )}</span>`,
     state: true,
   },
+  fail: {
+    theme: 'bg-danger text-white disabled',
+    text: '',
+    state: false,
+  },
 };
 
 const MagicButton = (options) => {

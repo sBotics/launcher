@@ -48,128 +48,150 @@ const GetPathNote = async () => {
 };
 
 const InterfaceLoad = async () => {
-  await IndexTranslator();
-  await GetImageUser();
-  await GetPathNote();
-  await backdrop({ elementName: 'backdrop' });
+  IndexTranslator();
+  GetImageUser();
+  GetPathNote();
+  backdrop({ elementName: 'backdrop' });
+};
+
+const FailApplication = (message) => {
+  Reset();
+  Create({
+    percentage: 100,
+    id: '1',
+    state: 'danger',
+    limit: 100,
+  });
+  MagicButton({
+    mode: 'fail',
+    text: message,
+  });
 };
 
 // Download sBotics Manager
-const DonwnloadsBotics = async (modeText = '') => {
+const DonwnloadsBotics = async (options) => {
   Reset();
+  options = extend(
+    {
+      modeText: '',
+    },
+    options,
+  );
+
+  const modeText = options.modeText;
+
   MagicButton({
     mode: 'process',
     text: modeText,
   });
 
   const dataUpdate = await DataUpdate();
-  const dataUpdateLength = dataUpdate['data'].length;
-  var filesID = dataUpdateLength + 1;
-  var filesPast = 0;
-  dataUpdate['data'].map((dataUpdate) => {
-    const fileID = --filesID;
-    Create({
-      percentage: dataUpdateLength,
-      sizeCreate: true,
-      id: fileID,
-      state: 'info',
-      limit: dataUpdateLength,
-    });
 
-    DownloadsUpdate({
-      path: dataUpdate.path,
-      name: dataUpdate.name,
-      size: dataUpdate.size,
-      prefix: `${DetecOSFolder()}/`,
-      id: fileID,
-      format: dataUpdate.format,
-    })
-      .then((resp) => {
-        if (resp.state == 'ok') {
-          Update({
-            id: resp.id,
-            addState: 'sbotics-okfiles',
-            removeState: 'info',
-          });
-        } else if (resp.state == 'update') {
-          // console.log(dataUpdate.path + dataUpdate.name);
-          Update({
-            id: resp.id,
-            addState: 'success',
-            removeState: 'info',
-          });
-        } else {
+  if (!dataUpdate)
+    return FailApplication(
+      'Download Falhou! Ao procurar atualização do sBotics.',
+    );
+
+  try {
+    const dataUpdateLength = dataUpdate['data'].length;
+    var filesID = dataUpdateLength + 1;
+    var filesPast = 0;
+
+    dataUpdate['data'].map((dataUpdate) => {
+      const fileID = --filesID;
+      Create({
+        percentage: dataUpdateLength,
+        sizeCreate: true,
+        id: fileID,
+        state: 'info',
+        limit: dataUpdateLength,
+      });
+      DownloadsUpdate({
+        path: dataUpdate.path,
+        name: dataUpdate.name,
+        size: dataUpdate.size,
+        prefix: `${DetecOSFolder()}/`,
+        id: fileID,
+        format: dataUpdate.format,
+      })
+        .then((resp) => {
+          if (resp.state == 'ok') {
+            Update({
+              id: resp.id,
+              addState: 'sbotics-okfiles',
+              removeState: 'info',
+            });
+          } else if (resp.state == 'update') {
+            // console.log(dataUpdate.path + dataUpdate.name);
+            Update({
+              id: resp.id,
+              addState: 'success',
+              removeState: 'info',
+            });
+          } else {
+            Update({
+              id: resp.id,
+              addState: 'danger',
+              removeState: 'info',
+            });
+          }
+        })
+        .catch((err) => {
           Update({
             id: resp.id,
             addState: 'danger',
             removeState: 'info',
           });
-        }
-      })
-      .catch((err) => {
-        Update({
-          id: resp.id,
-          addState: 'danger',
-          removeState: 'info',
+        })
+        .then(() => {
+          filesPast = filesPast + 1;
+          if (filesPast == dataUpdateLength)
+            MagicButton({
+              mode: 'start',
+            });
         });
-      })
-      .then(() => {
-        filesPast = filesPast + 1;
-        if (filesPast == dataUpdateLength)
-          MagicButton({
-            mode: 'start',
-          });
-      });
-  });
-};
-
-const FilesVerification = async () => {
-  Reset();
-  MagicButton({
-    mode: 'process',
-    text: Lang('Looking for update! Please wait...'),
-  });
-
-  const dataUpdate = await DataUpdate();
-  const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
-
-  const filesFind = checkAllUpdate.filesFind;
-  const filesNotFind = checkAllUpdate.filesNotFind;
-  const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
-
-  if (filesFind == dataUpdateFiles) {
-    MagicButton({
-      mode: 'start',
     });
-  } else {
-    if (filesFind > 0) {
-      MagicButton({
-        mode: 'update',
-      });
-    } else {
-      MagicButton({
-        mode: 'install',
-      });
-    }
+  } catch (error) {
+    return FailApplication('Download Falhou!' + error);
   }
 };
 
-const FilesVerificationStart = async () => {
+const FilesVerification = async (options) => {
   Reset();
+  options = extend(
+    {
+      modeText: '',
+      autoOpen: false,
+    },
+    options,
+  );
+  const modeText = options.modeText;
+  const autoOpen = options.autoOpen;
+
   MagicButton({
     mode: 'process',
-    text: Lang('Checking file integrity to open sBotics! Please wait...'),
-  }); 
+    text: modeText,
+  });
 
   const dataUpdate = await DataUpdate();
+
+  if (!dataUpdate)
+    return FailApplication('Falha! Ao procurar atualização do sBotics.');
+
   const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
 
+  if (!checkAllUpdate)
+    return FailApplication('Falha! Ao verificar arquivos do sBotics.');
+
   const filesFind = checkAllUpdate.filesFind;
-  const filesNotFind = checkAllUpdate.filesNotFind;
   const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
 
   if (filesFind == dataUpdateFiles) {
-    OpenSbotics();
+    if (autoOpen) OpenSbotics();
+    else
+      MagicButton({
+        mode: 'start',
+      });
   } else {
     if (filesFind > 0) {
       MagicButton({
@@ -182,53 +204,11 @@ const FilesVerificationStart = async () => {
     }
   }
 };
-
-// const ModalTest = () => {
-//   const swalWithBootstrapButtons = Swal.mixin({
-//     customClass: {
-//       confirmButton: 'btn btn-success',
-//       cancelButton: 'btn btn-danger',
-//     },
-//     buttonsStyling: false,
-//   });
-
-//   swalWithBootstrapButtons
-//     .fire({
-//       title: 'Are you sure?',
-//       text: "You won't be able to revert this!",
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonText: 'Yes, delete it!',
-//       cancelButtonText: 'No, cancel!',
-//       reverseButtons: true,
-//       background:
-//         'linear-gradient(163deg, rgba(61,180,110,1) 0%, rgba(169,218,111,1) 100%)',
-//     })
-//     .then((result) => {
-//       if (result.isConfirmed) {
-//         swalWithBootstrapButtons.fire(
-//           'Deleted!',
-//           'Your file has been deleted.',
-//           'success',
-//         );
-//       } else if (
-//         /* Read more about handling dismissals below */
-//         result.dismiss === Swal.DismissReason.cancel
-//       ) {
-//         swalWithBootstrapButtons.fire(
-//           'Cancelled',
-//           'Your imaginary file is safe :)',
-//           'error',
-//         );
-//       }
-//     });
-// };
 
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  FilesVerification();
-  // ModalTest();
+  FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
 });
 
 // Magic Button Manager Config
@@ -238,13 +218,20 @@ $(document).on('click', '#MagicButtonClick', () => {
   if (!state) return;
   switch (mode) {
     case 'install':
-      DonwnloadsBotics(Lang('Installing sBotics! Please wait...'));
+      DonwnloadsBotics({
+        modeText: Lang('Installing sBotics! Please wait...'),
+      });
       break;
     case 'update':
-      DonwnloadsBotics(Lang('Updating sBotics! Please wait...'));
+      DonwnloadsBotics({ modeText: Lang('Updating sBotics! Please wait...') });
       break;
     case 'start':
-      FilesVerificationStart();
+      FilesVerification({
+        modelText: Lang(
+          'Checking file integrity to open sBotics! Please wait...',
+        ),
+        autoOpen: true,
+      });
       break;
     default:
       break;

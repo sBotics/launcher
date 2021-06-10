@@ -26,9 +26,9 @@ const FindAsync = (path) => {
   });
 };
 
-const SaveSync = (path, data) => {
+const SaveSync = (path, data, format = '') => {
   try {
-    return __sBoticsFilesManager.save(path, { data: data });
+    return __sBoticsFilesManager.save(path, { data: data, format: format });
   } catch (error) {
     return false;
   }

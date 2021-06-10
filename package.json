@@ -14,7 +14,7 @@
     "build-linux": "electron-builder build --linux --publish never",
     "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
   },
-  "homepage":  "https://sbotics.weduc.natalnet.br/",
+  "homepage": "https://sbotics.weduc.natalnet.br/",
   "projectUrl": "https://sbotics.weduc.natalnet.br/",
   "build": {
     "asar": true,
@@ -47,7 +47,7 @@
     "fs-extra": "^10.0.0",
     "jquery": "^3.6.0",
     "read-json-sync": "^2.0.1",
-    "sbotics-downloader": "^1.1.2",
+    "sbotics-downloader": "^1.3.1",
     "sbotics-files-manager": "^1.3.2",
     "sweetalert2": "^11.0.16"
   },

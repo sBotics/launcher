@@ -1,8 +1,13 @@
 var extend = require('extend-shallow');
-var sBoticsDownloader = require('sbotics-downloader');
-import { FindSync, FileSizeSync, SaveAsync } from '../utils/files-manager.js';
+import {
+  FindSync,
+  FileSizeSync,
+  SaveAsync,
+  SaveSync,
+} from '../utils/files-manager.js';
 import { DetecOSFolder } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
+import { DownloadJSON, DownloadFile } from '../utils/donwload-manager.js';
 
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
@@ -19,15 +24,7 @@ const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-pt_BR.json',
 ];
 
-const __sBoticsDownloader = new sBoticsDownloader({
-  user: 'sBotics',
-  repository: 'sBoticsBuilds',
-  branch: 'master',
-  externalDownload: true,
-  detailedAnswer: true,
-});
-
-const DataUpdate = (options) => {
+const DataUpdate = async (options) => {
   options = extend(
     {
       defaultOS: DetecOSFolder(),
@@ -35,13 +32,11 @@ const DataUpdate = (options) => {
     options,
   );
   const defaultOS = options.defaultOS;
-  return new Promise((resolve, reject) => {
-    if (!defaultOS) return reject(false);
-    __sBoticsDownloader.file(`${defaultOS}.json`, (err, resp) => {
-      if (err) return reject(false);
-      resolve(JSON.parse(resp.file));
-    });
-  });
+  try {
+    return await DownloadJSON({ path: `${defaultOS}.json` });
+  } catch (error) {
+    return false;
+  }
 };
 
 const CheckUpdate = (options) => {
@@ -53,13 +48,10 @@ const CheckUpdate = (options) => {
     },
     options,
   );
-
   const path = options.path;
   const name = options.name;
   const size = options.size;
-
   const pathDownload = `sBotics/${path + name}`;
-
   if (FindSync(pathDownload)) {
     if (FileSizeSync(pathDownload).size != size) {
       if (BlackList.indexOf(pathDownload) > -1) {
@@ -82,52 +74,54 @@ const CheckAllUpdate = (options) => {
     },
     options,
   );
-
-  const dataUpdate = options.dataUpdate;
-  const dataUpdateFilesSize = dataUpdate['data'].length;
-  var filesID = dataUpdateFilesSize + 1;
-  var filesFind = 0;
-  var filesNotFind = 0;
-
-  dataUpdate['data'].map((dataUpdate) => {
-    const fileID = --filesID;
-    Create({
-      percentage: dataUpdateFilesSize,
-      sizeCreate: true,
-      id: fileID,
-      state: 'info',
-      limit: dataUpdateFilesSize,
+  try {
+    const dataUpdate = options.dataUpdate;
+    const dataUpdateFilesSize = dataUpdate['data'].length;
+    var filesID = dataUpdateFilesSize + 1;
+    var filesFind = 0;
+    var filesNotFind = 0;
+    dataUpdate['data'].map((dataUpdate) => {
+      const fileID = --filesID;
+      Create({
+        percentage: dataUpdateFilesSize,
+        sizeCreate: true,
+        id: fileID,
+        state: 'info',
+        limit: dataUpdateFilesSize,
+      });
+      if (
+        CheckUpdate({
+          path: dataUpdate.path,
+          name: dataUpdate.name,
+          size: dataUpdate.size,
+        })
+      ) {
+        Update({
+          id: fileID,
+          addState: 'sbotics-okfiles',
+          removeState: 'info',
+        });
+        filesFind = filesFind + 1;
+      } else {
+        Update({
+          id: fileID,
+          addState: 'warning',
+          removeState: 'info',
+        });
+        filesNotFind = filesNotFind + 1;
+      }
     });
-    if (
-      CheckUpdate({
-        path: dataUpdate.path,
-        name: dataUpdate.name,
-        size: dataUpdate.size,
-      })
-    ) {
-      Update({
-        id: fileID,
-        addState: 'sbotics-okfiles',
-        removeState: 'info',
-      });
-      filesFind = filesFind + 1;
-    } else {
-      Update({
-        id: fileID,
-        addState: 'warning',
-        removeState: 'info',
-      });
-      filesNotFind = filesNotFind + 1;
-    }
-  });
-  return {
-    filesFind: filesFind,
-    filesNotFind: filesNotFind,
-    dataUpdateFiles: dataUpdateFilesSize,
-  };
+    return {
+      filesFind: filesFind,
+      filesNotFind: filesNotFind,
+      dataUpdateFiles: dataUpdateFilesSize,
+    };
+  } catch (error) {
+    return false;
+  }
 };
 
-const DownloadsUpdate = (options) => {
+const DownloadsUpdate = async (options) => {
   options = extend(
     {
       path: '',
@@ -154,17 +148,21 @@ const DownloadsUpdate = (options) => {
   return new Promise((resolve, reject) => {
     if (CheckUpdate({ path: path, name: name, size: size }))
       return resolve({ state: 'ok', id: id });
-
-    __sBoticsDownloader.file(
-      pathFile,
-      { savePath: `sBotics/${path + name}` },
-      (err, resp) => {
-        if (err) return reject(false);
-        SaveAsync(resp.path, resp.file, format)
-          .then((resp) => resolve({ state: 'update', id: id }))
-          .catch((err) => reject({ state: false, id: id }));
-      },
-    );
+    try {
+      (async () => {
+        const response = await DownloadFile({
+          path: pathFile,
+          parameter: {
+            savePath: `sBotics/${path + name}`,
+          },
+        });
+        const saveResponse = SaveSync(response.path, response.file, format);
+        if (saveResponse) resolve({ state: 'update', id: id });
+        else reject({ state: false, id: id });
+      })();
+    } catch (error) {
+      reject({ state: false, id: id });
+    }
   });
 };
 
