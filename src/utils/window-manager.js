@@ -9,7 +9,7 @@ const LoadClose = () => {
   windowManager.close('load');
 };
 
-const LoginOpen = () => {
+const LoginOpen = () => {w
   var ScreenSize = screen.getPrimaryDisplay();
   ScreenSize = ScreenSize.bounds;
   const height = Math.round(ScreenSize.height * 0.5);

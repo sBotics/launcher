@@ -80,6 +80,16 @@ const FileSizeSync = (path) => {
   }
 };
 
+const CopySync = (originalPath, newPath) => {
+  try {
+    return __sBoticsFilesManager.copy(originalPath, {newPath: newPath});
+  } catch (error) {
+    console.log(error)
+    return false;
+  }
+};
+
+
 export {
   FindSync,
   FindAsync,
@@ -88,4 +98,5 @@ export {
   OpenSync,
   OpenAsync,
   FileSizeSync,
+  CopySync
 };

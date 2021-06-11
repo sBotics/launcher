@@ -113,6 +113,7 @@ const DonwnloadsBotics = async (options) => {
         prefix: `${DetecOSFolder()}/`,
         id: fileID,
         format: dataUpdate.format,
+        lastUpdatedAt: dataUpdate.last_updated_at
       })
         .then((resp) => {
           if (resp.state == 'ok') {

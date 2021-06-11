@@ -1,4 +1,5 @@
 var extend = require('extend-shallow');
+const luxon = require('luxon');
 import {
   FindSync,
   FileSizeSync,
@@ -8,6 +9,8 @@ import {
 import { DetecOSFolder } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
 import { DownloadJSON, DownloadFile } from '../utils/donwload-manager.js';
+import { StreamingAssets } from '../utils/backup-streaming-assets.js';
+import { ParseTime, ConvertTime } from '../utils/last-updated.js'
 
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
@@ -39,27 +42,42 @@ const DataUpdate = async (options) => {
   }
 };
 
+/*
+  Ultima vez modificado
+  -> 12/5/2021 12:40
+  -> 11/6/2021 00:00
+*/
+
 const CheckUpdate = (options) => {
   options = extend(
     {
       path: '',
       name: '',
       size: '',
+      lastUpdatedAt: ''
     },
     options,
   );
+
   const path = options.path;
   const name = options.name;
   const size = options.size;
+  const lastUpdatedAt = options.lastUpdatedAt;
+
   const pathDownload = `sBotics/${path + name}`;
+
   if (FindSync(pathDownload)) {
-    if (FileSizeSync(pathDownload).size != size) {
+    const donwloadFileTime = ParseTime(lastUpdatedAt);
+    const saveFileTime = ParseTime(ConvertTime(FileSizeSync(pathDownload).mtime));
+   if (donwloadFileTime > saveFileTime) {
+      return false;
+    }else if(FileSizeSync(pathDownload).size != size){
       if (BlackList.indexOf(pathDownload) > -1) {
         return true;
       } else {
         return false;
       }
-    } else {
+    }else {
       return true;
     }
   } else {
@@ -81,7 +99,7 @@ const CheckAllUpdate = (options) => {
     var filesFind = 0;
     var filesNotFind = 0;
     dataUpdate['data'].map((dataUpdate) => {
-      const fileID = --filesID;
+       const fileID = --filesID;
       Create({
         percentage: dataUpdateFilesSize,
         sizeCreate: true,
@@ -94,6 +112,7 @@ const CheckAllUpdate = (options) => {
           path: dataUpdate.path,
           name: dataUpdate.name,
           size: dataUpdate.size,
+          lastUpdatedAt: dataUpdate.last_updated_at
         })
       ) {
         Update({
@@ -117,6 +136,7 @@ const CheckAllUpdate = (options) => {
       dataUpdateFiles: dataUpdateFilesSize,
     };
   } catch (error) {
+  console.log(error)
     return false;
   }
 };
@@ -130,6 +150,7 @@ const DownloadsUpdate = async (options) => {
       size: '',
       id: '',
       format: '',
+      lastUpdatedAt: ''
     },
     options,
   );
@@ -140,13 +161,16 @@ const DownloadsUpdate = async (options) => {
   const size = options.size;
   const id = options.id;
   const format = options.format;
+  const lastUpdatedAt = options.lastUpdatedAt;
 
   if (!name || !prefix) return 'teste';
 
   const pathFile = (prefix + path + name).replace('#', '%23');
 
+  const backupConfig = true;
+
   return new Promise((resolve, reject) => {
-    if (CheckUpdate({ path: path, name: name, size: size }))
+    if (CheckUpdate({ path: path, name: name, size: size, lastUpdatedAt: lastUpdatedAt }))
       return resolve({ state: 'ok', id: id });
     try {
       (async () => {
@@ -156,9 +180,16 @@ const DownloadsUpdate = async (options) => {
             savePath: `sBotics/${path + name}`,
           },
         });
-        const saveResponse = SaveSync(response.path, response.file, format);
-        if (saveResponse) resolve({ state: 'update', id: id });
-        else reject({ state: false, id: id });
+        const backupStreamingAssets = StreamingAssets({
+          fileName: name,
+          fileData: response.file,
+          backupConfig: backupConfig,
+        });
+        if(!backupStreamingAssets){
+          const saveResponse = SaveSync(response.path, response.file, format);
+          if (saveResponse) resolve({ state: 'update', id: id });
+          else reject({ state: false, id: id });
+        }else{resolve({ state: 'update', id: id });}
       })();
     } catch (error) {
       reject({ state: false, id: id });
