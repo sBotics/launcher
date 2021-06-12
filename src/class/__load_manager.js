@@ -20,6 +20,7 @@ import {
 } from '../utils/autoupdate-manager.js';
 import { SLMP, DetectOS } from '../utils/application-manager.js';
 import { LoadClose, LoginOpen, IndexOpen } from '../utils/window-manager.js';
+import { GetMacAddress } from '../utils/mac-address-manager.js';
 const { ipcRenderer } = require('electron');
 
 var donwloadStateInit = false;
@@ -115,7 +116,6 @@ const init = async () => {
   await asyncWait(600);
 
   try {
-    console.log(SLMP());
     if ((await ValidateConnection({ url: URLdictionary['wEduc'] })) && !SLMP())
       Update({
         id: 'LoadBar',
@@ -303,11 +303,14 @@ const init = async () => {
       }
     }
     await asyncWait(200);
+    const macAddress = await GetMacAddress();
     if (
       userdata['name'] &&
       userdata['email'] &&
       userdata['accessToken'] &&
-      userdata['logged']
+      userdata['logged'] &&
+      userdata['macAddress'] &&
+      userdata['macAddress'] == macAddress
     ) {
       await asyncWait(200);
       const access_token = userdata['accessToken'];
@@ -375,7 +378,6 @@ $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
   init();
-  Lang('Login is required!');
 });
 
 ipcRenderer.on('update-download-progress', (event, arg) => {

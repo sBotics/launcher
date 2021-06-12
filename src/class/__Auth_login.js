@@ -6,6 +6,7 @@ import { CreateUserFile, OpenUserFile } from '../class/__file_user.js';
 import { UserData } from '../utils/connection-manager.js';
 import { LoginClose, IndexOpen } from '../utils/window-manager.js';
 import { Lang } from '../utils/language-manager.js';
+import { GetMacAddress } from '../utils/mac-address-manager.js';
 
 const authFormLogin = document.getElementById('AuthLogin');
 
@@ -105,36 +106,43 @@ authFormLogin.addEventListener('submit', (e) => {
             accessToken: access_token,
           })
             .then((response) => {
-              if (
-                !CreateUserFile({
-                  data: {
-                    name: response['email'],
-                    email: response['email'],
-                    profilePicture: response['profile_photo_url'],
-                    locale: response['locale'],
-                    accessToken: access_token,
-                    logged: RememberCredential,
-                  },
-                })
-              ) {
-                CreateTopAlert({
-                  states: 'danger',
-                  idInner: 'TopAlertError',
-                  absolute: true,
-                  message: Lang(
-                    'An unexpected failure happened! Try again later.',
-                  ),
-                });
-                MessageLabel({ element: userEmail, label: userEmailLabel });
-                MessageLabel({
-                  element: userPassword,
-                  label: userPasswordLabel,
-                });
-                return;
-              }
+              (async () => {
+                const macAddress = (await GetMacAddress())
+                  ? await GetMacAddress()
+                  : '';
 
-              IndexOpen();
-              LoginClose();
+                if (
+                  !CreateUserFile({
+                    data: {
+                      name: response['email'],
+                      email: response['email'],
+                      profilePicture: response['profile_photo_url'],
+                      locale: response['locale'],
+                      accessToken: access_token,
+                      logged: RememberCredential,
+                      macAddress: macAddress,
+                    },
+                  })
+                ) {
+                  CreateTopAlert({
+                    states: 'danger',
+                    idInner: 'TopAlertError',
+                    absolute: true,
+                    message: Lang(
+                      'An unexpected failure happened! Try again later.',
+                    ),
+                  });
+                  MessageLabel({ element: userEmail, label: userEmailLabel });
+                  MessageLabel({
+                    element: userPassword,
+                    label: userPasswordLabel,
+                  });
+                  return;
+                }
+
+                IndexOpen();
+                LoginClose();
+              })();
             })
             .catch((err) => {
               CreateTopAlert({

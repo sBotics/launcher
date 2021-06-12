@@ -252,7 +252,7 @@ $(document).on('click', '#TutorialButton', () => {
 });
 
 $(document).on('click', '#UserSettings', () => {
-  UpdateUserFile({ data: { accessToken: '', logged: false } });
+  UpdateUserFile({ data: { accessToken: '', macAddress: '', logged: false } });
   LoginOpen();
   IndexClose();
 });

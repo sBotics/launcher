@@ -8,6 +8,7 @@ const DefaultUser = {
   profilePicture: '',
   locale: '',
   accessToken: '',
+  macAddress: '',
   logged: '',
 };
 
