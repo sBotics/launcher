@@ -10,7 +10,7 @@ import { DetecOSFolder } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
 import { DownloadJSON, DownloadFile } from '../utils/donwload-manager.js';
 import { StreamingAssets } from '../utils/backup-streaming-assets.js';
-import { ParseTime, ConvertTime } from '../utils/last-updated.js'
+import { ParseTime, ConvertTime } from '../utils/last-updated.js';
 
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
@@ -20,11 +20,16 @@ const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json',
   'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json.zip',
   'sBotics/sBotics_Data/StreamingAssets/KeyBinding.json.zip',
-  'sBotics/sBotics_Data/StreamingAssetsrobots.png.zip',
+  'sBotics/sBotics_Data/StreamingAssets/robots.png.zip',
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-en.json',
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-pt_BR.json',
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-en.json',
   'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-pt_BR.json',
+];
+
+const BlackListSize = [
+  'sBotics/sBotics_Data/StreamingAssets/robots.png',
+  'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
 ];
 
 const DataUpdate = async (options) => {
@@ -42,19 +47,13 @@ const DataUpdate = async (options) => {
   }
 };
 
-/*
-  Ultima vez modificado
-  -> 12/5/2021 12:40
-  -> 11/6/2021 00:00
-*/
-
 const CheckUpdate = (options) => {
   options = extend(
     {
       path: '',
       name: '',
       size: '',
-      lastUpdatedAt: ''
+      lastUpdatedAt: '',
     },
     options,
   );
@@ -68,16 +67,22 @@ const CheckUpdate = (options) => {
 
   if (FindSync(pathDownload)) {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
-    const saveFileTime = ParseTime(ConvertTime(FileSizeSync(pathDownload).mtime));
-   if (donwloadFileTime > saveFileTime) {
-      return false;
-    }else if(FileSizeSync(pathDownload).size != size){
+    const saveFileTime = ParseTime(
+      ConvertTime(FileSizeSync(pathDownload).mtime),
+    );
+    if (donwloadFileTime > saveFileTime) {
+       if (BlackListSize.indexOf(pathDownload) > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (FileSizeSync(pathDownload).size != size) {
       if (BlackList.indexOf(pathDownload) > -1) {
         return true;
       } else {
         return false;
       }
-    }else {
+    } else {
       return true;
     }
   } else {
@@ -99,7 +104,7 @@ const CheckAllUpdate = (options) => {
     var filesFind = 0;
     var filesNotFind = 0;
     dataUpdate['data'].map((dataUpdate) => {
-       const fileID = --filesID;
+      const fileID = --filesID;
       Create({
         percentage: dataUpdateFilesSize,
         sizeCreate: true,
@@ -112,7 +117,7 @@ const CheckAllUpdate = (options) => {
           path: dataUpdate.path,
           name: dataUpdate.name,
           size: dataUpdate.size,
-          lastUpdatedAt: dataUpdate.last_updated_at
+          lastUpdatedAt: dataUpdate.last_updated_at,
         })
       ) {
         Update({
@@ -136,7 +141,7 @@ const CheckAllUpdate = (options) => {
       dataUpdateFiles: dataUpdateFilesSize,
     };
   } catch (error) {
-  console.log(error)
+    console.log(error);
     return false;
   }
 };
@@ -150,7 +155,7 @@ const DownloadsUpdate = async (options) => {
       size: '',
       id: '',
       format: '',
-      lastUpdatedAt: ''
+      lastUpdatedAt: '',
     },
     options,
   );
@@ -170,7 +175,14 @@ const DownloadsUpdate = async (options) => {
   const backupConfig = true;
 
   return new Promise((resolve, reject) => {
-    if (CheckUpdate({ path: path, name: name, size: size, lastUpdatedAt: lastUpdatedAt }))
+    if (
+      CheckUpdate({
+        path: path,
+        name: name,
+        size: size,
+        lastUpdatedAt: lastUpdatedAt,
+      })
+    )
       return resolve({ state: 'ok', id: id });
     try {
       (async () => {
@@ -185,11 +197,13 @@ const DownloadsUpdate = async (options) => {
           fileData: response.file,
           backupConfig: backupConfig,
         });
-        if(!backupStreamingAssets){
+        if (!backupStreamingAssets) {
           const saveResponse = SaveSync(response.path, response.file, format);
           if (saveResponse) resolve({ state: 'update', id: id });
           else reject({ state: false, id: id });
-        }else{resolve({ state: 'update', id: id });}
+        } else {
+          resolve({ state: 'update', id: id });
+        }
       })();
     } catch (error) {
       reject({ state: false, id: id });

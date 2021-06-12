@@ -1,5 +1,10 @@
 var extend = require('extend-shallow');
-import { FindSync, SaveSync, OpenSync, CopySync } from '../utils/files-manager.js';
+import {
+  FindSync,
+  SaveSync,
+  OpenSync,
+  CopySync,
+} from '../utils/files-manager.js';
 
 const FilesBackupList = {
   'Skybox.json': {
@@ -71,34 +76,68 @@ const StreamingAssets = (options) => {
     const sBoticsPath = filesBackupList.path;
     const fileType = filesBackupList.type;
 
-    if(backupConfig){
-        try {
-          if (FindSync(sBoticsPath)) {
-            const CopyFile = CopySync(sBoticsPath, backupFolder);
-            if(!CopyFile) return false;
-            if(fileType == "JSON") {
-              if(SaveSync(sBoticsPath, fileData)){
+    if (backupConfig) {
+      try {
+        if (FindSync(sBoticsPath)) {
+          const CopyFile = CopySync(sBoticsPath, backupFolder);
+          if (!CopyFile) return false;
+          switch (fileType) {
+            case 'JSON':
+              if (SaveSync(sBoticsPath, fileData)) {
                 const originalJSON = JSON.parse(OpenSync(sBoticsPath));
                 const backupJSON = JSON.parse(OpenSync(backupFolder));
                 const changeFile = { ...originalJSON, ...backupJSON };
-                return SaveSync(sBoticsPath, JSON.stringify(changeFile)) ? true : false;
-              }else{return false}
-            } else { return SaveSync(sBoticsPath, fileData) ? true : false }
+                return SaveSync(sBoticsPath, JSON.stringify(changeFile))
+                  ? true
+                  : false;
+              } else {
+                return false;
+              }
+              break;
+            case 'IMAGE':
+              return CopySync(backupFolder, sBoticsPath) ? true : false;
+              break;
+            default:
+              return false;
+              break;
+          }
+        } else {
+          if (FindSync(backupFolder)) {
+            switch (fileType) {
+              case 'JSON':
+                if (SaveSync(sBoticsPath, fileData)) {
+                  const originalJSON = JSON.parse(OpenSync(sBoticsPath));
+                  const backupJSON = JSON.parse(OpenSync(backupFolder));
+                  const changeFile = { ...originalJSON, ...backupJSON };
+                  return SaveSync(sBoticsPath, JSON.stringify(changeFile))
+                    ? true
+                    : false;
+                } else {
+                  return false;
+                }
+                break;
+              case 'IMAGE':
+                return CopySync(backupFolder, sBoticsPath) ? true : false;
+                break;
+              default:
+                return false;
+                break;
+            }
           } else {
             return false;
           }
-        } catch (error) {
-          throw new Error(
-            'Falha! Não foi possivel localizar, routas de arquivos validos para salvar!',
-          );
         }
-    }else {return false}
+      } catch (error) {
+        throw new Error(
+          'Falha! Não foi possivel localizar, routas de arquivos validos para salvar!',
+        );
+      }
+    } else {
+      return false;
+    }
   } catch (error) {
     return false;
   }
 };
 
-
-export {
-  StreamingAssets
-};
+export { StreamingAssets };
