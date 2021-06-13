@@ -96,7 +96,7 @@ const DonwnloadsBotics = async (options) => {
     const dataUpdateLength = dataUpdate['data'].length;
     var filesID = dataUpdateLength + 1;
     var filesPast = 0;
-
+    var success = 0;
     dataUpdate['data'].map((dataUpdate) => {
       const fileID = --filesID;
       Create({
@@ -108,14 +108,16 @@ const DonwnloadsBotics = async (options) => {
       });
       DownloadsUpdate({
         path: dataUpdate.path,
+        pathURL: dataUpdate.download,
         name: dataUpdate.name,
         size: dataUpdate.size,
         prefix: `${DetecOSFolder()}/`,
         id: fileID,
         format: dataUpdate.format,
-        lastUpdatedAt: dataUpdate.last_updated_at
+        lastUpdatedAt: dataUpdate.last_updated_at,
       })
         .then((resp) => {
+          success = success + 1;
           if (resp.state == 'ok') {
             Update({
               id: resp.id,
@@ -138,8 +140,9 @@ const DonwnloadsBotics = async (options) => {
           }
         })
         .catch((err) => {
+          console.log(err);
           Update({
-            id: resp.id,
+            id: err.id,
             addState: 'danger',
             removeState: 'info',
           });
@@ -147,9 +150,16 @@ const DonwnloadsBotics = async (options) => {
         .then(() => {
           filesPast = filesPast + 1;
           if (filesPast == dataUpdateLength)
-            MagicButton({
-              mode: 'start',
-            });
+            if (success != filesPast)
+              FailApplication(
+                Lang(
+                  'Failed to install sBotics! Check your internet connection.',
+                ),
+              );
+            else
+              MagicButton({
+                mode: 'start',
+              });
         });
     });
   } catch (error) {

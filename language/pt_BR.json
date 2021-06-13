@@ -4,9 +4,9 @@
   "Connected to the internet": "Conectado na Internet",
   "No internet connection!": "Sem conexão com a internet!",
   "Check your internet connection.": "Verifique sua conexão com a internet.",
-  "Checking Connection to Our Servers! Please wait...": "Verificando Conexão com nossos servidores! Aguarde...",
-  "Connected to our servers.": "Conectado em nossos servidores.",
-  "Unable to connect to our servers!": "Não foi possivel se conectar a nossos servidores!",
+  "Checking Connection to Our Servers! Please wait...": "Verificando conexão com nosso servidor! Aguarde...",
+  "Connected to our servers.": "Conectado em nosso servidor.",
+  "Unable to connect to our servers!": "Não foi possivel se conectar a nosso servidore!",
   "Try again later": "Tente novamente mais tarde",
   "Looking for sBotics Launcher update! Please wait...": "Procurando atualização do sBotics Launcher! Aguarde...",
   "Update available by downloading! Please wait...": "Atualização disponivel, fazendo download! Aguarde...",
@@ -52,5 +52,6 @@
   "Open installation folder": "Abrir pasta  de instalação",
   "Failed to open!": "Falha ao abrir!",
   "Installation folder not found! Try installing again.": "Pasta não de instalação não encontrada! Tente instalar novamente.",
-  "Checking file integrity to open sBotics! Please wait...": "Verificando integridade dos arquivos para abrir o sBotics! Aguarde..."
+  "Checking file integrity to open sBotics! Please wait...": "Verificando integridade dos arquivos para abrir o sBotics! Aguarde...",
+  "Failed to install sBotics! Check your internet connection.": "Falha ao instalar sBotics! Verifique sua conexão com a internet."
 }
