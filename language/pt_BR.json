@@ -53,5 +53,13 @@
   "Failed to open!": "Falha ao abrir!",
   "Installation folder not found! Try installing again.": "Pasta não de instalação não encontrada! Tente instalar novamente.",
   "Checking file integrity to open sBotics! Please wait...": "Verificando integridade dos arquivos para abrir o sBotics! Aguarde...",
-  "Failed to install sBotics! Check your internet connection.": "Falha ao instalar sBotics! Verifique sua conexão com a internet."
+  "Failed to install sBotics! Check your internet connection.": "Falha ao instalar sBotics! Verifique sua conexão com a internet.",
+  "If a continuation fails, please contact the developers.": "Se essa falha persistir, entre em contato com os desenvolvedores",
+  "Download Failed! When looking for sBotics update.": "Download Falhou! Ao procurar atualização do sBotics.",
+  "Failure! When looking for sBotics update.": "Falha! Ao procurar atualização do sBotics.",
+  "Failure! When checking sBotics files.": "Falha! Ao verificar arquivos do sBotics.",
+  "Download Failed!": "Download Falhou!",
+  "sBotics updated successfully! Ready to open.": "sBotics atualizado com sucesso! Pronto para abrir.",
+  "sBotics installed successfully! Ready to open.": "sBotics instalado com sucesso! Pronto para abrir.",
+  "Checking integrity of installed files! Please wait...": "Verificando integridade dos arquivos instalados. Aguarde!"
 }

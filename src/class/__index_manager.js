@@ -4,7 +4,6 @@ import { backdrop } from '../class/__interface_components.js';
 import {
   DataUpdate,
   DownloadsUpdate,
-  CheckUpdate,
   CheckAllUpdate,
 } from '../class/__download_controller.js';
 import {
@@ -27,13 +26,14 @@ import { OpenConfig, UpdateConfig } from './__file_config.js';
 import { IndexTranslator } from '../utils/language-window.js';
 import { FindSync } from '../utils/files-manager.js';
 import { VersionSbotics } from '../utils/version-sbotics.js';
+import { CreateTopAlert } from '../utils/top-alert.js';
 
 // Interface Manager
-$('.close-alert').click(function () {
+$('.close-alert').click(() => {
   $('.top-alert').css('display', 'none');
 });
 
-$('.close-config').click(function () {
+$('.close-config').click(() => {
   $('.config-content').css('display', 'none');
 });
 
@@ -55,6 +55,12 @@ const InterfaceLoad = async () => {
 };
 
 const FailApplication = (message) => {
+  CreateTopAlert({
+    states: 'danger',
+    message: `${message} -  ${Lang(
+      'If a continuation fails, please contact the developers.',
+    )}`,
+  });
   Reset();
   Create({
     percentage: 100,
@@ -68,17 +74,70 @@ const FailApplication = (message) => {
   });
 };
 
+const FilesVerification = async (options) => {
+  Reset();
+
+  options = extend(
+    {
+      modeText: '',
+      autoOpen: false,
+    },
+    options,
+  );
+
+  const modeText = options.modeText;
+  const autoOpen = options.autoOpen;
+
+  MagicButton({
+    mode: 'process',
+    text: modeText,
+  });
+
+  const dataUpdate = await DataUpdate();
+
+  if (!dataUpdate)
+    return FailApplication(Lang('Failure! When looking for sBotics update.'));
+
+  const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
+
+  if (!checkAllUpdate)
+    return FailApplication(Lang('Failure! When checking sBotics files.'));
+
+  const filesFind = checkAllUpdate.filesFind;
+  const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
+
+  if (filesFind == dataUpdateFiles) {
+    if (autoOpen) OpenSbotics();
+    else
+      MagicButton({
+        mode: 'start',
+      });
+  } else {
+    if (filesFind > 0) {
+      MagicButton({
+        mode: 'update',
+      });
+    } else {
+      MagicButton({
+        mode: 'install',
+      });
+    }
+  }
+};
+
 // Download sBotics Manager
 const DonwnloadsBotics = async (options) => {
   Reset();
   options = extend(
     {
       modeText: '',
+      type: '',
     },
     options,
   );
 
   const modeText = options.modeText;
+  const type = options.type;
 
   MagicButton({
     mode: 'process',
@@ -89,7 +148,7 @@ const DonwnloadsBotics = async (options) => {
 
   if (!dataUpdate)
     return FailApplication(
-      'Download Falhou! Ao procurar atualização do sBotics.',
+      Lang('Download Failed! When looking for sBotics update.'),
     );
 
   try {
@@ -156,63 +215,36 @@ const DonwnloadsBotics = async (options) => {
                   'Failed to install sBotics! Check your internet connection.',
                 ),
               );
-            else
+            else {
+              switch (type) {
+                case 'install':
+                  CreateTopAlert({
+                    states: 'success',
+                    message: Lang(
+                      'sBotics installed successfully! Ready to open.',
+                    ),
+                  });
+                  break;
+                case 'update':
+                  CreateTopAlert({
+                    states: 'success',
+                    message: Lang(
+                      'sBotics updated successfully! Ready to open.',
+                    ),
+                  });
+                  break;
+              }
+              FilesVerification({
+                modeText: Lang('Looking for update! Please wait...'),
+              });
               MagicButton({
                 mode: 'start',
               });
+            }
         });
     });
   } catch (error) {
-    return FailApplication('Download Falhou!' + error);
-  }
-};
-
-const FilesVerification = async (options) => {
-  Reset();
-  options = extend(
-    {
-      modeText: '',
-      autoOpen: false,
-    },
-    options,
-  );
-  const modeText = options.modeText;
-  const autoOpen = options.autoOpen;
-
-  MagicButton({
-    mode: 'process',
-    text: modeText,
-  });
-
-  const dataUpdate = await DataUpdate();
-
-  if (!dataUpdate)
-    return FailApplication('Falha! Ao procurar atualização do sBotics.');
-
-  const checkAllUpdate = CheckAllUpdate({ dataUpdate: dataUpdate });
-
-  if (!checkAllUpdate)
-    return FailApplication('Falha! Ao verificar arquivos do sBotics.');
-
-  const filesFind = checkAllUpdate.filesFind;
-  const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
-
-  if (filesFind == dataUpdateFiles) {
-    if (autoOpen) OpenSbotics();
-    else
-      MagicButton({
-        mode: 'start',
-      });
-  } else {
-    if (filesFind > 0) {
-      MagicButton({
-        mode: 'update',
-      });
-    } else {
-      MagicButton({
-        mode: 'install',
-      });
-    }
+    return FailApplication(Lang('Download Failed!') + error);
   }
 };
 
@@ -231,10 +263,14 @@ $(document).on('click', '#MagicButtonClick', () => {
     case 'install':
       DonwnloadsBotics({
         modeText: Lang('Installing sBotics! Please wait...'),
+        type: 'install',
       });
       break;
     case 'update':
-      DonwnloadsBotics({ modeText: Lang('Updating sBotics! Please wait...') });
+      DonwnloadsBotics({
+        modeText: Lang('Updating sBotics! Please wait...'),
+        type: 'update',
+      });
       break;
     case 'start':
       FilesVerification({

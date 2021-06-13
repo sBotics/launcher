@@ -161,7 +161,6 @@ authFormLogin.addEventListener('submit', (e) => {
             });
         })
         .catch(function (error) {
-          console.log(error);
           CreateTopAlert({
             states: 'danger',
             idInner: 'TopAlertError',
