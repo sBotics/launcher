@@ -27,7 +27,7 @@ import { IndexTranslator } from '../utils/language-window.js';
 import { FindSync } from '../utils/files-manager.js';
 import { VersionSbotics } from '../utils/version-sbotics.js';
 import { CreateTopAlert } from '../utils/top-alert.js';
-
+import { ClearEvent } from '../utils/relatorio-download-manager.js';
 // Interface Manager
 $('.close-alert').click(() => {
   $('.top-alert').css('display', 'none');
@@ -128,6 +128,7 @@ const FilesVerification = async (options) => {
 // Download sBotics Manager
 const DonwnloadsBotics = async (options) => {
   Reset();
+  ClearEvent();
   options = extend(
     {
       modeText: '',

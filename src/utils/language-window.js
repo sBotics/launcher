@@ -26,5 +26,7 @@ const IndexTranslator = async () => {
     'Path_Note_Description',
     'sBotics is a simulation platform designed to emulate various world-famous robotics competitions, where kits are commonly used to perform the required actions. This platform offers an alternative for those seeking to test and improve their skills in the field as well as being able to test programs without the risk of damaging physical parts.',
   );
+  LangElement('buttonText_DownloadReport', 'Download Report');
+  LangElement('Text_DownloadReport', 'Download Report');
 };
 export { LoginTranslator, IndexTranslator };

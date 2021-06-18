@@ -170,8 +170,9 @@
             <button
               onclick="RelatorioDownloadManager(true)"
               class="buttonRelatoriodeDownload"
+              id="buttonText_DownloadReport"
             >
-              Relatorio de Download
+              Download Report
             </button>
           </div>
         </div>
@@ -211,8 +212,12 @@
                   align-content-center
                 "
               >
-                <h3 class="text-dark" style="font-weight: 600">
-                  Relatorio de Download
+                <h3
+                  id="Text_DownloadReport"
+                  class="text-dark"
+                  style="font-weight: 600"
+                >
+                  Download Report
                 </h3>
                 <button
                   onclick="RelatorioDownloadManager(false)"
@@ -221,9 +226,11 @@
                     border-radius: 5px;
                     background-color: #131313;
                     color: white;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
                   "
                 >
-                  Fechar
+                  <i class="fas fa-times"></i>
                 </button>
               </div>
               <div id="relatorioDownloadContainer"></div>
