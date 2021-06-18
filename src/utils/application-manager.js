@@ -37,7 +37,7 @@ const DetectOS = () => {
 
 const DetecOSFolder = () => {
   const platforms = {
-    win32: 'Windows',
+    win32: 'Linux',
     darwin: 'macOS',
     linux: 'Linux',
   };

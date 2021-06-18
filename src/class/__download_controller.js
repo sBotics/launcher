@@ -1,17 +1,21 @@
 var extend = require('extend-shallow');
-const luxon = require('luxon');
+const Downloader = require('nodejs-file-downloader');
+import { FindSync, FileSizeSync, ExtractSync } from '../utils/files-manager.js';
 import {
-  FindSync,
-  FileSizeSync,
-  SaveAsync,
-  SaveSync,
-} from '../utils/files-manager.js';
-import { DetecOSFolder } from '../utils/application-manager.js';
+  DetecOSFolder,
+  folderPathGsBotics,
+} from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
 import { DownloadJSON, DownloadFile } from '../utils/donwload-manager.js';
-import { StreamingAssets } from '../utils/backup-streaming-assets.js';
+import {
+  StreamingAssets,
+  CreateBackupStreamingAssets,
+} from '../utils/backup-streaming-assets.js';
 import { ParseTime, ConvertTime } from '../utils/last-updated.js';
-
+import {
+  AddEvent,
+  UpdateEventParcent,
+} from '../utils/relatorio-download-manager.js';
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
   'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
@@ -71,7 +75,7 @@ const CheckUpdate = (options) => {
       ConvertTime(FileSizeSync(pathDownload).mtime),
     );
     if (donwloadFileTime > saveFileTime) {
-       if (BlackListSize.indexOf(pathDownload) > -1) {
+      if (BlackListSize.indexOf(pathDownload) > -1) {
         return true;
       } else {
         return false;
@@ -150,6 +154,7 @@ const DownloadsUpdate = async (options) => {
   options = extend(
     {
       path: '',
+      pathURL: '',
       name: '',
       prefix: '',
       size: '',
@@ -161,6 +166,7 @@ const DownloadsUpdate = async (options) => {
   );
 
   const path = options.path;
+  const pathURL = options.pathURL;
   const name = options.name;
   const prefix = options.prefix;
   const size = options.size;
@@ -184,30 +190,50 @@ const DownloadsUpdate = async (options) => {
       })
     )
       return resolve({ state: 'ok', id: id });
-    try {
-      (async () => {
-        const response = await DownloadFile({
-          path: pathFile,
-          parameter: {
-            savePath: `sBotics/${path + name}`,
-          },
-        });
-        const backupStreamingAssets = StreamingAssets({
+
+    (async () => {
+      AddEvent(id, path + name);
+      CreateBackupStreamingAssets({
+        fileName: name,
+        backupConfig: backupConfig,
+      });
+      const downloader = new Downloader({
+        url: pathURL,
+        directory: folderPathGsBotics() + '/' + path,
+        fileName: name,
+        cloneFiles: false,
+        maxAttempts: 10,
+        onProgress: function (percentage, chunk, remainingSize) {
+          UpdateEventParcent(id, percentage);
+        },
+        shouldStop: function (error) {
+          console.log(error);
+          if (error.statusCode && error.statusCode === 404) {
+            return true;
+          }
+        },
+      });
+
+      try {
+        await downloader.download();
+        StreamingAssets({
           fileName: name,
-          fileData: response.file,
           backupConfig: backupConfig,
         });
-        if (!backupStreamingAssets) {
-          const saveResponse = SaveSync(response.path, response.file, format);
-          if (saveResponse) resolve({ state: 'update', id: id });
-          else reject({ state: false, id: id });
+        if (format == 'zip') {
+          if (ExtractSync('sBotics/' + path + name)) {
+            resolve({ state: 'update', id: id });
+          } else {
+            reject({ state: false, id: id });
+          }
         } else {
           resolve({ state: 'update', id: id });
         }
-      })();
-    } catch (error) {
-      reject({ state: false, id: id });
-    }
+      } catch (error) {
+        console.log(error);
+        reject({ state: false, id: id });
+      }
+    })();
   });
 };
 

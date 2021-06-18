@@ -6,3 +6,9 @@ const InterfaceSettings = (
     ? 'block'
     : 'none';
 };
+
+const RelatorioDownloadManager = (state) => {
+  document.getElementById('RelatorioDonwloadView').style.display = state
+    ? 'flex'
+    : 'none';
+};

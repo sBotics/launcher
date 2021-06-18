@@ -88,7 +88,14 @@ const CopySync = (originalPath, newPath) => {
     return false;
   }
 };
-
+const ExtractSync = (path) => {
+  try {
+    return __sBoticsFilesManager.extractZip(path);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
 
 export {
   FindSync,
@@ -98,5 +105,6 @@ export {
   OpenSync,
   OpenAsync,
   FileSizeSync,
-  CopySync
+  CopySync,
+  ExtractSync,
 };

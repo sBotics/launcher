@@ -94,7 +94,7 @@ a {
   background-color: #0a9fbd !important ;
 }
 .bg-sbotics-okfiles {
-  background-color: #8540F5 !important ;
+  background-color: #8540f5 !important ;
 }
 .icon-sbotics-warning {
   color: #664d03 !important;
@@ -146,14 +146,37 @@ a {
 }
 
 .bg-sbotics-info .iconMagicButton {
-  background-color: #9EEAF9 !important;
+  background-color: #9eeaf9 !important;
   color: #055160;
 }
 
 .bg-danger .iconMagicButton {
-  background-color: #F1AEB5 !important;
-  color: #DC3545;
+  background-color: #f1aeb5 !important;
+  color: #dc3545;
 }
+
+.buttonRelatoriodeDownload {
+  border: none;
+  background-color: #131313;
+  padding: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: white;
+  border-radius: 5px;
+}
+
+.container_relatorio_download {
+  width: 800px;
+  height: 100%;
+  background-color: white;
+  padding: 10px;
+  overflow: scroll;
+}
+.relatorio_download_options {
+  border-left: 3px solid #0a58ca;
+  padding-left: 3px;
+}
+
 /* Extra small devices (phones, less than 768px) */
 
 body {

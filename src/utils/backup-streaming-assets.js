@@ -58,7 +58,6 @@ const StreamingAssets = (options) => {
   options = extend(
     {
       fileName: '',
-      fileData: '',
       filesBackupList: FilesBackupList,
       defaultPathFolder: 'Launcher/backup/StreamingAssets',
       backupConfig: true,
@@ -68,7 +67,6 @@ const StreamingAssets = (options) => {
 
   try {
     const fileName = options.fileName;
-    const fileData = options.fileData;
     const backupConfig = options.backupConfig;
     const filesBackupList = options.filesBackupList[fileName];
     const defaultPathFolder = options.defaultPathFolder;
@@ -78,21 +76,16 @@ const StreamingAssets = (options) => {
 
     if (backupConfig) {
       try {
-        if (FindSync(sBoticsPath)) {
-          const CopyFile = CopySync(sBoticsPath, backupFolder);
-          if (!CopyFile) return false;
+        if (FindSync(sBoticsPath) && FindSync(backupFolder)) {
           switch (fileType) {
             case 'JSON':
-              if (SaveSync(sBoticsPath, fileData)) {
-                const originalJSON = JSON.parse(OpenSync(sBoticsPath));
-                const backupJSON = JSON.parse(OpenSync(backupFolder));
-                const changeFile = { ...originalJSON, ...backupJSON };
-                return SaveSync(sBoticsPath, JSON.stringify(changeFile))
-                  ? true
-                  : false;
-              } else {
-                return false;
-              }
+              const originalJSON = JSON.parse(OpenSync(sBoticsPath));
+              const backupJSON = JSON.parse(OpenSync(backupFolder));
+              const changeFile = { ...originalJSON, ...backupJSON };
+              return SaveSync(sBoticsPath, JSON.stringify(changeFile))
+                ? true
+                : false;
+
               break;
             case 'IMAGE':
               return CopySync(backupFolder, sBoticsPath) ? true : false;
@@ -100,31 +93,6 @@ const StreamingAssets = (options) => {
             default:
               return false;
               break;
-          }
-        } else {
-          if (FindSync(backupFolder)) {
-            switch (fileType) {
-              case 'JSON':
-                if (SaveSync(sBoticsPath, fileData)) {
-                  const originalJSON = JSON.parse(OpenSync(sBoticsPath));
-                  const backupJSON = JSON.parse(OpenSync(backupFolder));
-                  const changeFile = { ...originalJSON, ...backupJSON };
-                  return SaveSync(sBoticsPath, JSON.stringify(changeFile))
-                    ? true
-                    : false;
-                } else {
-                  return false;
-                }
-                break;
-              case 'IMAGE':
-                return CopySync(backupFolder, sBoticsPath) ? true : false;
-                break;
-              default:
-                return false;
-                break;
-            }
-          } else {
-            return false;
           }
         }
       } catch (error) {
@@ -140,4 +108,44 @@ const StreamingAssets = (options) => {
   }
 };
 
-export { StreamingAssets };
+const CreateBackupStreamingAssets = (options) => {
+  options = extend(
+    {
+      fileName: '',
+      filesBackupList: FilesBackupList,
+      defaultPathFolder: 'Launcher/backup/StreamingAssets',
+      backupConfig: true,
+    },
+    options,
+  );
+
+  try {
+    const fileName = options.fileName;
+    const backupConfig = options.backupConfig;
+    const filesBackupList = options.filesBackupList[fileName];
+    const defaultPathFolder = options.defaultPathFolder;
+    const backupFolder = `${defaultPathFolder}/${fileName}`;
+    const sBoticsPath = filesBackupList.path;
+    const fileType = filesBackupList.type;
+
+    if (backupConfig) {
+      try {
+        if (FindSync(sBoticsPath)) {
+          const CopyFile = CopySync(sBoticsPath, backupFolder);
+          if (!CopyFile) return false;
+          return true;
+        }
+      } catch (error) {
+        throw new Error(
+          'Falha! Não foi possivel localizar, routas de arquivos validos para salvar!',
+        );
+      }
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
+export { StreamingAssets, CreateBackupStreamingAssets };
