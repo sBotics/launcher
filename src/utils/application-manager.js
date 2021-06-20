@@ -64,6 +64,12 @@ const folderPathGLauncher = () => {
 const folderPathGsBotics = () => {
   return `${os.homedir()}/wEduc/sBotics`;
 };
+const folderPahtGBlockEduc = () => {
+  return `${os.homedir()}/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/`
+}
+const folderPathGBlockEducmac = () => {
+  return `${os.homedir()}/wEduc/sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/`
+}
 
 export {
   SLMP,
@@ -77,4 +83,6 @@ export {
   folderPathGenaral,
   folderPathGLauncher,
   folderPathGsBotics,
+  folderPahtGBlockEduc,
+  folderPathGBlockEducmac
 };
