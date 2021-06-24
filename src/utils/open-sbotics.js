@@ -1,7 +1,8 @@
 import {
   folderPathGsBotics,
   DetecOSFolder,
-  folderPahtGBlockEduc
+  folderPahtGBlockEduc,
+  folderPathGBlockEducmac
 } from '../utils/application-manager.js';
 import { OpenConfig } from '../class/__file_config.js';
 import { OpenUserFile } from '../class/__file_user.js';
