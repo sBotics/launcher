@@ -46,7 +46,7 @@ const OpenSbotics = () => {
       ),
       0o777,
     );
-    fs.chmodSync(path.join(folderPathGBlockEducmac(), 'BlockEduc.app.zip'), 0o777);
+    fs.chmodSync(path.join(folderPathGBlockEducmac(), 'BlockEduc.app'), 0o777);
   }
   var executablePath = string_execute;
   const languageAvarible = ['pt_BR'];
