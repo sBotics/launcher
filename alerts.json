@@ -1,26 +1,22 @@
 {
   "pt_BR": [
     {
-      "position": "top",
+      "id": "",
       "type": "danger",
-      "message": "Estamos em processo de update, instabilidade podem ocorre!"
-    },
-    {
-      "position": "top",
-      "type": "info",
-      "message": "Atualização disponivel!"
+      "html": "",
+      "message": "Estamos em processo de update, instabilidade podem ocorre!",
+      "link": "",
+      "saveView": ""
     }
   ],
   "en": [
     {
-      "position": "top",
+      "id": "",
       "type": "danger",
-      "message": "We are in the process of updating, stability may occur!"
-    },
-    {
-      "position": "top",
-      "type": "info",
-      "message": "Update available!"
+      "html": "",
+      "message": "Estamos em processo de update, instabilidade podem ocorre!",
+      "link": "",
+      "saveView": ""
     }
   ]
 }

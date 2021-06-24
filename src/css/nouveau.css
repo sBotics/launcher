@@ -163,6 +163,7 @@ a {
   padding-right: 8px;
   color: white;
   border-radius: 5px;
+  display: none;
 }
 
 .container_relatorio_download {

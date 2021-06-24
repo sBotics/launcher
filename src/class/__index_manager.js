@@ -27,7 +27,11 @@ import { IndexTranslator } from '../utils/language-window.js';
 import { FindSync } from '../utils/files-manager.js';
 import { VersionSbotics } from '../utils/version-sbotics.js';
 import { CreateTopAlert } from '../utils/top-alert.js';
-import { ClearEvent } from '../utils/relatorio-download-manager.js';
+import {
+  ClearEvent,
+  ReportDownloadButton,
+} from '../utils/relatorio-download-manager.js';
+
 // Interface Manager
 $('.close-alert').click(() => {
   $('.top-alert').css('display', 'none');
@@ -52,6 +56,7 @@ const InterfaceLoad = async () => {
   GetImageUser();
   GetPathNote();
   backdrop({ elementName: 'backdrop' });
+  ReportDownloadButton(false);
 };
 
 const FailApplication = (message) => {
@@ -126,9 +131,10 @@ const FilesVerification = async (options) => {
 };
 
 // Download sBotics Manager
-const DonwnloadsBotics = async (options) => {
+const DownloadsBotics = async (options) => {
   Reset();
   ClearEvent();
+  ReportDownloadButton(true);
   options = extend(
     {
       modeText: '',
@@ -262,13 +268,13 @@ $(document).on('click', '#MagicButtonClick', () => {
   if (!state) return;
   switch (mode) {
     case 'install':
-      DonwnloadsBotics({
+      DownloadsBotics({
         modeText: Lang('Installing sBotics! Please wait...'),
         type: 'install',
       });
       break;
     case 'update':
-      DonwnloadsBotics({
+      DownloadsBotics({
         modeText: Lang('Updating sBotics! Please wait...'),
         type: 'update',
       });
@@ -316,7 +322,7 @@ $(document).on('click', '#OpenFolderInstall', () => {
       confirmButtonText: Lang('Install sBotics'),
     }).then((result) => {
       if (result.isConfirmed) {
-        DonwnloadsBotics(Lang('Installing sBotics! Please wait...'));
+        DownloadsBotics(Lang('Installing sBotics! Please wait...'));
       }
     });
   }

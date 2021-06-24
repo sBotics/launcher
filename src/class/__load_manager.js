@@ -46,8 +46,8 @@ const InterfaceLoad = async () => {
   });
 };
 
-const init = async () => {
-  await asyncWait(900);
+const init = async (timers = { 200: 200, 500: 500, 600: 600, 900: 900 }) => {
+  await asyncWait(timers[900]);
 
   Update({
     id: 'LoadBar',
@@ -63,7 +63,7 @@ const init = async () => {
     ],
   });
 
-  await asyncWait(600);
+  await asyncWait(timers[600]);
 
   try {
     if (await ValidateConnection({ url: URLdictionary['GitHub'] }))
@@ -97,7 +97,7 @@ const init = async () => {
     });
   }
 
-  await asyncWait(600);
+  await asyncWait(timers[600]);
 
   Update({
     id: 'LoadBar',
@@ -113,7 +113,7 @@ const init = async () => {
     ],
   });
 
-  await asyncWait(600);
+  await asyncWait(timers[600]);
 
   try {
     if ((await ValidateConnection({ url: URLdictionary['wEduc'] })) && !SLMP())
@@ -147,7 +147,7 @@ const init = async () => {
     });
   }
 
-  await asyncWait(600);
+  await asyncWait(timers[600]);
 
   Update({
     id: 'LoadBar',
@@ -165,7 +165,7 @@ const init = async () => {
 
   try {
     if (UpdateInit()) {
-      await asyncWait(600);
+      await asyncWait(timers[600]);
       const updateAvailable = await UpdateAvailable;
       if (updateAvailable['state']) {
         Update({
@@ -234,7 +234,7 @@ const init = async () => {
   }
 
   if (!donwloadStateInit) {
-    await asyncWait(500);
+    await asyncWait(timers[500]);
 
     Update({
       id: 'LoadBar',
@@ -251,7 +251,7 @@ const init = async () => {
     });
     var userdata = OpenUserFile();
     if (!userdata) {
-      await asyncWait(200);
+      await asyncWait(timers[200]);
       Update({
         id: 'LoadBar',
         addState: 'danger',
@@ -282,10 +282,10 @@ const init = async () => {
             },
           ],
         });
-        await asyncWait(200);
+        await asyncWait(timers[200]);
         return console.log('LoginUser');
       } else {
-        await asyncWait(200);
+        await asyncWait(timers[200]);
         return Update({
           id: 'LoadBar',
           addState: 'danger',
@@ -302,7 +302,7 @@ const init = async () => {
         });
       }
     }
-    await asyncWait(200);
+    await asyncWait(timers[200]);
     const macAddress = await GetMacAddress();
     if (
       userdata['name'] &&
@@ -312,7 +312,7 @@ const init = async () => {
       userdata['macAddress'] &&
       userdata['macAddress'] == macAddress
     ) {
-      await asyncWait(200);
+      await asyncWait(timers[200]);
       const access_token = userdata['accessToken'];
       UserData({
         accessToken: access_token,
@@ -367,7 +367,7 @@ const init = async () => {
           },
         ],
       });
-      await asyncWait(200);
+      await asyncWait(timers[200]);
       LoginOpen();
       LoadClose();
     }
@@ -377,7 +377,8 @@ const init = async () => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  init();
+  var timers = { 200: 0, 500: 0, 600: 0, 900: 0 };
+  init(timers);
 });
 
 ipcRenderer.on('update-download-progress', (event, arg) => {

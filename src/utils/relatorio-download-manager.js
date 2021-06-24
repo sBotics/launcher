@@ -9,7 +9,15 @@ const UpdateEventParcent = (id, value) => {
     `relatorioEventParcentage_${id}`,
   ).innerHTML = `${value}%`;
 };
+
 const ClearEvent = () => {
   document.getElementById(`relatorioDownloadContainer`).innerHTML = '';
 };
-export { AddEvent, UpdateEventParcent, ClearEvent };
+
+const ReportDownloadButton = (state) => {
+  document.getElementById('buttonText_DownloadReport').style.display = state
+    ? 'flex'
+    : 'none';
+};
+
+export { AddEvent, UpdateEventParcent, ClearEvent, ReportDownloadButton };
