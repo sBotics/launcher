@@ -151,7 +151,31 @@ const OpenTutorialWiki = (url, pageName = 'sBotics Launcher') => {
 
   tutorialWiki.open();
 };
+const OpenNextCompetition = (url, pageName = 'cBotics') => {
+  var ScreenSize = screen.getPrimaryDisplay();
+  ScreenSize = ScreenSize.bounds;
+  const height = Math.round(ScreenSize.height * 0.6);
+  const width = Math.round((16 * height) / 9);
 
+  var nextCompetition = windowManager.createNew(
+    'tutorialWiki',
+    pageName,
+    url,
+    false,
+    {
+      title: pageName,
+      width: width,
+      height: height,
+      showDevTools: GlobalShowDevTools,
+      DevTools: GlobalShowDevTools,
+      menu: null,
+      frame: true,
+      resizable: true,
+    },
+  );
+
+  nextCompetition.open();
+};
 export {
   LoadClose,
   LoginOpen,
@@ -162,4 +186,5 @@ export {
   LinkOpen,
   OpenCbotics,
   OpenTutorialWiki,
+  OpenNextCompetition,
 };

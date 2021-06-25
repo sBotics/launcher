@@ -7,6 +7,9 @@ const URLdictionary = {
   wEduc: 'https://weduc.natalnet.br',
   sBotics: 'https://sbotics.weduc.natalnet.br',
   DataGithub: 'https://raw.githubusercontent.com/sBotics/builds/main/data.json',
+  NextCompetition:
+    'https://raw.githubusercontent.com/sBotics/builds/main/launcher/nextCompetition.json',
+  MyIP: 'https://meuip.herokuapp.com/api/json',
 };
 
 const ValidateConnection = (options) => {
@@ -78,6 +81,7 @@ const DataRequest = (options) => {
         resolve(response.data);
       })
       .catch(function (error) {
+        console.log(error);
         reject(false);
       });
   });

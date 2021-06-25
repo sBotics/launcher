@@ -33,7 +33,7 @@
   --main: #2fa9c1;
   --alt: var(--info);
   --sidebar-bg: #131313;
-  --topbar-bg: #101010;
+  --topbar-bg: #0c0b0b;
   --border: #414141;
   --card: #181818;
   --body: #171717;
@@ -261,6 +261,7 @@ ul.bot li {
   position: fixed;
   z-index: 99999;
   padding-left: 0px;
+  margin-top: 90px;
 }
 
 .pointer {
@@ -394,7 +395,7 @@ ul.bot li {
 @media (min-width: 576px) {
   .col-left {
     position: fixed;
-    z-index: 10;
+    z-index: 99999;
     float: left;
     height: 100%;
     top: var(--topbar-size);
@@ -442,6 +443,7 @@ ul.bot li {
   }
   .top-container-absolute {
     padding-left: 90px;
+    margin-top: 0px;
   }
 }
 

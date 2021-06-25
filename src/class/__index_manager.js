@@ -20,6 +20,7 @@ import {
   OpenCbotics,
   OpenTutorialWiki,
   IndexReload,
+  OpenNextCompetition,
 } from '../utils/window-manager.js';
 import { LanguageInit, Lang } from '../utils/language-manager.js';
 import { OpenConfig, UpdateConfig } from './__file_config.js';
@@ -31,23 +32,9 @@ import {
   ClearEvent,
   ReportDownloadButton,
 } from '../utils/relatorio-download-manager.js';
+import { NextCompetition } from '../utils/competition-manager.js';
 
-// for (let index = 0; index < 5; index++) {
-//   Toastify({
-//     avatar:
-//       'https://pickaface.net/gallery/avatar/unr_teste_180803_0038_2l6fzsr.png',
-//     text: 'This is a toast',
-//     duration: 3000,
-//     destination: 'https://github.com/apvarun/toastify-js',
-//     newWindow: true,
-//     close: true,
-//     gravity: 'top', // `top` or `bottom`
-//     position: 'right', // `left`, `center` or `right`
-//     backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
-//     stopOnFocus: true, // Prevents dismissing of toast on hover
-//     onClick: function () {}, // Callback after click,
-//   }).showToast();
-// }
+window.OpenNextCompetition = OpenNextCompetition;
 
 // Interface Manager
 $('.close-alert').click(() => {
@@ -74,6 +61,7 @@ const InterfaceLoad = async () => {
   GetPathNote();
   backdrop({ elementName: 'backdrop' });
   ReportDownloadButton(false);
+  NextCompetition();
 };
 
 const FailApplication = (message) => {
