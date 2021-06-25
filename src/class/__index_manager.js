@@ -35,9 +35,11 @@ import {
 import { NextCompetition } from '../utils/competition-manager.js';
 import { FastModeLoad, FastModeUpdate } from '../utils/fast-mode-manager.js';
 import { DataUpdateState } from '../utils/connection-manager.js';
+import { CheckAlerts } from '../utils/alerts-manager.js';
 
 window.OpenNextCompetition = OpenNextCompetition;
 window.FastModeUpdate = FastModeUpdate;
+
 // Interface Manager
 $('.close-alert').click(() => {
   $('.top-alert').css('display', 'none');
@@ -65,6 +67,7 @@ const InterfaceLoad = async () => {
   ReportDownloadButton(false);
   NextCompetition();
   FastModeLoad();
+  CheckAlerts();
 };
 
 const FailApplication = (message, mode = 0) => {

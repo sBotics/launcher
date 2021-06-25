@@ -10,6 +10,8 @@ const URLdictionary = {
   NextCompetition:
     'https://raw.githubusercontent.com/sBotics/builds/main/launcher/nextCompetition.json',
   MyIP: 'https://meuip.herokuapp.com/api/json',
+  Alert:
+    'https://raw.githubusercontent.com/sBotics/builds/main/launcher/alerts/',
 };
 
 const ValidateConnection = (options) => {
