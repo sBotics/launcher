@@ -62,5 +62,15 @@
   "sBotics updated successfully! Ready to open.": "sBotics atualizado com sucesso! Pronto para abrir.",
   "sBotics installed successfully! Ready to open.": "sBotics instalado com sucesso! Pronto para abrir.",
   "Checking integrity of installed files! Please wait...": "Verificando integridade dos arquivos instalados. Aguarde!",
-  "Download Report": "Relatório de Download"
+  "Download Report": "Relatório de Download",
+  "Do you want to enable FastMode?": "Deseja ativar o FastMode?",
+  "Do you want to disable FastMode?": "Deseja desativar o FastMode?",
+  "By enabling this option sBotics Launcher will be optimized to start faster.": "Ao ativar essa opção o sBotics Launcher, será otimizado para iniciar de forma mais rápida.",
+  "By disabling this option the sBotics Launcher will start slower.": "Ao desativar essa opção o sBotics Launcher, iniciara de forma mais lenta.",
+  "Enable FastMode": "Ativar FastMode",
+  "Disable FastMode": "Desativar FastMode",
+  "FastMode Enabled!": "FastMode Ativado!",
+  "FastMode Disabled!": "FastMode desativado!",
+  "": "Não foi possível ativar o FastMode",
+  "Unable to disable FastMode": "Não foi possível desativar o FastMode"
 }

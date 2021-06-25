@@ -1,3 +1,4 @@
+const { ipcRenderer } = require('electron');
 import {
   TitleBar,
   backdrop,
@@ -21,7 +22,7 @@ import {
 import { SLMP, DetectOS } from '../utils/application-manager.js';
 import { LoadClose, LoginOpen, IndexOpen } from '../utils/window-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
-const { ipcRenderer } = require('electron');
+import { FastModeTimer, FastModoState } from '../utils/fast-mode-manager.js';
 
 var donwloadStateInit = false;
 var donwloadStateCallback = true;
@@ -116,7 +117,11 @@ const init = async (timers = { 200: 200, 500: 500, 600: 600, 900: 900 }) => {
   await asyncWait(timers[600]);
 
   try {
-    if ((await ValidateConnection({ url: URLdictionary['wEduc'] })) && !SLMP())
+    if (
+      (await ValidateConnection({ url: URLdictionary['wEduc'] })) &&
+      !SLMP() &&
+      !FastModoState()
+    )
       Update({
         id: 'LoadBar',
         addState: 'success',
@@ -377,8 +382,7 @@ const init = async (timers = { 200: 200, 500: 500, 600: 600, 900: 900 }) => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  var timers = { 200: 0, 500: 0, 600: 0, 900: 0 };
-  init(timers);
+  init(FastModeTimer());
 });
 
 ipcRenderer.on('update-download-progress', (event, arg) => {

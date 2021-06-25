@@ -1,12 +1,16 @@
 var extend = require('extend-shallow');
 import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
-import { folderPathGLauncher, SystemGetLocale } from '../utils/application-manager.js';
+import {
+  folderPathGLauncher,
+  SystemGetLocale,
+} from '../utils/application-manager.js';
 
 const DefaultConfiguration = {
   language: SystemGetLocale(),
   folderPath: folderPathGLauncher,
-  languageSimulator: SystemGetLocale().replace('_US', '')
+  languageSimulator: SystemGetLocale().replace('_US', ''),
+  fastMode: false,
 };
 
 const CreateConfig = (options) => {

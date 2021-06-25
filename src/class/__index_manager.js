@@ -33,9 +33,9 @@ import {
   ReportDownloadButton,
 } from '../utils/relatorio-download-manager.js';
 import { NextCompetition } from '../utils/competition-manager.js';
-
+import { FastModeLoad, FastModeUpdate } from '../utils/fast-mode-manager.js';
 window.OpenNextCompetition = OpenNextCompetition;
-
+window.FastModeUpdate = FastModeUpdate;
 // Interface Manager
 $('.close-alert').click(() => {
   $('.top-alert').css('display', 'none');
@@ -62,6 +62,7 @@ const InterfaceLoad = async () => {
   backdrop({ elementName: 'backdrop' });
   ReportDownloadButton(false);
   NextCompetition();
+  FastModeLoad();
 };
 
 const FailApplication = (message) => {
