@@ -201,7 +201,7 @@ body {
   position: fixed;
   width: 100%;
   background-color: var(--sidebar-bg);
-  z-index: 99999;
+  z-index: 9999999;
   top: 1;
   padding-left: 10px;
   padding-right: 10px;
@@ -395,7 +395,7 @@ ul.bot li {
 @media (min-width: 576px) {
   .col-left {
     position: fixed;
-    z-index: 99999;
+    z-index: 9999999;
     float: left;
     height: 100%;
     top: var(--topbar-size);
