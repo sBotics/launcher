@@ -66,10 +66,6 @@ const CreateTopAlert = (options) => {
     const fixedState = options.fixed;
     const iconState = options.icon;
 
-    console.log("Fixed: " + fixedState);
-    console.log("Icon: " + iconState);
-
-
     const init = `<div id="${options.idInner}" class="alert alert-info ${alertContainer}" role="alert" style="margin-bottom: 0px; border-radius: 0px"><div class="d-flex flex-row">`;
     const icon = `<i class="${alertIcon} icon-sbotics-success bi flex-shrink-0 me-2" style="font-size: 22px"></i>`;
     const body = `<div class="d-flex flex-column">${alertMessage}</div></div>`;

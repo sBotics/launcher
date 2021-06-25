@@ -21,8 +21,18 @@ const CheckAlerts = async () => {
     url: `${URLdictionary['Alert']}${openConfig['language']}.json`,
   });
   dataRequest.map((data) => {
-    console.log(data);
-    CheckAlertGenerator(data);
+    if (!data['state']) return;
+    const locales = data.locales.length != 0 ? data.locales : false;
+    const regions = data.regions.length != 0 ? data.regions : false;
+    if (!locales && !regions) return CheckAlertGenerator(data);
+    locales.map((dataL) => {
+      if (dataL == geoFinder['country']) {
+        if (!regions) return CheckAlertGenerator(data);
+        regions.map((dataR) => {
+          if (dataR == geoFinder['region']) CheckAlertGenerator(data);
+        });
+      }
+    });
   });
 };
 
