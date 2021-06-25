@@ -73,9 +73,9 @@ const CreateTopAlert = (options) => {
     const end = `</div>`;
 
     var component = init;
-    if (iconState == "true") component += icon;
+    if (iconState == true) component += icon;
     component += body;
-    if (fixedState == "true") component += exit;
+    if (fixedState == false) component += exit;
     component += end;
 
     elementContainer.innerHTML = options.multiple
