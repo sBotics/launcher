@@ -28,5 +28,11 @@ const IndexTranslator = async () => {
   );
   LangElement('buttonText_DownloadReport', 'Download Report');
   LangElement('Text_DownloadReport', 'Download Report');
+  LangElement('Text_cBoticsTitle', 'What will your next competition be?');
+  LangElement(
+    'Text_cBoticsDescription',
+    'Join your team, prepare your code and compete in the sBotics simulator with all of Brazil.',
+  );
+
 };
 export { LoginTranslator, IndexTranslator };

@@ -71,8 +71,10 @@
   "Disable FastMode": "Desativar FastMode",
   "FastMode Enabled!": "FastMode Ativado!",
   "FastMode Disabled!": "FastMode desativado!",
-  "": "Não foi possível ativar o FastMode",
+  "Unable to enable FastMode": "Não foi possível ativar o FastMode",
   "Unable to disable FastMode": "Não foi possível desativar o FastMode",
   "Unable to open, we are in the maintenance process! Please wait...": "Impossivel abrir, estamos em processo de atualização ou manutenção! Aguarde...",
-  "We are in the process of updating or maintaining the sBotics! Please wait...": "Estamos em processo de atualização ou manutenção do sBotics! aguarde..."
+  "We are in the process of updating or maintaining the sBotics! Please wait...": "Estamos em processo de atualização ou manutenção do sBotics! aguarde...",
+  "What will your next competition be?": "Qual será sua próxima competição?",
+  "Join your team, prepare your code and compete in the sBotics simulator with all of Brazil.": "Junte sua equipe, prepare seu código e venha competir no simulador sBotics com todo o Brasil."
 }
