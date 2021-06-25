@@ -34,6 +34,8 @@ import {
 } from '../utils/relatorio-download-manager.js';
 import { NextCompetition } from '../utils/competition-manager.js';
 import { FastModeLoad, FastModeUpdate } from '../utils/fast-mode-manager.js';
+import { DataUpdateState } from '../utils/connection-manager.js';
+
 window.OpenNextCompetition = OpenNextCompetition;
 window.FastModeUpdate = FastModeUpdate;
 // Interface Manager
@@ -65,28 +67,49 @@ const InterfaceLoad = async () => {
   FastModeLoad();
 };
 
-const FailApplication = (message) => {
-  CreateTopAlert({
-    states: 'danger',
-    message: `${message} -  ${Lang(
-      'If a continuation fails, please contact the developers.',
-    )}`,
-  });
-  Reset();
-  Create({
-    percentage: 100,
-    id: '1',
-    state: 'danger',
-    limit: 100,
-  });
-  MagicButton({
-    mode: 'fail',
-    text: message,
-  });
+const FailApplication = (message, mode = 0) => {
+  if (mode == 1) {
+    CreateTopAlert({
+      states: 'danger',
+      message: message,
+    });
+    Reset();
+    MagicButton({
+      mode: 'fail',
+      text: message,
+    });
+  } else {
+    CreateTopAlert({
+      states: 'danger',
+      message: `${message} -  ${Lang(
+        'If a continuation fails, please contact the developers.',
+      )}`,
+    });
+    Reset();
+    Create({
+      percentage: 100,
+      id: '1',
+      state: 'danger',
+      limit: 100,
+    });
+    MagicButton({
+      mode: 'fail',
+      text: message,
+    });
+  }
 };
 
 const FilesVerification = async (options) => {
   Reset();
+
+  const dataUpdateState = await DataUpdateState();
+  if (dataUpdateState['sbotics'] == true)
+    return FailApplication(
+      Lang(
+        'We are in the process of updating or maintaining the sBotics! Please wait...',
+      ),
+      1,
+    );
 
   options = extend(
     {

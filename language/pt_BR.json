@@ -72,5 +72,7 @@
   "FastMode Enabled!": "FastMode Ativado!",
   "FastMode Disabled!": "FastMode desativado!",
   "": "Não foi possível ativar o FastMode",
-  "Unable to disable FastMode": "Não foi possível desativar o FastMode"
+  "Unable to disable FastMode": "Não foi possível desativar o FastMode",
+  "Unable to open, we are in the maintenance process! Please wait...": "Impossivel abrir, estamos em processo de atualização ou manutenção! Aguarde...",
+  "We are in the process of updating or maintaining the sBotics! Please wait...": "Estamos em processo de atualização ou manutenção do sBotics! aguarde..."
 }

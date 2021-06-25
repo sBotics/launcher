@@ -9,6 +9,7 @@ import {
   URLdictionary,
   ValidateConnection,
   UserData,
+  DataUpdateState,
 } from '../utils/connection-manager.js';
 import { OpenConfig } from '../class/__file_config.js';
 import { CreateUserFile, OpenUserFile } from '../class/__file_user.js';
@@ -48,21 +49,54 @@ const InterfaceLoad = async () => {
 };
 
 const init = async (timers = { 200: 200, 500: 500, 600: 600, 900: 900 }) => {
-  await asyncWait(timers[900]);
+  await asyncWait(timers[600]);
 
-  Update({
-    id: 'LoadBar',
-    addState: 'info',
-    percentage: 7,
-    text: [
-      {
-        textContainer: 'TextProgress',
-        message: `<i class="fas fa-wifi text-info"></i> <span style="margin-left: 13px">${Lang(
-          'Checking Internet Connection! Please wait...',
-        )}</span>`,
-      },
-    ],
-  });
+  try {
+    const dataUpdateState = await DataUpdateState();
+    if (!dataUpdateState && dataUpdateState['launcher'] == false && !SLMP()) {
+      Update({
+        id: 'LoadBar',
+        addState: 'info',
+        percentage: 7,
+        text: [
+          {
+            textContainer: 'TextProgress',
+            message: `<i class="fas fa-wifi text-info"></i> <span style="margin-left: 13px">${Lang(
+              'Checking Internet Connection! Please wait...',
+            )}</span>`,
+          },
+        ],
+      });
+    } else if (dataUpdateState['launcher'] != false && !SLMP()) {
+      return Update({
+        id: 'LoadBar',
+        addState: 'danger',
+        percentage: 100,
+        text: [
+          {
+            textContainer: 'TextProgress',
+            message: `<i class="fas fa-tools text-danger"></i> <strong style="margin-left: 13px">${Lang(
+              'Unable to open, we are in the maintenance process! Please wait...',
+            )}</strong>`,
+          },
+        ],
+      });
+    }
+  } catch (error) {
+    return Update({
+      id: 'LoadBar',
+      addState: 'danger',
+      percentage: 100,
+      text: [
+        {
+          textContainer: 'TextProgress',
+          message: `<i class="fas fa-tools text-danger"></i> <strong style="margin-left: 13px">${Lang(
+            'Unable to open, we are in the maintenance process! Please wait...',
+          )}</strong>`,
+        },
+      ],
+    });
+  }
 
   await asyncWait(timers[600]);
 

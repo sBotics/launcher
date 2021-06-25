@@ -87,4 +87,18 @@ const DataRequest = (options) => {
   });
 };
 
-export { URLdictionary, ValidateConnection, UserData, DataRequest };
+const DataUpdateState = async () => {
+  const dataGithub = await DataRequest({ url: URLdictionary['DataGithub'] });
+  return new Promise((resolve, reject) => {
+    if (!dataGithub) reject(false);
+    resolve(dataGithub['update_launcher']);
+  });
+};
+
+export {
+  URLdictionary,
+  ValidateConnection,
+  UserData,
+  DataRequest,
+  DataUpdateState,
+};
