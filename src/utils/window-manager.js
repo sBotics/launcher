@@ -44,6 +44,7 @@ const LoginClose = () => {
 };
 
 var index;
+
 const IndexOpen = (restart = false) => {
   var ScreenSize = screen.getPrimaryDisplay();
   ScreenSize = ScreenSize.bounds;
@@ -77,6 +78,7 @@ const IndexOpen = (restart = false) => {
 const IndexClose = () => {
   windowManager.close('index');
 };
+
 const IndexReload = () => {
   document.location.reload(true);
 };
@@ -151,6 +153,7 @@ const OpenTutorialWiki = (url, pageName = 'sBotics Launcher') => {
 
   tutorialWiki.open();
 };
+
 const OpenNextCompetition = (url, pageName = 'cBotics') => {
   var ScreenSize = screen.getPrimaryDisplay();
   ScreenSize = ScreenSize.bounds;
@@ -176,6 +179,7 @@ const OpenNextCompetition = (url, pageName = 'cBotics') => {
 
   nextCompetition.open();
 };
+
 export {
   LoadClose,
   LoginOpen,

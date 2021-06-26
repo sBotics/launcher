@@ -16,6 +16,7 @@ import {
   AddEvent,
   UpdateEventParcent,
 } from '../utils/relatorio-download-manager.js';
+
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
   'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
@@ -67,28 +68,17 @@ const CheckUpdate = (options) => {
   const size = options.size;
   const lastUpdatedAt = options.lastUpdatedAt;
 
-  const pathDownload = `sBotics/${path + name}`;
+  const pathDownload = `sBotics/${path + name}`; 
 
   if (FindSync(pathDownload)) {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
-    const saveFileTime = ParseTime(
-      ConvertTime(FileSizeSync(pathDownload).mtime),
-    );
-    if (donwloadFileTime > saveFileTime) {
-      if (BlackListSize.indexOf(pathDownload) > -1) {
-        return true;
-      } else {
-        return false;
-      }
+    const saveFileTime = Math.floor(FileSizeSync(pathDownload).mtimeMs);
+    if (donwloadFileTime >= saveFileTime) {
+      return BlackListSize.indexOf(pathDownload) > -1;
     } else if (FileSizeSync(pathDownload).size != size) {
-      if (BlackList.indexOf(pathDownload) > -1) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
+      return BlackList.indexOf(pathDownload) > -1;
+    } 
+    return true;
   } else {
     return false;
   }
