@@ -3,7 +3,7 @@ var sBoticsDownloader = require('sbotics-downloader');
 
 const __sBoticsDownloader = new sBoticsDownloader({
   user: 'sBotics',
-  repository: 'sBoticsBuilds',
+  repository: 'releases',
   branch: 'master',
   externalDownload: true,
   detailedAnswer: true,
