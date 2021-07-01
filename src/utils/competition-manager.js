@@ -29,5 +29,4 @@ const NextCompetition = async () => {
     });
   });
 };
-
 export { NextCompetition };
