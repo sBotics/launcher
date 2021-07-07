@@ -76,5 +76,14 @@
   "Unable to open, we are in the maintenance process! Please wait...": "Impossivel abrir, estamos em processo de atualização ou manutenção! Aguarde...",
   "We are in the process of updating or maintaining the sBotics! Please wait...": "Estamos em processo de atualização ou manutenção do sBotics! aguarde...",
   "What will your next competition be?": "Qual será sua próxima competição?",
-  "Join your team, prepare your code and compete in the sBotics simulator with all of Brazil.": "Junte sua equipe, prepare seu código e venha competir no simulador sBotics com todo o Brasil."
+  "Join your team, prepare your code and compete in the sBotics simulator with all of Brazil.": "Junte sua equipe, prepare seu código e venha competir no simulador sBotics com todo o Brasil.",
+  "FastMode unavailable!": "FastMode indisponível!",
+  "Do you want to repair your sBotics installation?": "Deseja reparar a instalação do sBotics?",
+  "Reparar sBotics": "Reparar sBotics",
+  "Repairing sBotics!": "Reparando sBotics!",
+  "Starting installation repair! Please wait...": "Iniciando reparo da instalação! Aguarde...",
+  "Success!": "Sucesso!",
+  "sBotics Installation has not changed!": "A instalação do sBotics não mudou!",
+  "Repair failed!": "A reparação falhou!",
+  "An unexpected error has happened, please try again later.": "Um erro inesperado aconteceu, tente novamente mais tarde."
 }

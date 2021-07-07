@@ -4,6 +4,7 @@ import { FindSync, FileSizeSync, ExtractSync } from '../utils/files-manager.js';
 import {
   DetecOSFolder,
   folderPathGsBotics,
+  SLMP,
 } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
 import { DownloadJSON, DownloadFile } from '../utils/donwload-manager.js';
@@ -68,7 +69,7 @@ const CheckUpdate = (options) => {
   const size = options.size;
   const lastUpdatedAt = options.lastUpdatedAt;
 
-  const pathDownload = `sBotics/${path + name}`; 
+  const pathDownload = `sBotics/${path + name}`;
 
   if (FindSync(pathDownload)) {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
@@ -77,7 +78,7 @@ const CheckUpdate = (options) => {
       return BlackListSize.indexOf(pathDownload) > -1;
     } else if (FileSizeSync(pathDownload).size != size) {
       return BlackList.indexOf(pathDownload) > -1;
-    } 
+    }
     return true;
   } else {
     return false;
@@ -197,7 +198,10 @@ const DownloadsUpdate = async (options) => {
           UpdateEventParcent(id, percentage);
         },
         shouldStop: function (error) {
-          console.log(error);
+          if (SLMP()) {
+            console.info('Falhou: ' + path + name);
+            console.error(error);
+          }
           if (error.statusCode && error.statusCode === 404) {
             return true;
           }

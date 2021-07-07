@@ -61,27 +61,30 @@ const Update = (options) => {
   );
 
   const id = options.id;
+  if (!id) return;
   const onlyAdd = options.onlyAdd;
   const percentage = options.percentage;
   const text = options.text;
 
   setTimeout(() => {
-    if (id) {
-      if (onlyAdd)
-        document
-          .getElementById(id)
-          .classList.remove(`bg-${options.removeState}`);
-      document.getElementById(id).classList.add(`bg-${options.addState}`);
-      if (percentage)
-        document.getElementById(id).style.width = `${percentage}%`;
-    }
+    try {
+      if (id) {
+        if (onlyAdd)
+          document
+            .getElementById(id)
+            .classList.remove(`bg-${options.removeState}`);
+        document.getElementById(id).classList.add(`bg-${options.addState}`);
+        if (percentage)
+          document.getElementById(id).style.width = `${percentage}%`;
+      }
 
-    if (text)
-      text.forEach(
-        (element) =>
-          (document.getElementById(element.textContainer).innerHTML =
-            element.message),
-      );
+      if (text)
+        text.forEach(
+          (element) =>
+            (document.getElementById(element.textContainer).innerHTML =
+              element.message),
+        );
+    } catch (error) {}
   }, options.timeout);
 };
 

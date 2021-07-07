@@ -57,11 +57,11 @@ const FastModeUpdate = () => {
         );
       } else {
         Swal.fire(
-          'FastMode indisponível!',
+          Lang('FastMode unavailable!'),
           !fastModeState
             ? Lang('Unable to enable FastMode')
             : Lang('Unable to disable FastMode'),
-          'danger',
+          'error',
         );
       }
     }

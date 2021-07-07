@@ -1,5 +1,6 @@
 var extend = require('extend-shallow');
 const Swal = require('sweetalert2');
+const fs = require('fs-extra');
 import { backdrop } from '../class/__interface_components.js';
 import {
   DataUpdate,
@@ -9,6 +10,7 @@ import {
 import {
   OpenInstallFolder,
   DetecOSFolder,
+  folderPathGsBotics,
 } from '../utils/application-manager.js';
 import { Create, Update, Reset } from '../utils/progress-bar.js';
 import { MagicButton } from '../utils/magic-button-manager.js';
@@ -118,12 +120,18 @@ const FilesVerification = async (options) => {
     {
       modeText: '',
       autoOpen: false,
+      autoInstall: false,
+      installCheck: false,
+      typeModel: '',
     },
     options,
   );
 
   const modeText = options.modeText;
   const autoOpen = options.autoOpen;
+  const autoInstall = options.autoInstall;
+  const installCheck = options.installCheck;
+  const typeModel = options.typeModel;
 
   MagicButton({
     mode: 'process',
@@ -145,19 +153,44 @@ const FilesVerification = async (options) => {
 
   if (filesFind == dataUpdateFiles) {
     if (autoOpen) OpenSbotics();
-    else
+    else {
       MagicButton({
         mode: 'start',
       });
+
+      if (installCheck) {
+        switch (typeModel) {
+          case 'install':
+            CreateTopAlert({
+              states: 'success',
+              message: Lang('sBotics installed successfully! Ready to open.'),
+            });
+            break;
+          case 'update':
+            CreateTopAlert({
+              states: 'success',
+              message: Lang('sBotics updated successfully! Ready to open.'),
+            });
+            break;
+        }
+      }
+    }
   } else {
-    if (filesFind > 0) {
-      MagicButton({
-        mode: 'update',
+    if (autoInstall)
+      DownloadsBotics({
+        modeText: Lang('Installing sBotics! Please wait...'),
+        type: 'install',
       });
-    } else {
-      MagicButton({
-        mode: 'install',
-      });
+    else {
+      if (filesFind > 0) {
+        MagicButton({
+          mode: 'update',
+        });
+      } else {
+        MagicButton({
+          mode: 'install',
+        });
+      }
     }
   }
 };
@@ -255,30 +288,15 @@ const DownloadsBotics = async (options) => {
                 ),
               );
             else {
-              switch (type) {
-                case 'install':
-                  CreateTopAlert({
-                    states: 'success',
-                    message: Lang(
-                      'sBotics installed successfully! Ready to open.',
-                    ),
-                  });
-                  break;
-                case 'update':
-                  CreateTopAlert({
-                    states: 'success',
-                    message: Lang(
-                      'sBotics updated successfully! Ready to open.',
-                    ),
-                  });
-                  break;
-              }
               FilesVerification({
+                autoInstall: true,
                 modeText: Lang('Looking for update! Please wait...'),
+                installCheck: true,
+                typeModel: type,
               });
-              MagicButton({
-                mode: 'start',
-              });
+              // MagicButton({
+              //   mode: 'start',
+              // });
             }
         });
     });
@@ -354,7 +372,10 @@ $(document).on('click', '#OpenFolderInstall', () => {
       confirmButtonText: Lang('Install sBotics'),
     }).then((result) => {
       if (result.isConfirmed) {
-        DownloadsBotics(Lang('Installing sBotics! Please wait...'));
+        DownloadsBotics({
+          modeText: Lang('Installing sBotics! Please wait...'),
+          type: 'install',
+        });
       }
     });
   }
@@ -371,3 +392,67 @@ $(document).on('click', '#UpdateLanguageSbotics', () => {
   });
   IndexReload();
 });
+
+// Repair Sbotics
+
+const RepairSbotics = () => {
+  Swal.fire({
+    title: Lang('Repair sBotics Installation'),
+    text: Lang('Do you want to repair your sBotics installation?'),
+    icon: 'warning',
+    reverseButtons: true,
+    showCancelButton: true,
+    confirmButtonText:
+      Lang('Reparar sBotics') + ' <span class="badge bg-danger">BETA</span>',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (!FindSync('sBotics/')) {
+        FilesVerification({
+          modeText: Lang('Looking for update! Please wait...'),
+        });
+        Swal.fire({
+          icon: 'error',
+          title: Lang('Repair failed!'),
+          text: Lang('Installation folder not found! Try installing again.'),
+          showCancelButton: false,
+          confirmButtonText: Lang('Install sBotics'),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            DownloadsBotics({
+              modeText: Lang('Installing sBotics! Please wait...'),
+              type: 'install',
+            });
+          }
+        });
+      } else {
+        fs.remove(folderPathGsBotics())
+          .then(() => {
+            DownloadsBotics({
+              modeText: Lang('Installing sBotics! Please wait...'),
+              type: 'install',
+            });
+            Swal.fire(
+              Lang('Repairing sBotics!'),
+              Lang('Starting installation repair! Please wait...'),
+              'success',
+            );
+          })
+          .catch((err) => {
+            Swal.fire(
+              Lang('Repair failed!'),
+              Lang('An unexpected error has happened, please try again later.'),
+              'error',
+            );
+          });
+      }
+    } else {
+      Swal.fire(
+        Lang('Success!'),
+        Lang('sBotics Installation has not changed!'),
+        'error',
+      );
+    }
+  });
+};
+
+window.RepairSbotics = RepairSbotics;
