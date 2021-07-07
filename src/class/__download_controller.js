@@ -192,7 +192,7 @@ const DownloadsUpdate = async (options) => {
         directory: folderPathGsBotics() + '/' + path,
         fileName: name,
         cloneFiles: false,
-        maxAttempts: 10,
+        maxAttempts: 15,
         onProgress: function (percentage, chunk, remainingSize) {
           UpdateEventParcent(id, percentage);
         },
