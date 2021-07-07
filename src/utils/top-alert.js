@@ -60,14 +60,14 @@ const CreateTopAlert = (options) => {
     const stateScheme = colorScheme[options.states];
     const absolute = options.absolute ? 'position-absolute' : '';
 
-    const alertContainer = `${absolute}`;
+    const alertContainer = `${stateScheme['bg']} ${absolute}`;
     const alertIcon = `${stateScheme['icon']} ${stateScheme['icon_bg']}`;
     const alertMessage = `${options.html}`;
     const fixedState = options.fixed;
     const iconState = options.icon;
 
-    const init = `<div id="${options.idInner}" class="alert alert-info ${alertContainer}" role="alert" style="margin-bottom: 0px; border-radius: 0px"><div class="d-flex flex-row">`;
-    const icon = `<i class="${alertIcon} icon-sbotics-success bi flex-shrink-0 me-2" style="font-size: 22px"></i>`;
+    const init = `<div id="${options.idInner}" class="alert ${alertContainer}" role="alert" style="margin-bottom: 0px; border-radius: 0px"><div class="d-flex flex-row">`;
+    const icon = `<i class="${alertIcon} bi flex-shrink-0 me-2" style="font-size: 22px"></i>`;
     const body = `<div class="d-flex flex-column">${alertMessage}</div></div>`;
     const exit = `<div class="alert-dismissible-top"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
     const end = `</div>`;
