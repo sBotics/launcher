@@ -23,6 +23,8 @@ const alertScheme = {
   },
 };
 
+var countAlert = 0;
+
 const CreateTopAlert = (options) => {
   options = extend(
     {
@@ -31,14 +33,24 @@ const CreateTopAlert = (options) => {
       message: '',
       absolute: false,
       idInner: '',
+      idAutoInner: true,
       multiple: true,
       html: '',
       colorScheme: alertScheme,
       fixed: false,
       icon: true,
+      timeOutVIew: 5000,
     },
     options,
   );
+
+  const timeOutVIew = options.timeOutVIew;
+
+  const idInner = !options.idInner
+    ? options.idAutoInner
+      ? countAlert++
+      : ''
+    : options.idInner;
 
   if (!options.html) {
     const elementContainer = document.getElementById(options.elementContainer);
@@ -50,7 +62,7 @@ const CreateTopAlert = (options) => {
     const alertIcon = `${stateScheme['icon']} ${stateScheme['icon_bg']}`;
     const alertMessage = `${options.message}`;
 
-    const component = `<div id="${options.idInner}" class="top-alert alert d-flex justify-content-between align-items-center fade show rounded-0 ${alertContainer}" role="alert"><div class="d-flex flex-row"><i class="${alertIcon} bi flex-shrink-0 me-2" style="font-size: 22px;"></i><div>${alertMessage}</div></div><div class="alert-dismissible-top"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div></div>`;
+    const component = `<div id="Alert__${idInner}" class="top-alert alert justify-content-between align-items-center fade show rounded-0 ${alertContainer}" style="display: flex" role="alert"><div class="d-flex flex-row"><i class="${alertIcon} bi flex-shrink-0 me-2" style="font-size: 22px;"></i><div>${alertMessage}</div></div><div class="alert-dismissible-top"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div></div>`;
     elementContainer.innerHTML = options.multiple
       ? elementContainer.innerHTML + component
       : component;
@@ -66,7 +78,7 @@ const CreateTopAlert = (options) => {
     const fixedState = options.fixed;
     const iconState = options.icon;
 
-    const init = `<div id="${options.idInner}" class="alert ${alertContainer}" role="alert" style="margin-bottom: 0px; border-radius: 0px"><div class="d-flex flex-row">`;
+    const init = `<div id="Alert__${idInner}" class="alert ${alertContainer}" role="alert" style="margin-bottom: 0px; border-radius: 0px"><div class="d-flex flex-row">`;
     const icon = `<i class="${alertIcon} bi flex-shrink-0 me-2" style="font-size: 22px"></i>`;
     const body = `<div class="d-flex flex-column">${alertMessage}</div></div>`;
     const exit = `<div class="alert-dismissible-top"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
@@ -81,6 +93,12 @@ const CreateTopAlert = (options) => {
     elementContainer.innerHTML = options.multiple
       ? elementContainer.innerHTML + component
       : component;
+  }
+
+  if (timeOutVIew != 0) {
+    setTimeout(() => {
+      document.getElementById(`Alert__${idInner}`).style.display = 'none';
+    }, timeOutVIew);
   }
 };
 

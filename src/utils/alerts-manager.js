@@ -8,9 +8,10 @@ const CheckAlertGenerator = (data) => {
     states: data.type,
     html: data.html,
     message: data.message,
-    idInner: 'Alert__1',
+    idInner: '',
     fixed: data.fixed,
     icon: data.icon,
+    timeOutVIew: data.hiddenTime ? data.hiddenTime : 0,
   });
 };
 
