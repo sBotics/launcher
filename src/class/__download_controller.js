@@ -1,5 +1,6 @@
 var extend = require('extend-shallow');
 const Downloader = require('nodejs-file-downloader');
+const fs = require('fs-extra');
 import { FindSync, FileSizeSync, ExtractSync } from '../utils/files-manager.js';
 import {
   DetecOSFolder,
@@ -38,6 +39,7 @@ const BlackList = [
 const BlackListSize = [
   'sBotics/sBotics_Data/StreamingAssets/robots.png',
   'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
+  'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json',
 ];
 
 const DataUpdate = async (options) => {
@@ -71,8 +73,7 @@ const CheckUpdate = (options) => {
       name: '',
       size: '',
       lastUpdatedAt: '',
-      forceInstall: '',
-      newSboticsVersion: '',
+      forceInstall: false,
     },
     options,
   );
@@ -83,15 +84,14 @@ const CheckUpdate = (options) => {
   const lastUpdatedAt = options.lastUpdatedAt;
   const pathDownload = `sBotics/${path + name}`;
   const forceInstall = options.forceInstall;
-  const newSboticsVersion = options.newSboticsVersion;
 
-  if (
-    ForceInstallManager({
-      forceInstall: forceInstall,
-      newSboticsVersion: newSboticsVersion,
-    })
-  )
+  if (forceInstall) {
+    if (FileSizeSync(pathDownload).size != size) {
+      if (BlackList.indexOf(pathDownload) > -1) return true;
+      else return false;
+    }
     return false;
+  }
 
   if (FindSync(pathDownload)) {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
@@ -116,12 +116,19 @@ const CheckAllUpdate = (options) => {
   );
   try {
     const dataUpdate = options.dataUpdate;
+
+    localStorage.setItem('versionSbotics', dataUpdate['version']);
+
+    const forceInstall = ForceInstallManager({
+      forceInstall: dataUpdate['force'],
+      newSboticsVersion: dataUpdate['version'],
+    });
+
     const dataUpdateFilesSize = dataUpdate['data'].length;
     var filesID = dataUpdateFilesSize + 1;
     var filesFind = 0;
     var filesNotFind = 0;
-    var versionSbotics = dataUpdate['version'];
-    localStorage.setItem('versionSbotics', versionSbotics);
+
     dataUpdate['data'].map((dataUpdate) => {
       const fileID = --filesID;
       Create({
@@ -137,8 +144,7 @@ const CheckAllUpdate = (options) => {
           name: dataUpdate.name,
           size: dataUpdate.size,
           lastUpdatedAt: dataUpdate.last_updated_at,
-          forceInstall: dataUpdate.force,
-          newSboticsVersion: versionSbotics,
+          forceInstall: forceInstall,
         })
       ) {
         Update({
@@ -160,6 +166,7 @@ const CheckAllUpdate = (options) => {
       filesFind: filesFind,
       filesNotFind: filesNotFind,
       dataUpdateFiles: dataUpdateFilesSize,
+      forceInstall: forceInstall,
     };
   } catch (error) {
     console.log(error);
@@ -178,7 +185,6 @@ const DownloadsUpdate = async (options) => {
       id: '',
       format: '',
       lastUpdatedAt: '',
-      forceInstall: '',
     },
     options,
   );
@@ -191,7 +197,7 @@ const DownloadsUpdate = async (options) => {
   const id = options.id;
   const format = options.format;
   const lastUpdatedAt = options.lastUpdatedAt;
-  const forceInstall = options.forceInstall;
+
   if (!name || !prefix) return 'teste';
 
   const pathFile = (prefix + path + name).replace('#', '%23');
@@ -205,18 +211,20 @@ const DownloadsUpdate = async (options) => {
         name: name,
         size: size,
         lastUpdatedAt: lastUpdatedAt,
-        forceInstall: forceInstall,
-        newSboticsVersion: localStorage.getItem('versionSbotics'),
       })
-    )
-      return resolve({ state: 'ok', id: id });
+    ) {
+      if (BlackList.indexOf(`sBotics/${path + name}`) > -1) {
+        CreateBackupStreamingAssets({
+          fileName: name,
+          backupConfig: backupConfig,
+        });
+      } else {
+        return resolve({ state: 'ok', id: id });
+      }
+    }
 
     (async () => {
       AddEvent(id, path + name);
-      CreateBackupStreamingAssets({
-        fileName: name,
-        backupConfig: backupConfig,
-      });
       const downloader = new Downloader({
         url: pathURL,
         directory: folderPathGsBotics() + '/' + path,

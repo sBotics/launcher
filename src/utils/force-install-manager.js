@@ -1,4 +1,3 @@
-import { OpenConfig, UpdateConfig } from '../class/__file_config.js';
 import { StringToBoolean } from './conver-data.js';
 
 var extend = require('extend-shallow');

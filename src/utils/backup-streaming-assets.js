@@ -148,4 +148,30 @@ const CreateBackupStreamingAssets = (options) => {
   }
 };
 
-export { StreamingAssets, CreateBackupStreamingAssets };
+const CreateBackupStreamingAssetsAll = () => {
+  const BlackList = [
+    'Skybox.json',
+    'skybox.jpg',
+    'robots.png',
+    'KeyBinding.json',
+    'ColorTheme.json',
+    'C#-en.json',
+    'C#-pt_BR.json',
+    'rEduc-en.json',
+    'rEduc-pt_BR.json',
+  ];
+  const blackListLength = BlackList.length;
+  var backlistnow = 1;
+  return new Promise((resolve, reject) => {
+    BlackList.map((file) => {
+      CreateBackupStreamingAssets({ fileName: file });
+      if (blackListLength == backlistnow++) resolve(true);
+    });
+  });
+};
+
+export {
+  StreamingAssets,
+  CreateBackupStreamingAssets,
+  CreateBackupStreamingAssetsAll,
+};

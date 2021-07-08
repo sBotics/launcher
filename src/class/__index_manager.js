@@ -38,6 +38,8 @@ import { NextCompetition } from '../utils/competition-manager.js';
 import { FastModeLoad, FastModeUpdate } from '../utils/fast-mode-manager.js';
 import { DataUpdateState } from '../utils/connection-manager.js';
 import { CheckAlerts } from '../utils/alerts-manager.js';
+import { ForceInstallManager } from '../utils/force-install-manager.js';
+import { CreateBackupStreamingAssetsAll } from '../utils/backup-streaming-assets.js';
 
 window.OpenNextCompetition = OpenNextCompetition;
 window.FastModeUpdate = FastModeUpdate;
@@ -196,6 +198,89 @@ const FilesVerification = async (options) => {
 };
 
 // Download sBotics Manager
+
+const DownloadsBoticsEvent = (dataUpdate, type) => {
+  const dataUpdateLength = dataUpdate['data'].length;
+  var filesID = dataUpdateLength + 1;
+  var filesPast = 0;
+  var success = 0;
+  dataUpdate['data'].map((dataUpdate) => {
+    const fileID = --filesID;
+    Create({
+      percentage: dataUpdateLength,
+      sizeCreate: true,
+      id: fileID,
+      state: 'info',
+      limit: dataUpdateLength,
+    });
+    DownloadsUpdate({
+      path: dataUpdate.path,
+      pathURL: dataUpdate.download,
+      name: dataUpdate.name,
+      size: dataUpdate.size,
+      prefix: `${DetecOSFolder()}/`,
+      id: fileID,
+      format: dataUpdate.format,
+      lastUpdatedAt: dataUpdate.last_updated_at,
+    })
+      .then((resp) => {
+        success = success + 1;
+        if (resp.state == 'ok') {
+          Update({
+            id: resp.id,
+            addState: 'sbotics-okfiles',
+            removeState: 'info',
+          });
+        } else if (resp.state == 'update') {
+          // console.log(dataUpdate.path + dataUpdate.name);
+          Update({
+            id: resp.id,
+            addState: 'success',
+            removeState: 'info',
+          });
+        } else {
+          Update({
+            id: resp.id,
+            addState: 'danger',
+            removeState: 'info',
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        Update({
+          id: err.id,
+          addState: 'danger',
+          removeState: 'info',
+        });
+      })
+      .then(() => {
+        filesPast = filesPast + 1;
+        if (filesPast == dataUpdateLength)
+          if (success != filesPast)
+            FailApplication(
+              Lang(
+                'Failed to install sBotics! Check your internet connection.',
+              ),
+            );
+          else {
+            UpdateConfig({
+              data: {
+                currentSboticsVersion: localStorage.getItem('versionSbotics'),
+              },
+            });
+
+            FilesVerification({
+              autoInstall: true,
+              modeText: Lang('Looking for update! Please wait...'),
+              installCheck: true,
+              typeModel: type,
+            });
+          }
+      });
+  });
+};
+
 const DownloadsBotics = async (options) => {
   Reset();
   ClearEvent();
@@ -224,86 +309,29 @@ const DownloadsBotics = async (options) => {
     );
 
   try {
-    const dataUpdateLength = dataUpdate['data'].length;
-    var filesID = dataUpdateLength + 1;
-    var filesPast = 0;
-    var success = 0;
-    dataUpdate['data'].map((dataUpdate) => {
-      const fileID = --filesID;
-      Create({
-        percentage: dataUpdateLength,
-        sizeCreate: true,
-        id: fileID,
-        state: 'info',
-        limit: dataUpdateLength,
-      });
-      DownloadsUpdate({
-        path: dataUpdate.path,
-        pathURL: dataUpdate.download,
-        name: dataUpdate.name,
-        size: dataUpdate.size,
-        prefix: `${DetecOSFolder()}/`,
-        id: fileID,
-        format: dataUpdate.format,
-        lastUpdatedAt: dataUpdate.last_updated_at,
-        forceInstall: dataUpdate.force,
+    if (
+      ForceInstallManager({
+        forceInstall: dataUpdate['force'],
+        newSboticsVersion: dataUpdate['version'],
       })
-        .then((resp) => {
-          success = success + 1;
-          if (resp.state == 'ok') {
-            Update({
-              id: resp.id,
-              addState: 'sbotics-okfiles',
-              removeState: 'info',
+    ) {
+      if (FindSync('sBotics/')) {
+        (async () => {
+          await CreateBackupStreamingAssetsAll();
+          fs.remove(folderPathGsBotics())
+            .then(() => {
+              return DownloadsBoticsEvent(dataUpdate, type);
+            })
+            .catch((err) => {
+              return DownloadsBoticsEvent(dataUpdate, type);
             });
-          } else if (resp.state == 'update') {
-            // console.log(dataUpdate.path + dataUpdate.name);
-            Update({
-              id: resp.id,
-              addState: 'success',
-              removeState: 'info',
-            });
-          } else {
-            Update({
-              id: resp.id,
-              addState: 'danger',
-              removeState: 'info',
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          Update({
-            id: err.id,
-            addState: 'danger',
-            removeState: 'info',
-          });
-        })
-        .then(() => {
-          filesPast = filesPast + 1;
-          if (filesPast == dataUpdateLength)
-            if (success != filesPast)
-              FailApplication(
-                Lang(
-                  'Failed to install sBotics! Check your internet connection.',
-                ),
-              );
-            else {
-              UpdateConfig({
-                data: {
-                  currentSboticsVersion: localStorage.getItem('versionSbotics'),
-                },
-              });
-
-              FilesVerification({
-                autoInstall: true,
-                modeText: Lang('Looking for update! Please wait...'),
-                installCheck: true,
-                typeModel: type,
-              });
-            }
-        });
-    });
+        })();
+      } else {
+        return DownloadsBoticsEvent(dataUpdate, type);
+      }
+    } else {
+      return DownloadsBoticsEvent(dataUpdate, type);
+    }
   } catch (error) {
     return FailApplication(Lang('Download Failed!') + error);
   }
@@ -430,25 +458,30 @@ const RepairSbotics = () => {
           }
         });
       } else {
-        fs.remove(folderPathGsBotics())
-          .then(() => {
-            DownloadsBotics({
-              modeText: Lang('Installing sBotics! Please wait...'),
-              type: 'install',
+        (async () => {
+          await CreateBackupStreamingAssetsAll();
+          fs.remove(folderPathGsBotics())
+            .then(() => {
+              DownloadsBotics({
+                modeText: Lang('Installing sBotics! Please wait...'),
+                type: 'install',
+              });
+              Swal.fire(
+                Lang('Repairing sBotics!'),
+                Lang('Starting installation repair! Please wait...'),
+                'success',
+              );
+            })
+            .catch((err) => {
+              Swal.fire(
+                Lang('Repair failed!'),
+                Lang(
+                  'An unexpected error has happened, please try again later.',
+                ),
+                'error',
+              );
             });
-            Swal.fire(
-              Lang('Repairing sBotics!'),
-              Lang('Starting installation repair! Please wait...'),
-              'success',
-            );
-          })
-          .catch((err) => {
-            Swal.fire(
-              Lang('Repair failed!'),
-              Lang('An unexpected error has happened, please try again later.'),
-              'error',
-            );
-          });
+        })();
       }
     } else {
       Swal.fire(
@@ -460,4 +493,5 @@ const RepairSbotics = () => {
   });
 };
 
+window.RepairSbotics = RepairSbotics;
 window.RepairSbotics = RepairSbotics;
