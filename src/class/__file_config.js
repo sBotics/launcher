@@ -11,6 +11,7 @@ const DefaultConfiguration = {
   folderPath: folderPathGLauncher,
   languageSimulator: SystemGetLocale().replace('_US', ''),
   fastMode: false,
+  currentSboticsVersion: '',
 };
 
 const CreateConfig = (options) => {

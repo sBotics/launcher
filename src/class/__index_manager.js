@@ -246,6 +246,7 @@ const DownloadsBotics = async (options) => {
         id: fileID,
         format: dataUpdate.format,
         lastUpdatedAt: dataUpdate.last_updated_at,
+        forceInstall: dataUpdate.force,
       })
         .then((resp) => {
           success = success + 1;
@@ -288,15 +289,18 @@ const DownloadsBotics = async (options) => {
                 ),
               );
             else {
+              UpdateConfig({
+                data: {
+                  currentSboticsVersion: localStorage.getItem('versionSbotics'),
+                },
+              });
+
               FilesVerification({
                 autoInstall: true,
                 modeText: Lang('Looking for update! Please wait...'),
                 installCheck: true,
                 typeModel: type,
               });
-              // MagicButton({
-              //   mode: 'start',
-              // });
             }
         });
     });
@@ -308,6 +312,7 @@ const DownloadsBotics = async (options) => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
+  console.log(OpenConfig());
   FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
 });
 
@@ -449,7 +454,7 @@ const RepairSbotics = () => {
       Swal.fire(
         Lang('Success!'),
         Lang('sBotics Installation has not changed!'),
-        'error',
+        'success',
       );
     }
   });

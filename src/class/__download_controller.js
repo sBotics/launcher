@@ -7,16 +7,18 @@ import {
   SLMP,
 } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
-import { DownloadJSON, DownloadFile } from '../utils/donwload-manager.js';
+import { DownloadJSON } from '../utils/donwload-manager.js';
 import {
   StreamingAssets,
   CreateBackupStreamingAssets,
 } from '../utils/backup-streaming-assets.js';
-import { ParseTime, ConvertTime } from '../utils/last-updated.js';
+import { ParseTime } from '../utils/last-updated.js';
 import {
   AddEvent,
   UpdateEventParcent,
 } from '../utils/relatorio-download-manager.js';
+import { ForceInstallManager } from '../utils/force-install-manager.js';
+import { OpenConfig, UpdateConfig } from './__file_config.js';
 
 const BlackList = [
   'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
@@ -46,6 +48,15 @@ const DataUpdate = async (options) => {
     options,
   );
   const defaultOS = options.defaultOS;
+
+  if (OpenConfig()['currentSboticsVersion'] === undefined)
+    UpdateConfig({ data: { currentSboticsVersionn: '1.0.0' } });
+
+  localStorage.setItem(
+    'currentSboticsVersion',
+    OpenConfig()['currentSboticsVersion'],
+  );
+
   try {
     return await DownloadJSON({ path: `${defaultOS}.json` });
   } catch (error) {
@@ -60,6 +71,8 @@ const CheckUpdate = (options) => {
       name: '',
       size: '',
       lastUpdatedAt: '',
+      forceInstall: '',
+      newSboticsVersion: '',
     },
     options,
   );
@@ -68,8 +81,17 @@ const CheckUpdate = (options) => {
   const name = options.name;
   const size = options.size;
   const lastUpdatedAt = options.lastUpdatedAt;
-
   const pathDownload = `sBotics/${path + name}`;
+  const forceInstall = options.forceInstall;
+  const newSboticsVersion = options.newSboticsVersion;
+
+  if (
+    ForceInstallManager({
+      forceInstall: forceInstall,
+      newSboticsVersion: newSboticsVersion,
+    })
+  )
+    return false;
 
   if (FindSync(pathDownload)) {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
@@ -98,6 +120,8 @@ const CheckAllUpdate = (options) => {
     var filesID = dataUpdateFilesSize + 1;
     var filesFind = 0;
     var filesNotFind = 0;
+    var versionSbotics = dataUpdate['version'];
+    localStorage.setItem('versionSbotics', versionSbotics);
     dataUpdate['data'].map((dataUpdate) => {
       const fileID = --filesID;
       Create({
@@ -113,6 +137,8 @@ const CheckAllUpdate = (options) => {
           name: dataUpdate.name,
           size: dataUpdate.size,
           lastUpdatedAt: dataUpdate.last_updated_at,
+          forceInstall: dataUpdate.force,
+          newSboticsVersion: versionSbotics,
         })
       ) {
         Update({
@@ -152,6 +178,7 @@ const DownloadsUpdate = async (options) => {
       id: '',
       format: '',
       lastUpdatedAt: '',
+      forceInstall: '',
     },
     options,
   );
@@ -164,7 +191,7 @@ const DownloadsUpdate = async (options) => {
   const id = options.id;
   const format = options.format;
   const lastUpdatedAt = options.lastUpdatedAt;
-
+  const forceInstall = options.forceInstall;
   if (!name || !prefix) return 'teste';
 
   const pathFile = (prefix + path + name).replace('#', '%23');
@@ -178,6 +205,8 @@ const DownloadsUpdate = async (options) => {
         name: name,
         size: size,
         lastUpdatedAt: lastUpdatedAt,
+        forceInstall: forceInstall,
+        newSboticsVersion: localStorage.getItem('versionSbotics'),
       })
     )
       return resolve({ state: 'ok', id: id });
@@ -193,7 +222,8 @@ const DownloadsUpdate = async (options) => {
         directory: folderPathGsBotics() + '/' + path,
         fileName: name,
         cloneFiles: false,
-        maxAttempts: 15,
+        maxAttempts: 5,
+        timeout: 50000,
         onProgress: function (percentage, chunk, remainingSize) {
           UpdateEventParcent(id, percentage);
         },
