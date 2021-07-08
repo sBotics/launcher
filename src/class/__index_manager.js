@@ -340,7 +340,6 @@ const DownloadsBotics = async (options) => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  console.log(OpenConfig());
   FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
 });
 
