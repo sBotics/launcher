@@ -64,12 +64,27 @@ const folderPathGLauncher = () => {
 const folderPathGsBotics = () => {
   return `${os.homedir()}/wEduc/sBotics`;
 };
-const folderPahtGBlockEduc = () => {
-  return `${os.homedir()}/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/`
-}
-const folderPathGBlockEducmac = () => {
-  return `${os.homedir()}/wEduc/sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/`
-}
+
+const folderPathStreamingAssets = () => {
+  const platforms = {
+    win32: 'sBotics/sBotics_Data/StreamingAssets/',
+    darwin: 'sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/',
+    linux: 'sBotics/sBotics_Data/StreamingAssets/',
+  };
+  var os = process.platform.toLowerCase();
+  return platforms[os];
+};
+
+const folderPathBlockEduc = () => {
+  const platforms = {
+    win32: '/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/',
+    darwin:
+      '/wEduc/sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/',
+    linux: '/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/',
+  };
+  var os = process.platform.toLowerCase();
+  return platforms[os];
+};
 
 export {
   SLMP,
@@ -83,6 +98,6 @@ export {
   folderPathGenaral,
   folderPathGLauncher,
   folderPathGsBotics,
-  folderPahtGBlockEduc,
-  folderPathGBlockEducmac
+  folderPathStreamingAssets,
+  folderPathBlockEduc,
 };

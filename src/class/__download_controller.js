@@ -5,6 +5,7 @@ import { FindSync, FileSizeSync, ExtractSync } from '../utils/files-manager.js';
 import {
   DetecOSFolder,
   folderPathGsBotics,
+  folderPathStreamingAssets,
   SLMP,
 } from '../utils/application-manager.js';
 import { Create, Update } from '../utils/progress-bar.js';
@@ -22,24 +23,18 @@ import { ForceInstallManager } from '../utils/force-install-manager.js';
 import { OpenConfig, UpdateConfig } from './__file_config.js';
 
 const BlackList = [
-  'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
-  'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
-  'sBotics/sBotics_Data/StreamingAssets/robots.png',
-  'sBotics/sBotics_Data/StreamingAssets/KeyBinding.json',
-  'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json',
-  'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json.zip',
-  'sBotics/sBotics_Data/StreamingAssets/KeyBinding.json.zip',
-  'sBotics/sBotics_Data/StreamingAssets/robots.png.zip',
-  'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-en.json',
-  'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-pt_BR.json',
-  'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-en.json',
-  'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-pt_BR.json',
-];
-
-const BlackListSize = [
-  'sBotics/sBotics_Data/StreamingAssets/robots.png',
-  'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
-  'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json',
+  folderPathStreamingAssets() + 'Skybox.json',
+  folderPathStreamingAssets() + 'skybox.jpg',
+  folderPathStreamingAssets() + 'robots.png',
+  folderPathStreamingAssets() + 'KeyBinding.json',
+  folderPathStreamingAssets() + 'ColorTheme.json',
+  folderPathStreamingAssets() + 'ColorTheme.json.zip',
+  folderPathStreamingAssets() + 'KeyBinding.json.zip',
+  folderPathStreamingAssets() + 'robots.png.zip',
+  folderPathStreamingAssets() + 'ProgrammingThemes/C#-en.json',
+  folderPathStreamingAssets() + 'ProgrammingThemes/C#-pt_BR.json',
+  folderPathStreamingAssets() + 'ProgrammingThemes/rEduc-en.json',
+  folderPathStreamingAssets() + 'ProgrammingThemes/rEduc-pt_BR.json',
 ];
 
 const DataUpdate = async (options) => {
@@ -97,7 +92,7 @@ const CheckUpdate = (options) => {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
     const saveFileTime = Math.floor(FileSizeSync(pathDownload).mtimeMs);
     if (donwloadFileTime >= saveFileTime) {
-      return BlackListSize.indexOf(pathDownload) > -1;
+      return false;
     } else if (FileSizeSync(pathDownload).size != size) {
       return BlackList.indexOf(pathDownload) > -1;
     }
@@ -213,17 +208,17 @@ const DownloadsUpdate = async (options) => {
         lastUpdatedAt: lastUpdatedAt,
       })
     ) {
+      return resolve({ state: 'ok', id: id });
+    }
+
+    (async () => {
       if (BlackList.indexOf(`sBotics/${path + name}`) > -1) {
         CreateBackupStreamingAssets({
           fileName: name,
           backupConfig: backupConfig,
         });
-      } else {
-        return resolve({ state: 'ok', id: id });
       }
-    }
 
-    (async () => {
       AddEvent(id, path + name);
       const downloader = new Downloader({
         url: pathURL,

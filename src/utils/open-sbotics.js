@@ -1,8 +1,7 @@
 import {
   folderPathGsBotics,
   DetecOSFolder,
-  folderPahtGBlockEduc,
-  folderPathGBlockEducmac
+  folderPathBlockEduc,
 } from '../utils/application-manager.js';
 import { OpenConfig } from '../class/__file_config.js';
 import { OpenUserFile } from '../class/__file_user.js';
@@ -34,7 +33,7 @@ const OpenSbotics = () => {
   }
   if (DetecOSFolder().includes('Linux')) {
     fs.chmodSync(path.join(folderPathGsBotics(), 'sBotics.x86_64'), 0o777);
-    fs.chmodSync(path.join(folderPahtGBlockEduc(), 'BlockEduc.AppImage'), 0o777);
+    fs.chmodSync(path.join(folderPathBlockEduc(), 'BlockEduc.AppImage'), 0o777);
   }
   if (DetecOSFolder().includes('macOS')) {
     fs.chmodSync(
@@ -47,7 +46,7 @@ const OpenSbotics = () => {
       ),
       0o777,
     );
-    fs.chmodSync(path.join(folderPathGBlockEducmac(), 'BlockEduc.app'), 0o777);
+    fs.chmodSync(path.join(folderPathBlockEduc(), 'BlockEduc.app'), 0o777);
   }
   var executablePath = string_execute;
   const languageAvarible = ['pt_BR'];

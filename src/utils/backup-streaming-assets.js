@@ -5,51 +5,52 @@ import {
   OpenSync,
   CopySync,
 } from '../utils/files-manager.js';
+import { folderPathStreamingAssets } from './application-manager.js';
 
 const FilesBackupList = {
   'Skybox.json': {
     name: 'Skybox.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/Skybox.json',
+    path: folderPathStreamingAssets() + 'Skybox.json',
     type: 'JSON',
   },
   'skybox.jpg': {
     name: 'skybox.jpg',
-    path: 'sBotics/sBotics_Data/StreamingAssets/skybox.jpg',
+    path: folderPathStreamingAssets() + 'skybox.jpg',
     type: 'IMAGE',
   },
   'robots.png': {
     name: 'robots.png',
-    path: 'sBotics/sBotics_Data/StreamingAssets/robots.png',
+    path: folderPathStreamingAssets() + 'robots.png',
     type: 'IMAGE',
   },
   'KeyBinding.json': {
     name: 'KeyBinding.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/KeyBinding.json',
+    path: folderPathStreamingAssets() + 'KeyBinding.json',
     type: 'JSON',
   },
   'ColorTheme.json': {
     name: 'ColorTheme.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/ColorTheme.json',
+    path: folderPathStreamingAssets() + 'ColorTheme.json',
     type: 'JSON',
   },
   'C#-en.json': {
     name: 'C#-en.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-en.json',
+    path: folderPathStreamingAssets() + 'ProgrammingThemes/C#-en.json',
     type: 'JSON',
   },
   'C#-pt_BR.json': {
     name: 'C#-pt_BR.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/C#-pt_BR.json',
+    path: folderPathStreamingAssets() + 'ProgrammingThemes/C#-pt_BR.json',
     type: 'JSON',
   },
   'rEduc-en.json': {
     name: 'rEduc-en.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-en.json',
+    path: folderPathStreamingAssets() + 'ProgrammingThemes/rEduc-en.json',
     type: 'JSON',
   },
   'rEduc-pt_BR.json': {
     name: 'rEduc-pt_BR.json',
-    path: 'sBotics/sBotics_Data/StreamingAssets/ProgrammingThemes/rEduc-pt_BR.json',
+    path: folderPathStreamingAssets() + 'ProgrammingThemes/rEduc-pt_BR.json',
     type: 'JSON',
   },
 };
@@ -81,7 +82,7 @@ const StreamingAssets = (options) => {
             case 'JSON':
               const originalJSON = JSON.parse(OpenSync(sBoticsPath));
               const backupJSON = JSON.parse(OpenSync(backupFolder));
-              const changeFile = { ...originalJSON, ...backupJSON };
+              const changeFile = { ...backupJSON, ...originalJSON };
               return SaveSync(sBoticsPath, JSON.stringify(changeFile))
                 ? true
                 : false;
@@ -94,6 +95,8 @@ const StreamingAssets = (options) => {
               return false;
               break;
           }
+        } else {
+          return false;
         }
       } catch (error) {
         throw new Error(
