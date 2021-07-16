@@ -77,10 +77,9 @@ const folderPathStreamingAssets = () => {
 
 const folderPathBlockEduc = () => {
   const platforms = {
-    win32: '/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/',
-    darwin:
-      '/wEduc/sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/',
-    linux: '/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/',
+    win32: `${os.homedir()}/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/`,
+    darwin: `${os.homedir()}/wEduc/sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/`,
+    linux: `${os.homedir()}/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/`,
   };
   var os = process.platform.toLowerCase();
   return platforms[os];
