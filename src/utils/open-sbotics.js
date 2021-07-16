@@ -9,6 +9,7 @@ import { IndexClose } from '../utils/window-manager.js';
 const path = require('path');
 var child = require('child_process').spawn;
 const fs = require('fs-extra');
+const os = require('os');
 
 const OpenSbotics = () => {
   var string_execute;
@@ -33,7 +34,10 @@ const OpenSbotics = () => {
   }
   if (DetecOSFolder().includes('Linux')) {
     fs.chmodSync(path.join(folderPathGsBotics(), 'sBotics.x86_64'), 0o777);
-    fs.chmodSync(path.join(folderPathBlockEduc(), 'BlockEduc.AppImage'), 0o777);
+    fs.chmodSync(
+      path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.AppImage'),
+      0o777,
+    );
   }
   if (DetecOSFolder().includes('macOS')) {
     fs.chmodSync(
@@ -46,7 +50,10 @@ const OpenSbotics = () => {
       ),
       0o777,
     );
-    fs.chmodSync(path.join(folderPathBlockEduc(), 'BlockEduc.app'), 0o777);
+    fs.chmodSync(
+      path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.app'),
+      0o777,
+    );
   }
   var executablePath = string_execute;
   const languageAvarible = ['pt_BR'];
