@@ -92,7 +92,7 @@ const CheckUpdate = (options) => {
     const donwloadFileTime = ParseTime(lastUpdatedAt);
     const saveFileTime = Math.floor(FileSizeSync(pathDownload).mtimeMs);
     if (donwloadFileTime >= saveFileTime) {
-      return false;
+      return BlackList.indexOf(pathDownload) > -1;
     } else if (FileSizeSync(pathDownload).size != size) {
       return BlackList.indexOf(pathDownload) > -1;
     }
