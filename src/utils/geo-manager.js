@@ -7,7 +7,7 @@ const GeoFinder = async () => {
   });
   return new Promise((resolve, reject) => {
     if (!dataRequest) reject(false);
-    resolve(geoLocalization.lookup(dataRequest.ip));
+    resolve(geoLocalization.lookup(dataRequest));
   });
 };
 

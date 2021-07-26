@@ -9,7 +9,7 @@ const URLdictionary = {
   DataGithub: 'https://raw.githubusercontent.com/sBotics/builds/main/data.json',
   NextCompetition:
     'https://raw.githubusercontent.com/sBotics/builds/main/launcher/nextCompetition.json',
-  MyIP: 'https://meuip.herokuapp.com/api/json',
+  MyIP: 'http://meuip.com/api/meuip.php',
   Alert:
     'https://raw.githubusercontent.com/sBotics/builds/main/launcher/alerts/',
 };
