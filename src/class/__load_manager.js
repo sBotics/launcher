@@ -416,7 +416,7 @@ const init = async (timers = { 200: 200, 500: 500, 600: 600, 900: 900 }) => {
 $(document).ready(() => {
   InterfaceLoad();
   LanguageInit(OpenConfig());
-  init(FastModeTimer());
+  // init(FastModeTimer());
 });
 
 ipcRenderer.on('update-download-progress', (event, arg) => {

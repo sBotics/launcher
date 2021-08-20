@@ -10,7 +10,7 @@ const DefaultConfiguration = {
   language: SystemGetLocale(),
   folderPath: folderPathGLauncher,
   languageSimulator: SystemGetLocale().replace('_US', ''),
-  fastMode: false,
+  fastModeOpen: false,
   currentSboticsVersion: '',
 };
 
