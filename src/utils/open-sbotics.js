@@ -10,6 +10,7 @@ const path = require('path');
 var child = require('child_process').spawn;
 const fs = require('fs-extra');
 const os = require('os');
+var ps = require('ps-node');
 
 const OpenSbotics = () => {
   var string_execute;
@@ -63,7 +64,37 @@ const OpenSbotics = () => {
       : 'en';
   var parameters = ['--lang', lang, '--auth_token', fileUser['accessToken']];
   child(executablePath, parameters, { detached: true });
-  IndexClose();
+  ps.lookup(
+    {
+      command: 'sBotics.exe',
+      psargs: 'ux',
+    },
+    function (err, resultList) {
+      if (err) {
+        console.log(err);
+        return false;
+      }
+      if (resultList.length > 0) {
+        resultList.forEach(function (process) {
+          if (process) {
+            IndexClose();
+            return true;
+            // console.log(
+            //   'PID: %s, COMMAND: %s, ARGUMENTS: %s',
+            //   process.pid,
+            //   process.command,
+            //   process.arguments.map((view) => {
+            //     console.log(view);
+            //   }),
+            // );
+          }
+        });
+      } else {
+        console.log('sBotics Falhou ao abrir');
+        return false;
+      }
+    },
+  );
 };
 
 export { OpenSbotics };

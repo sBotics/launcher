@@ -134,7 +134,7 @@ const FilesVerification = async (options) => {
   const autoInstall = options.autoInstall;
   const installCheck = options.installCheck;
   const typeModel = options.typeModel;
-
+  console.log(modeText);
   MagicButton({
     mode: 'process',
     text: modeText,
@@ -154,8 +154,12 @@ const FilesVerification = async (options) => {
   const dataUpdateFiles = checkAllUpdate.dataUpdateFiles;
 
   if (filesFind == dataUpdateFiles) {
-    if (autoOpen) OpenSbotics();
-    else {
+    if (autoOpen) {
+
+      if (!OpenSbotics()) {
+        console.log('Sbotics não foi aberto que merda');
+      }
+    } else {
       MagicButton({
         mode: 'start',
       });
@@ -362,10 +366,9 @@ $(document).on('click', '#MagicButtonClick', () => {
       });
       break;
     case 'start':
+      const t = Lang('Checking file integrity to open sBotics! Please wait...');
       FilesVerification({
-        modelText: Lang(
-          'Checking file integrity to open sBotics! Please wait...',
-        ),
+        modeText: t,
         autoOpen: true,
       });
       break;

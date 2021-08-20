@@ -26,7 +26,7 @@ const Load_OpenApplication = (screenSizeCalc) => {
   load_application = windowManager.createNew(
     'load',
     'sBotics Launcher',
-    'file://' + __dirname + '/routes/load.html',
+    'file://' + __dirname + '/routes/erro.html',
     false,
     {
       width: width,
