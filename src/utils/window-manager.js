@@ -1,7 +1,7 @@
 var remote = require('electron').remote;
 var { screen } = remote;
 var windowManager = remote.require('electron-window-manager');
-import { SLMP, DetectOS } from '../utils/application-manager.js';
+import { SLMP } from '../utils/application-manager.js';
 
 var GlobalShowDevTools = SLMP();
 
@@ -26,7 +26,7 @@ const LoginOpen = () => {
       showDevTools: GlobalShowDevTools,
       DevTools: GlobalShowDevTools,
       menu: null,
-      frame: DetectOS() == 'darwin',
+      frame: true,
       resizable: false,
       webPreferences: {
         nodeIntegration: true,

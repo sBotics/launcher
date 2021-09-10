@@ -195,8 +195,6 @@ const DownloadsUpdate = async (options) => {
 
   if (!name || !prefix) return 'teste';
 
-  const pathFile = (prefix + path + name).replace('#', '%23');
-
   const backupConfig = true;
 
   return new Promise((resolve, reject) => {
