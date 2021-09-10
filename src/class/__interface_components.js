@@ -1,15 +1,5 @@
 var extend = require('extend-shallow');
-const customTitlebar = require('custom-electron-titlebar');
 import { AppVersion } from '../utils/application-manager.js';
-
-const TitleBar = () => {
-  new customTitlebar.Titlebar({
-    backgroundColor: customTitlebar.Color.fromHex('#131313'),
-    menu: false,
-    titleHorizontalAlignment: 'left',
-    maximizable: false,
-  });
-};
 
 const backdrop = (options) => {
   options = extend(
@@ -50,4 +40,4 @@ const TextVersion = (options) => {
   document.getElementById(elementName).innerHTML = `v1.${AppVersion()}`;
 };
 
-export { TitleBar, backdrop, TextVersion };
+export { backdrop, TextVersion };

@@ -34,7 +34,7 @@ const Load_OpenApplication = (screenSizeCalc) => {
       showDevTools: SLMP(),
       DevTools: SLMP(),
       menu: null,
-      frame: SystemOS == 'darwin',
+      frame: true,
       resizable: false,
       webPreferences: {
         nodeIntegration: true,

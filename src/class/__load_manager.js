@@ -1,9 +1,5 @@
 const { ipcRenderer } = require('electron');
-import {
-  TitleBar,
-  backdrop,
-  TextVersion,
-} from '../class/__interface_components.js';
+import { backdrop, TextVersion } from '../class/__interface_components.js';
 import { Create, Update } from '../utils/progress-bar.js';
 import {
   URLdictionary,
@@ -29,7 +25,6 @@ var donwloadStateInit = false;
 var donwloadStateCallback = true;
 
 const InterfaceLoad = async () => {
-  if (DetectOS() != 'darwin') TitleBar();
   await backdrop({
     elementName: 'backdrop',
   });
