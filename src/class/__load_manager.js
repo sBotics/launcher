@@ -16,7 +16,7 @@ import {
   UpdateAvailable,
   UpdateInstall,
 } from '../utils/autoupdate-manager.js';
-import { SLMP, DetectOS } from '../utils/application-manager.js';
+import { SLMP } from '../utils/application-manager.js';
 import { LoadClose, LoginOpen, IndexOpen } from '../utils/window-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 import { FastModeTimer, FastModoState } from '../utils/fast-mode-manager.js';

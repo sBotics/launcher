@@ -1,7 +1,6 @@
 import { backdrop, TextVersion } from '../class/__interface_components.js';
 import { LinkOpen } from '../utils/window-manager.js';
 import { LoginTranslator } from '../utils/language-window.js';
-import { DetectOS } from '../utils/application-manager.js';
 $(document).ready(() => {
   backdrop({
     elementName: 'backdrop',
