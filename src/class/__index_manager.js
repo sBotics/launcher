@@ -41,8 +41,25 @@ import { CheckAlerts } from '../utils/alerts-manager.js';
 import { ForceInstallManager } from '../utils/force-install-manager.js';
 import { CreateBackupStreamingAssetsAll } from '../utils/backup-streaming-assets.js';
 
+
 window.OpenNextCompetition = OpenNextCompetition;
 window.FastModeUpdate = FastModeUpdate;
+
+const path = require('path');
+const { app } = require('electron').remote;
+const appName = 'sbotics-launcher';
+
+// Get app directory
+// on OSX it's /Users/Yourname/Library/Application Support/AppName
+const getAppPath = path.join(app.getPath('appData'), appName);
+
+fs.unlink(getAppPath, () => {
+  // callback
+  alert('App data cleared');
+  // You should relaunch the app after clearing the app settings.
+  // app.relaunch();
+  // app.exit();
+});
 
 // Interface Manager
 $('.close-alert').click(() => {
