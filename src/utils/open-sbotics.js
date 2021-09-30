@@ -34,10 +34,12 @@ const OpenSbotics = () => {
   }
   if (DetecOSFolder().includes('Linux')) {
     fs.chmodSync(path.join(folderPathGsBotics(), 'sBotics.x86_64'), 0o777);
-    fs.chmodSync(
-      path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.AppImage'),
-      0o777,
-    );
+    try {
+      fs.chmodSync(
+        path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.AppImage'),
+        0o777,
+      );
+    } catch (error) {}
   }
   if (DetecOSFolder().includes('macOS')) {
     fs.chmodSync(
@@ -50,10 +52,12 @@ const OpenSbotics = () => {
       ),
       0o777,
     );
-    fs.chmodSync(
-      path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.app'),
-      0o777,
-    );
+    try {
+      fs.chmodSync(
+        path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.app'),
+        0o777,
+      );
+    } catch (error) {}
   }
   var executablePath = string_execute;
   const languageAvarible = ['pt_BR'];
