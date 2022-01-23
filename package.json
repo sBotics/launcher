@@ -1,63 +1,67 @@
 {
-  "name": "sbotics-launcher",
-  "version": "3.4.0",
-  "description": "sBotics",
-  "main": "main.js",
-  "author": "Julio Cesar <60150667+jvneto@users.noreply.github.com>",
-  "license": "GPL-3.0",
-  "scripts": {
-    "start": "electron .",
-    "build-win": "electron-builder build --win --ia32 --publish never",
-    "deploy-win": "electron-builder build --win --ia32 --publish always",
-    "build-mac": "electron-builder build --mac --publish never",
-    "deploy-mac": "electron-builder build --mac --publish onTagOrDraft",
-    "build-linux": "electron-builder build --linux --publish never",
-    "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
-  },
-  "homepage": "https://sbotics.weduc.natalnet.br/",
-  "projectUrl": "https://sbotics.weduc.natalnet.br/",
-  "build": {
-    "asar": true,
-    "productName": "sBotics",
-    "win": {
-      "icon": "./icons/icon.ico"
+    "name": "sbotics-launcher",
+    "version": "4.0.0",
+    "description": "sBotics",
+    "main": "index.js",
+    "author": "Julio Cesar <60150667+jvneto@users.noreply.github.com>",
+    "license": "GPL-3.0",
+    "scripts": {
+        "start": "electron .",
+        "build-css": "npx tailwindcss -o src/css/public/style.css --minify",
+        "dev-css": "tailwindcss -i src/css/resource/style.css -o src/css/public/style.css",
+        "build-win": "electron-builder build --win --ia32 --publish never",
+        "deploy-win": "electron-builder build --win --ia32 --publish always",
+        "build-mac": "electron-builder build --mac --publish never",
+        "deploy-mac": "electron-builder build --mac --publish onTagOrDraft",
+        "build-linux": "electron-builder build --linux --publish never",
+        "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
     },
-    "linux": {
-      "icon": "./icons/",
-      "target": "AppImage"
+    "homepage": "https://sbotics.net",
+    "projectUrl": "https://sbotics.net",
+    "build": {
+        "asar": true,
+        "productName": "sBotics",
+        "win": {
+            "icon": "./icons/icon.ico"
+        },
+        "linux": {
+            "icon": "./icons/",
+            "target": "AppImage"
+        },
+        "mac": {
+            "icon": "./icons/icon.icns",
+            "target": "default"
+        }
     },
-    "mac": {
-      "icon": "./icons/icon.icns",
-      "target": "default"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sBotics/launcher.git"
+    },
+    "dependencies": {
+        "@sweetalert2/theme-dark": "^5.0.4",
+        "axios": "^0.21.4",
+        "cryptr": "^6.0.2",
+        "dotenv": "^10.0.0",
+        "electron-updater": "^4.3.8",
+        "electron-window-manager": "^1.0.6",
+        "extend-shallow": "^3.0.2",
+        "fs-extra": "^10.0.0",
+        "geoip-lite": "^1.4.2",
+        "jquery": "^3.6.0",
+        "luxon": "^2.0.2",
+        "macaddress": "^0.5.2",
+        "nodejs-file-downloader": "^4.7.3",
+        "read-json-sync": "^2.0.1",
+        "sbotics-files-manager": "^1.4.3",
+        "sweetalert2": "^11.1.5"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.2",
+        "electron": "^16.0.7",
+        "electron-builder": "^22.11.7",
+        "electron-packager": "^15.3.0",
+        "electron-reloader": "^1.2.1",
+        "postcss": "^8.4.5",
+        "tailwindcss": "^3.0.15"
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sBotics/launcher.git"
-  },
-  "dependencies": {
-    "@sweetalert2/theme-dark": "^5.0.4",
-    "axios": "^0.21.4",
-    "cryptr": "^6.0.2",
-    "dotenv": "^10.0.0",
-    "electron-updater": "^4.3.8",
-    "electron-window-manager": "^1.0.6",
-    "extend-shallow": "^3.0.2",
-    "fs-extra": "^10.0.0",
-    "geoip-lite": "^1.4.2",
-    "jquery": "^3.6.0",
-    "luxon": "^2.0.2",
-    "macaddress": "^0.5.2",
-    "nodejs-file-downloader": "^4.7.3",
-    "read-json-sync": "^2.0.1",
-    "sbotics-downloader": "^1.3.2",
-    "sbotics-files-manager": "^1.4.3",
-    "sweetalert2": "^11.1.5"
-  },
-  "devDependencies": {
-    "electron": "^13.3.0",
-    "electron-builder": "^22.11.7",
-    "electron-packager": "^15.3.0",
-    "electron-reloader": "^1.2.1"
-  }
 }
