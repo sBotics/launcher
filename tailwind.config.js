@@ -10,7 +10,9 @@ module.exports = {
                 900: "#252425",
             },
             red: colors.red,
-            green: colors.green
+            green: colors.green,
+            black: colors.black,
+            gray: colors.gray,
         },
         fontFamily: {
             sans: ['sans-serif'],
