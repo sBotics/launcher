@@ -30,9 +30,9 @@
             "target": [
                 "AppImage"
             ],
-            "desktop": {
-                "MimeType": "x-scheme-handler/sbotics;"
-            }
+            "mimeTypes": [
+                "x-scheme-handler/sbotics"
+            ]
         },
         "mac": {
             "target": [{
