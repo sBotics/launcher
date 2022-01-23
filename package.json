@@ -26,12 +26,18 @@
             "icon": "./assets/icons/logo_dark.ico"
         },
         "linux": {
-            "icon": "./icons/icons/",
-            "target": "AppImage"
+            "icon": "./icons/icons/logo_dark.icon",
+            "target": [
+                "deb",
+                "rpm"
+            ]
         },
         "mac": {
             "icon": "./assets/icons/icon.icns",
-            "target": "default"
+            "target": [
+                "pkg",
+                "dmg"
+            ]
         },
         "protocols": [{
             "name": "sBotics-Launcher",
