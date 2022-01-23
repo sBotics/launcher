@@ -30,13 +30,21 @@
             "target": [
                 "deb",
                 "rpm"
-            ]
+            ],
+            "desktop": {
+                "MimeType": "x-scheme-handler/sbotics;"
+            }
         },
         "mac": {
             "icon": "./assets/icons/icon.icns",
-            "target": [
-                "pkg",
-                "dmg"
+            "target": [{
+                    "target": "pkg",
+                    "arch": "x64"
+                },
+                {
+                    "target": "pkg",
+                    "arch": "arm64"
+                }
             ]
         },
         "protocols": [{
