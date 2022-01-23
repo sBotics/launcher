@@ -36,8 +36,7 @@
             }
         },
         "mac": {
-            "icon": "./assets/icons/icon.icns",
-            "installLocation": "$HOME/Applications",
+            "category": "public.app-category.developer-tools",
             "target": [{
                     "target": "pkg",
                     "arch": "x64"
@@ -46,7 +45,19 @@
                     "target": "pkg",
                     "arch": "arm64"
                 }
-            ]
+            ],
+            "icon": "./assets/icons/icon.icns",
+            "identity": "identity",
+            "darkModeSupport": true,
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "artifactName": "${productName}.${ext}"
+        },
+        "pkg": {
+            "installLocation": "/Applications",
+            "isVersionChecked": true,
+            "isRelocatable": false,
+            "overwriteAction": "upgrade"
         },
         "protocols": [{
             "name": "sBotics-Launcher",
