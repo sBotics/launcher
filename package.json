@@ -28,8 +28,7 @@
         "linux": {
             "icon": "./icons/icons/logo_dark.icon",
             "target": [
-                "deb",
-                "rpm"
+                "AppImage"
             ],
             "desktop": {
                 "MimeType": "x-scheme-handler/sbotics;"
