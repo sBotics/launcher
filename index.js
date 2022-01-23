@@ -1,4 +1,4 @@
-const { app, BrowserWindow, nativeTheme } = require('electron');
+const { app, BrowserWindow, nativeTheme, ipcMain } = require('electron');
 const path = require('path');
 
 const createWindow = () => {
@@ -33,7 +33,13 @@ const createWindow = () => {
         frame: false,
         show: false,
         alwaysOnTop: true,
-        title: "sBotics Launcher"
+        title: "sBotics Launcher",
+        icon: nativeTheme.shouldUseDarkColors ? path.join(__dirname, '/assets/icons/logo_white.ico') : path.join(__dirname, '/assets/icons/logo_dark.ico'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true
+        }
     })
 
     splashWindow.loadFile(path.join(__dirname, '/routes/splash.html'));
@@ -42,12 +48,12 @@ const createWindow = () => {
         splashWindow.show();
     });
 
-    mainWindow.once('ready-to-show', () => {
-        setTimeout(() => {
-            splashWindow.close();
-            mainWindow.show();
-        }, 1500);
-    });
+    // mainWindow.once('ready-to-show', () => {
+    //     setTimeout(() => {
+    //         splashWindow.close();
+    //         mainWindow.show();
+    //     }, 1500);
+    // });
 }
 
 app.on('ready', () => {
@@ -60,3 +66,9 @@ app.on('ready', () => {
 app.on('window-all-closed', function() {
     if (process.platform !== 'darwin') app.quit()
 })
+
+
+//==> ipcMain <==
+ipcMain.on('get-version', (event) => {
+    event.returnValue = app.getVersion();
+});
