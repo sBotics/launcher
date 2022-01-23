@@ -82,9 +82,7 @@ if (!gotTheLock) {
             if (mainWindow.isMinimized()) mainWindow.restore()
             mainWindow.focus()
             var protocolLink = commandLine[1];
-
-            console.log(commandLine[3])
-
+            dialog.showErrorBox('Welcome Back', `Data: ${commandLine[3]}`)
         }
 
     })
