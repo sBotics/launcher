@@ -36,7 +36,6 @@
             }
         },
         "mac": {
-            "category": "public.app-category.developer-tools",
             "target": [{
                     "target": "pkg",
                     "arch": "x64"
@@ -47,7 +46,6 @@
                 }
             ],
             "icon": "./assets/icons/icon.icns",
-            "identity": "identity",
             "darkModeSupport": true,
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
