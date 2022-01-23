@@ -36,7 +36,6 @@
         "electron-squirrel-startup": "^1.0.0",
         "electron-updater": "^4.3.8",
         "electron-window-manager": "^1.0.6",
-        "exe-icon-extractor": "^1.0.8",
         "extend-shallow": "^3.0.2",
         "fs-extra": "^10.0.0",
         "geoip-lite": "^1.4.2",
