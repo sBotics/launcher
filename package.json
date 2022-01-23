@@ -37,6 +37,7 @@
         },
         "mac": {
             "icon": "./assets/icons/icon.icns",
+            "installLocation": "$HOME/Applications",
             "target": [{
                     "target": "pkg",
                     "arch": "x64"
