@@ -6,7 +6,7 @@
     "author": "Julio Cesar <60150667+jvneto@users.noreply.github.com>",
     "license": "GPL-3.0",
     "scripts": {
-        "start": "electron .",
+        "start": "electron-forge start",
         "build-css": "npx tailwindcss -o src/css/public/style.css --minify",
         "dev-css": "tailwindcss -i src/css/resource/style.css -o src/css/public/style.css",
         "watch-css": "tailwindcss -i src/css/resource/style.css -o src/css/public/style.css --watch",
@@ -15,65 +15,30 @@
         "build-mac": "electron-builder build --mac --publish never",
         "deploy-mac": "electron-builder build --mac --publish onTagOrDraft",
         "build-linux": "electron-builder build --linux --publish never",
-        "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft"
+        "deploy-linux": "electron-builder build --linux --x64 --publish onTagOrDraft",
+        "package": "electron-forge package",
+        "make": "electron-forge make"
     },
     "homepage": "https://sbotics.net",
     "projectUrl": "https://sbotics.net",
-    "build": {
-        "asar": true,
-        "productName": "sBotics",
-        "win": {
-            "icon": "./assets/icons/logo_dark.ico"
-        },
-        "linux": {
-            "icon": "./icons/icons/logo_dark.icon",
-            "target": [
-                "AppImage"
-            ],
-            "mimeTypes": [
-                "x-scheme-handler/sbotics"
-            ]
-        },
-        "mac": {
-            "target": [{
-                    "target": "pkg",
-                    "arch": "x64"
-                },
-                {
-                    "target": "pkg",
-                    "arch": "arm64"
-                }
-            ],
-            "icon": "./assets/icons/icon.icns",
-            "darkModeSupport": true,
-            "hardenedRuntime": true,
-            "gatekeeperAssess": false,
-            "artifactName": "${productName}.${ext}"
-        },
-        "pkg": {
-            "installLocation": "/Applications",
-            "isVersionChecked": true,
-            "isRelocatable": false,
-            "overwriteAction": "upgrade"
-        },
-        "protocols": [{
-            "name": "sBotics-Launcher",
-            "schemes": [
-                "sbotics"
-            ]
-        }]
+    "config": {
+        "forge": "./forge.config.js"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/sBotics/launcher.git"
     },
     "dependencies": {
+        "@electron-forge/maker-pkg": "^6.0.0-beta.63",
+        "@electron-forge/maker-wix": "^6.0.0-beta.63",
         "@sweetalert2/theme-dark": "^5.0.4",
         "axios": "^0.21.4",
         "cryptr": "^6.0.2",
         "dotenv": "^10.0.0",
+        "electron-squirrel-startup": "^1.0.0",
         "electron-updater": "^4.3.8",
         "electron-window-manager": "^1.0.6",
+        "exe-icon-extractor": "^1.0.8",
         "extend-shallow": "^3.0.2",
         "fs-extra": "^10.0.0",
         "geoip-lite": "^1.4.2",
@@ -86,10 +51,13 @@
         "sweetalert2": "^11.1.5"
     },
     "devDependencies": {
+        "@electron-forge/cli": "^6.0.0-beta.63",
+        "@electron-forge/maker-deb": "^6.0.0-beta.63",
+        "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+        "@electron-forge/maker-zip": "^6.0.0-beta.63",
         "autoprefixer": "^10.4.2",
         "electron": "^16.0.7",
-        "electron-builder": "^22.11.7",
-        "electron-packager": "^15.3.0",
         "electron-reloader": "^1.2.1",
         "postcss": "^8.4.5",
         "tailwindcss": "^3.0.15"
