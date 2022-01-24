@@ -8,6 +8,7 @@ const commonLinuxConfig = {
 
 const config = {
     packagerConfig: {
+        executableName: 'sbotics',
         asar: true,
         appBundleId: 'com.sbotics.launcher',
         usageDescription: [],
@@ -27,10 +28,12 @@ const config = {
             arch: ['ia32', 'x64'],
             config: {
                 name: 'sBotics',
+                executableName: 'sbotics',
                 authors: 'sBotics',
+                exe: "sbotics.exe",
                 iconUrl: path.resolve(iconDir, 'icon.ico'),
                 noMsi: false,
-                setupExe: 'sbotics-setup.exe',
+                setupExe: 'sbotics.exe',
                 setupIcon: path.resolve(iconDir, 'icon.ico')
             },
         },
