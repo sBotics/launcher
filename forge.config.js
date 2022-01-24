@@ -2,9 +2,7 @@ const path = require('path');
 const iconDir = path.resolve(__dirname, 'assets', 'icons', 'app');
 
 const commonLinuxConfig = {
-    icon: {
-        scalable: path.resolve(iconDir, 'icon.svg')
-    },
+    icon: path.resolve(iconDir, 'icon.png'),
     mimeType: ['x-scheme-handler/sbotics']
 };
 
@@ -30,8 +28,9 @@ const config = {
             config: {
                 name: 'sBotics',
                 authors: 'sBotics',
+                exe: 'sbotics.exe',
                 iconUrl: path.resolve(iconDir, 'icon.ico'),
-                noMsi: true,
+                noMsi: false,
                 setupExe: 'sbotics-setup.exe',
                 setupIcon: path.resolve(iconDir, 'icon.ico')
             },
