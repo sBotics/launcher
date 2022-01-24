@@ -28,7 +28,6 @@ const config = {
             config: {
                 name: 'sBotics',
                 authors: 'sBotics',
-                exe: 'sBotics.exe',
                 iconUrl: path.resolve(iconDir, 'icon.ico'),
                 noMsi: false,
                 setupExe: 'sbotics-setup.exe',
