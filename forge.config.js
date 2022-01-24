@@ -30,7 +30,6 @@ const config = {
             config: {
                 name: 'sBotics',
                 authors: 'sBotics',
-                exe: 'sbotics.exe',
                 iconUrl: path.resolve(iconDir, 'icon.ico'),
                 noMsi: true,
                 setupExe: 'sbotics-setup.exe',
@@ -51,7 +50,7 @@ const config = {
             platforms: ['darwin'],
             arch: 'all',
             config: {
-                icon: '/assets/icons/app/icon.icns',
+                icon: path.resolve(iconDir, 'icon.icns'),
                 install: '/Applications'
             }
         }
