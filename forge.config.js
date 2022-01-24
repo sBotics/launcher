@@ -28,11 +28,9 @@ const config = {
             arch: ['ia32', 'x64'],
             config: {
                 name: 'sBotics',
-                executableName: 'sbotics',
                 authors: 'sBotics',
-                exe: "sbotics.exe",
                 iconUrl: path.resolve(iconDir, 'icon.ico'),
-                noMsi: false,
+                noMsi: true,
                 setupExe: 'sbotics.exe',
                 setupIcon: path.resolve(iconDir, 'icon.ico')
             },
