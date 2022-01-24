@@ -1,5 +1,5 @@
 {
-    "name": "sbotics-launcher",
+    "name": "sbotics",
     "version": "4.0.0",
     "description": "sBotics",
     "main": "index.js",

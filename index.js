@@ -1,4 +1,4 @@
-const { app, BrowserWindow, nativeTheme, ipcMain, shell, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 
 if (handleSquirrelEvent()) {
@@ -12,7 +12,6 @@ function handleSquirrelEvent() {
 
     const ChildProcess = require('child_process');
     const path = require('path');
-
     const appFolder = path.resolve(process.execPath, '..');
     const rootAtomFolder = path.resolve(appFolder, '..');
     const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
@@ -20,11 +19,9 @@ function handleSquirrelEvent() {
 
     const spawn = function(command, args) {
         let spawnedProcess, error;
-
         try {
             spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
         } catch (error) {}
-
         return spawnedProcess;
     };
 
@@ -75,7 +72,7 @@ const createWindow = () => {
         show: false,
         autoHideMenuBar: true,
         title: "sBotics Launcher",
-        icon: nativeTheme.shouldUseDarkColors ? path.join(__dirname, '/assets/icons/logo_white.ico') : path.join(__dirname, '/assets/icons/logo_dark.ico'),
+        icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -95,7 +92,7 @@ const createWindow = () => {
         show: false,
         alwaysOnTop: true,
         title: "sBotics Launcher",
-        icon: nativeTheme.shouldUseDarkColors ? path.join(__dirname, '/assets/icons/logo_white.ico') : path.join(__dirname, '/assets/icons/logo_dark.ico'),
+        icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
