@@ -46,7 +46,6 @@ function handleSquirrelEvent() {
     }
 };
 
-
 var mainWindow;
 var splashWindow;
 
@@ -114,9 +113,7 @@ const createWindow = () => {
     });
 }
 
-const gotTheLock = app.requestSingleInstanceLock()
-
-if (!gotTheLock) {
+if (!app.requestSingleInstanceLock()) {
     app.quit()
 } else {
     app.on('second-instance', (event, commandLine, workingDirectory) => {
