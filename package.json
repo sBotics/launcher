@@ -11,92 +11,13 @@
         "dev-css": "tailwindcss -i src/css/resource/style.css -o src/css/public/style.css",
         "watch-css": "tailwindcss -i src/css/resource/style.css -o src/css/public/style.css --watch",
         "package": "electron-forge package",
-        "make": "electron-forge make"
+        "make": "electron-forge make",
+        "publish": "electron-forge publish"
     },
     "homepage": "https://sbotics.net",
     "projectUrl": "https://sbotics.net",
     "config": {
-        "forge": {
-            "packagerConfig": {
-                "asar": true,
-                "appBundleId": "com.sbotics.launcher",
-                "usageDescription": [],
-                "appCategoryType": "public.app-category.developer-tools",
-                "protocols": [{
-                    "name": "sBotics Launcher Launch Protocol",
-                    "schemes": [
-                        "sbotics"
-                    ]
-                }]
-            },
-            "makers": [{
-                    "name": "@electron-forge/maker-squirrel",
-                    "platforms": [
-                        "win32"
-                    ],
-                    "arch": [
-                        "ia32",
-                        "x64"
-                    ],
-                    "config": {
-                        "name": "sBotics",
-                        "authors": "sBotics",
-                        "exe": "sbotics.exe",
-                        "icon": "/assets/icons/app/icon.ico",
-                        "iconUrl": "/assets/icons/app/icon.ico",
-                        "noMsi": true,
-                        "setupExe": "sbotics-setup.exe",
-                        "setupIcon": "/assets/icons/app/icon.ico"
-                    }
-                },
-                {
-                    "name": "@electron-forge/maker-pkg",
-                    "platforms": [
-                        "darwin"
-                    ],
-                    "arch": "all",
-                    "config": {
-                        "icon": "/assets/icons/app/icon.icns",
-                        "install": "/Applications"
-                    }
-                },
-                {
-                    "name": "@electron-forge/maker-deb",
-                    "platforms": [
-                        "linux"
-                    ],
-                    "config": {
-                        "icon": "/assets/icons/app/icon.png",
-                        "mimeType": [
-                            "x-scheme-handler/sbotics"
-                        ]
-                    }
-                },
-                {
-                    "name": "@electron-forge/maker-rpm",
-                    "platforms": [
-                        "linux"
-                    ],
-                    "config": {
-                        "icon": "/assets/icons/app/icon.png",
-                        "mimeType": [
-                            "x-scheme-handler/sbotics"
-                        ]
-                    }
-                }
-            ],
-            "publishers": [{
-                "name": "@electron-forge/publisher-github",
-                "config": {
-                    "repository": {
-                        "owner": "sbotics",
-                        "name": "launcher"
-                    },
-                    "draft": true,
-                    "prerelease": false
-                }
-            }]
-        }
+        "forge": "./forge.config.js"
     },
     "repository": {
         "type": "git",
