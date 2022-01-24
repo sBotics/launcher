@@ -12,7 +12,7 @@
         "watch-css": "tailwindcss -i src/css/resource/style.css -o src/css/public/style.css --watch",
         "package": "electron-forge package",
         "make": "electron-forge make",
-        "publish": "electron-forge publish"
+        "deploy": "electron-forge publish"
     },
     "homepage": "https://sbotics.net",
     "projectUrl": "https://sbotics.net",
