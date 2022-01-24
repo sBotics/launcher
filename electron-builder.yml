@@ -1,4 +1,0 @@
-appId: com.Natalnet.sBotics
-publish:
-  provider: github
-  token: [Token Here]

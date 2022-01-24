@@ -26,17 +26,14 @@
                     "CompanyName": "sBotics",
                     "OriginalFilename": "sBotics"
                 },
-                "protocols": [
-                    {
-                        "name": "sBotics Launcher Launch Protocol",
-                        "schemes": [
-                            "sbotics"
-                        ]
-                    }
-                ]
+                "protocols": [{
+                    "name": "sBotics Launcher Launch Protocol",
+                    "schemes": [
+                        "sbotics"
+                    ]
+                }]
             },
-            "makers": [
-                {
+            "makers": [{
                     "name": "@electron-forge/maker-squirrel",
                     "platforms": [
                         "win32"
@@ -95,67 +92,18 @@
                     }
                 }
             ],
-            "publishers": [
-                {
-                    "name": "@electron-forge/publisher-github",
-                    "config": {
-                        "repository": {
-                            "owner": "sbotics",
-                            "name": "launcher"
-                        },
-                        "draft": true,
-                        "prerelease": false
-                    }
+            "publishers": [{
+                "name": "@electron-forge/publisher-github",
+                "config": {
+                    "repository": {
+                        "owner": "sbotics",
+                        "name": "launcher"
+                    },
+                    "draft": true,
+                    "prerelease": false
                 }
-            ]
+            }]
         }
-    },
-    "build": {
-        "asar": true,
-        "productName": "sBotics",
-        "win": {
-            "icon": "./assets/icons/logo_dark.ico"
-        },
-        "linux": {
-            "icon": "./icons/icons/logo_dark.icon",
-            "target": [
-                "AppImage"
-            ],
-            "mimeTypes": [
-                "x-scheme-handler/sbotics"
-            ]
-        },
-        "mac": {
-            "target": [
-                {
-                    "target": "pkg",
-                    "arch": "x64"
-                },
-                {
-                    "target": "pkg",
-                    "arch": "arm64"
-                }
-            ],
-            "icon": "./assets/icons/icon.icns",
-            "darkModeSupport": true,
-            "hardenedRuntime": true,
-            "gatekeeperAssess": false,
-            "artifactName": "${productName}.${ext}"
-        },
-        "pkg": {
-            "installLocation": "/Applications",
-            "isVersionChecked": true,
-            "isRelocatable": false,
-            "overwriteAction": "upgrade"
-        },
-        "protocols": [
-            {
-                "name": "sBotics-Launcher",
-                "schemes": [
-                    "sbotics"
-                ]
-            }
-        ]
     },
     "repository": {
         "type": "git",
