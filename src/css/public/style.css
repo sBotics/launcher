@@ -621,10 +621,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.25rem;
 }
 
-.h-2\/4 {
-  height: 50%;
-}
-
 .w-full {
   width: 100%;
 }
@@ -639,6 +635,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .select-none {
@@ -785,13 +785,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 0.75rem;
 }
 
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.pb-9 {
-  padding-bottom: 2.25rem;
+.pb-14 {
+  padding-bottom: 3.5rem;
 }
 
 .pt-4 {
@@ -834,14 +829,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 35px;
 }
 
-.pb-14 {
-  padding-bottom: 3.5rem;
-}
-
-.pb-11 {
-  padding-bottom: 2.75rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -865,14 +852,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.5rem;
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .text-\[50px\] {
@@ -920,11 +907,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-
-.text-green-600 {
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 
 .text-gray-800 {
@@ -1019,11 +1001,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:my-14 {
     margin-top: 3.5rem;
     margin-bottom: 3.5rem;
-  }
-
-  .sm\:my-16 {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
   }
 
   .sm\:ml-auto {
