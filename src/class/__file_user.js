@@ -3,13 +3,15 @@ import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
 
 const DefaultUser = {
+  nickname: '',
   name: '',
   email: '',
   profilePicture: '',
-  locale: '',
+  preferredLanguage: '',
+  preferredTimezone: '',
   accessToken: '',
-  macAddress: '',
   logged: '',
+  macAddress: '',
 };
 
 const CreateUserFile = (options) => {

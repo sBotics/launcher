@@ -6,20 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/public/style.css">
+    <link rel="stylesheet" href="../src/css/public/loading_animation.css">
 </head>
 
 <body>
-    <div class="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-screen bg-gray-200 flex flex-col justify-between">
-        <div class="container mx-auto h-full py-4 px-5 flex-col justify-center items-center hidden">
+    <div id="animation_loading" class="loader">
+        <div class="box box0">
+            <div></div>
+        </div>
+        <div class="box box1">
+            <div></div>
+        </div>
+        <div class="box box2">
+            <div></div>
+        </div>
+        <div class="box box3">
+            <div></div>
+        </div>
+        <div class="box box4">
+            <div></div>
+        </div>
+        <div class="box box5">
+            <div></div>
+        </div>
+        <div class="box box6">
+            <div></div>
+        </div>
+        <div class="box box7">
+            <div></div>
+        </div>
+        <div class="ground">
+            <div></div>
+        </div>
+    </div>
+
+    <div id="form_authentication"
+        class="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-screen bg-gray-200 hidden flex-col justify-between">
+        <div id="view_auth" class="container mx-auto h-full py-4 px-5 flex-col justify-center items-center hidden">
             <img class="h-40 mb-9" src="../assets/logos/logo_dark.png" alt="sBotics Logo">
             <h1 class="text-4xl font-bold text-center text-gray-700">Iníciando sBotics AUTH</h1>
             <h3 class="text-xl font-medium text-center text-gray-700 mt-4">Você será redirecionado em alguns instantes.
             </h3>
             <p class="text-base font-normal text-center text-gray-500">Se nada acontecer em alguns instantes, <a
-                    href="#" class="font-bold">clique aqui</a> e tente novamente.</p>
+                    href="#" id="view_auth_link" class="font-bold">clique aqui</a> e tente novamente.</p>
         </div>
 
-        <div class="container mx-auto py-4 px-5 flex justify-center my-8 sm:px-6 sm:my-14 overflow-hidden pb-14">
+        <div id="form_auth"
+            class="container mx-auto py-4 px-5 flex justify-center my-8 sm:px-6 sm:my-14 overflow-hidden pb-14">
             <div class="w-full xl:w-3/3 lg:w-11/12 flex shadow-lg sm:rounded-lg ">
                 <div class="w-full h-auto bg-gray-100 hidden lg:block lg:w-8/12 bg-cover bg-center sm:rounded-l-lg"
                     style="background-image: url('../assets/Banners/zul_banner_B.png')"></div>
@@ -79,7 +112,18 @@
             </span>
         </div>
     </div>
+
+    <div id="view_launcher" class="hidden flex-col">
+        <h4 class="text-3xl text-gray-400 font-sans font-normal">Olá!</h4>
+        <h1 class="text-5xl text-gray-200 font-sans font-bold">sBotics Launcher</h1>
+        <p class="text-xl text-gray-500 font-sans font-light">Aqui fica localizado a home do sBotics Launcher</p>
+    </div>
+
+
+    <!-- Scripts Init -->
+    <script src="../src/utils/env.js"></script>
     <script type="module" src="../src/controllers/__authentication.js"></script>
+    <script type="module" src="../src/controllers/__main.js"></script>
 </body>
 
 </html>

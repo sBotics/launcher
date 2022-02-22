@@ -2,14 +2,15 @@ var extend = require('extend-shallow');
 const axios = require('axios').default;
 
 const URLdictionary = {
-  Google: 'https://google.com',
-  GitHub: 'https://github.com',
-  wEduc: 'https://weduc.natalnet.br',
-  sBotics: 'https://sbotics.weduc.natalnet.br',
+  auth: 'http://auth.sbotics.localhost',
+  login: `http://auth.sbotics.localhost/login?provider=eyJpdiI6IlRIUUw4aVJIVmFZcytsSDFGVFVpUlE9PSIsInZhbHVlIjoicHRib3Qvc3gxTllsUncrSUxtV2p6L2g2V1Z6L0YwRFZ6b2JEb3BSby9reFJjOTJ0aHhiODhxT0dHNk9wZ2xlTTh4d3VwUHd5UHpGU0FKekMxbnJDc3c9PSIsIm1hYyI6IjAxODhjZTA2NmFlYjBkZjE3OTZkMjZiNmQ4MjYwYmZiMjAwNDg4NDgyZDhjZDBmYzE3ODgzZTU1MDNjNjk3MmIiLCJ0YWciOiIifQ==`,
+  register: `http://auth.sbotics.localhost/register?provider=eyJpdiI6IlRIUUw4aVJIVmFZcytsSDFGVFVpUlE9PSIsInZhbHVlIjoicHRib3Qvc3gxTllsUncrSUxtV2p6L2g2V1Z6L0YwRFZ6b2JEb3BSby9reFJjOTJ0aHhiODhxT0dHNk9wZ2xlTTh4d3VwUHd5UHpGU0FKekMxbnJDc3c9PSIsIm1hYyI6IjAxODhjZTA2NmFlYjBkZjE3OTZkMjZiNmQ4MjYwYmZiMjAwNDg4NDgyZDhjZDBmYzE3ODgzZTU1MDNjNjk3MmIiLCJ0YWciOiIifQ==`,
+  MyIP: 'http://meuip.com/api/meuip.php',
+
   DataGithub: 'https://raw.githubusercontent.com/sBotics/builds/main/data.json',
   NextCompetition:
     'https://raw.githubusercontent.com/sBotics/builds/main/launcher/nextCompetition.json',
-  MyIP: 'http://meuip.com/api/meuip.php',
+
   Alert:
     'https://raw.githubusercontent.com/sBotics/builds/main/launcher/alerts/',
 };
@@ -45,13 +46,14 @@ const UserData = (options) => {
     },
     options,
   );
+
   const accessToken = options.accessToken;
 
-  if (!accessToken) return false;
-
   return new Promise((resolve, reject) => {
+    if (!accessToken) reject(false);
+
     axios
-      .get('https://weduc.natalnet.br/api/user', {
+      .get(`${URLdictionary['auth']}/api/user`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

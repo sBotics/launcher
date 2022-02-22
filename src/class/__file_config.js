@@ -1,4 +1,4 @@
-var extend = require('extend-shallow');
+let extend = require('extend-shallow');
 import { FindSync, SaveSync, OpenSync } from '../utils/files-manager.js';
 import { Encrypted, Decrypted } from '../utils/security-manager.js';
 import {
@@ -8,9 +8,8 @@ import {
 
 const DefaultConfiguration = {
   language: SystemGetLocale(),
-  folderPath: folderPathGLauncher,
+  folderPath: folderPathGLauncher(),
   languageSimulator: SystemGetLocale().replace('_US', ''),
-  fastMode: false,
   currentSboticsVersion: '',
 };
 
