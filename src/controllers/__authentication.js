@@ -25,6 +25,17 @@ window.TryAgain = (url) => {
   shell.openExternal(url);
 };
 
+ipcRenderer.on('__touchbar', (event, arg) => {
+  switch (arg.action) {
+    case 'register':
+      Action(URLdictionary['register']);
+      break;
+    default:
+      Action(URLdictionary['login']);
+      break;
+  }
+});
+
 ipcRenderer.on('set_user_auth', (event, arg) => {
   const accessToken = arg.replace('SBOTICS', '|');
   UserData({

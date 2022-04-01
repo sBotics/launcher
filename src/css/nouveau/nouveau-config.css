@@ -1,0 +1,53 @@
+/* 
+* Nouveau CSS
+* Created: llucmou and Jvneto
+* Created at 23/09/2020
+*/
+
+
+.config-content {
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.527);
+  margin-left: var(--sidebar-size);
+  position: fixed;
+  display: none;
+  justify-content: space-between;
+  align-items: stretch;
+}
+.config-container {
+  width: 45%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+.config-close-background {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.config-bg-color {
+  background-color: #1a1d20;
+}
+@media (max-width: 1000px) {
+  .config-container {
+    width: 80%;
+  }
+}
+@media (max-width: 576px) {
+  .config-content {
+    margin-left: 0px;
+    margin-top: var(--sidebar-size);
+  }
+  .config-container {
+    margin-top: var(--sidebar-size);
+    width: 100%;
+  }
+  .config-close-background {
+    display: none;
+  }
+}

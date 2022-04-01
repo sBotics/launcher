@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
+const touchBar = require('./src/controllers/__instance_touchbar');
 
 if (handleSquirrelEvent()) {
   return;
@@ -82,7 +83,6 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile(path.join(__dirname, '/routes/main.html'));
-
   splashWindow = new BrowserWindow({
     width: 470,
     height: 265,
@@ -138,13 +138,19 @@ if (!app.requestSingleInstanceLock()) {
   });
 
   app.on('open-url', (event, url) => {
-    dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`);
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+    console.log(encodeURI(url));
+    mainWindow.webContents.send('set_user_auth', url.split('accessToken=')[1]);
   });
 }
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
+
+
+
 
 //==> ipcMain <==
 ipcMain.on('get-version', (event) => {
@@ -153,4 +159,9 @@ ipcMain.on('get-version', (event) => {
 
 ipcMain.on('get-lang', (event) => {
   event.returnValue = app.getLocale();
+});
+
+ipcMain.on('touch-bar', (event) => {
+  console.log(event);
+// window.setTouchBar(touchBar);
 });

@@ -19,8 +19,7 @@ window.onload = () => {
       .then(function (response) {
         document.getElementById('form_authentication').style.display = 'none';
         document.getElementById('animation_loading').style.display = 'none';
-        document.getElementById('view_launcher').style.display = 'flex';
-        console.log('AccessToken Válido!');
+        window.location.href = "../routes/index.html"; 
       })
       .catch(function (error) {
         document.getElementById('form_authentication').style.display = 'flex';

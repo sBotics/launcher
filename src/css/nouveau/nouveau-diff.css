@@ -1,0 +1,34 @@
+/* 
+* Nouveau CSS
+* Created: llucmou and Jvneto
+* Created at 26/09/2020
+*/
+
+/* Global variables */
+:root {
+  --diff-note: #646464;
+  --diff-add: #377947;
+  --diff-remove: #8b3030;
+  --diff-change: #a4582f;
+}
+
+/* Styles */
+.diff * {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+.diff add {
+  color: var(--diff-add);
+}
+.diff change {
+  list-style-type: square;
+  color: var(--diff-change);
+}
+.diff remove {
+  list-style-type: circle;
+  color: var(--diff-remove);
+}
+.diff note {
+  list-style-type: none;
+  color: var(--diff-note);
+}
