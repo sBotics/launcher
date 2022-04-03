@@ -2,47 +2,47 @@ var extend = require('extend-shallow');
 const Swal = require('sweetalert2');
 const fs = require('fs-extra');
 import { backdrop } from '../class/__interface_components.js';
-import {
-  DataUpdate,
-  DownloadsUpdate,
-  CheckAllUpdate,
-} from '../class/__download_controller.js';
-import {
-  OpenInstallFolder,
-  DetecOSFolder,
-  folderPathGsBotics,
-} from '../utils/application-manager.js';
-import { Create, Update, Reset } from '../utils/progress-bar.js';
-import { MagicButton } from '../utils/magic-button-manager.js';
-import { OpenSbotics } from '../utils/open-sbotics.js';
-import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
-import {
-  LoginOpen,
-  IndexClose,
-  OpenCbotics,
-  OpenTutorialWiki,
-  IndexReload,
-  OpenNextCompetition,
-} from '../utils/window-manager.js';
-import { LanguageInit, Lang } from '../utils/language-manager.js';
-import { OpenConfig, UpdateConfig } from './__file_config.js';
-import { IndexTranslator } from '../utils/language-window.js';
-import { FindSync } from '../utils/files-manager.js';
-import { VersionSbotics } from '../utils/version-sbotics.js';
-import { CreateTopAlert } from '../utils/top-alert.js';
-import {
-  ClearEvent,
-  ReportDownloadButton,
-} from '../utils/relatorio-download-manager.js';
-import { NextCompetition } from '../utils/competition-manager.js';
-import { FastModeLoad, FastModeUpdate } from '../utils/fast-mode-manager.js';
-import { DataUpdateState } from '../utils/connection-manager.js';
-import { CheckAlerts } from '../utils/alerts-manager.js';
-import { ForceInstallManager } from '../utils/force-install-manager.js';
-import { CreateBackupStreamingAssetsAll } from '../utils/backup-streaming-assets.js';
+// import {
+//   DataUpdate,
+//   DownloadsUpdate,
+//   CheckAllUpdate,
+// } from '../class/__download_controller.js';
+// import {
+//   OpenInstallFolder,
+//   DetecOSFolder,
+//   folderPathGsBotics,
+// } from '../utils/application-manager.js';
+// import { Create, Update, Reset } from '../utils/progress-bar.js';
+// import { MagicButton } from '../utils/magic-button-manager.js';
+// import { OpenSbotics } from '../utils/open-sbotics.js';
+// import { OpenUserFile, UpdateUserFile } from '../class/__file_user.js';
+// import {
+//   LoginOpen,
+//   IndexClose,
+//   OpenCbotics,
+//   OpenTutorialWiki,
+//   IndexReload,
+//   OpenNextCompetition,
+// } from '../utils/window-manager.js';
+// import { LanguageInit, Lang } from '../utils/language-manager.js';
+// import { OpenConfig, UpdateConfig } from './__file_config.js';
+// import { IndexTranslator } from '../utils/language-window.js';
+// import { FindSync } from '../utils/files-manager.js';
+// import { VersionSbotics } from '../utils/version-sbotics.js';
+// import { CreateTopAlert } from '../utils/top-alert.js';
+// import {
+//   ClearEvent,
+//   ReportDownloadButton,
+// } from '../utils/relatorio-download-manager.js';
+// import { NextCompetition } from '../utils/competition-manager.js';
+// import { FastModeLoad, FastModeUpdate } from '../utils/fast-mode-manager.js';
+// import { DataUpdateState } from '../utils/connection-manager.js';
+// import { CheckAlerts } from '../utils/alerts-manager.js';
+// import { ForceInstallManager } from '../utils/force-install-manager.js';
+// import { CreateBackupStreamingAssetsAll } from '../utils/backup-streaming-assets.js';
 
-window.OpenNextCompetition = OpenNextCompetition;
-window.FastModeUpdate = FastModeUpdate;
+// window.OpenNextCompetition = OpenNextCompetition;
+// window.FastModeUpdate = FastModeUpdate;
 
 // Interface Manager
 $('.close-alert').click(() => {
@@ -64,14 +64,14 @@ const GetPathNote = async () => {
 };
 
 const InterfaceLoad = async () => {
-  IndexTranslator();
-  GetImageUser();
-  GetPathNote();
+//   IndexTranslator();
+//   GetImageUser();
+//   GetPathNote();
   backdrop({ elementName: 'backdrop' });
-  ReportDownloadButton(false);
-  NextCompetition();
-  FastModeLoad();
-  CheckAlerts();
+//   ReportDownloadButton(false);
+//   NextCompetition();
+//   FastModeLoad();
+//   CheckAlerts();
 };
 
 const FailApplication = (message, mode = 0) => {
@@ -339,8 +339,8 @@ const DownloadsBotics = async (options) => {
 
 $(document).ready(() => {
   InterfaceLoad();
-  LanguageInit(OpenConfig());
-  FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
+//   LanguageInit(OpenConfig());
+//   FilesVerification({ modeText: Lang('Looking for update! Please wait...') });
 });
 
 // Magic Button Manager Config

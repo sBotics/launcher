@@ -1,10 +1,8 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
-const touchBar = require('./src/controllers/__instance_touchbar');
+const Windows = require('./src/class/__InstanceWindows');
 
-if (handleSquirrelEvent()) {
-  return;
-}
+handleSquirrelEvent();
 
 function handleSquirrelEvent() {
   if (process.argv.length === 1) {
@@ -47,9 +45,6 @@ function handleSquirrelEvent() {
   }
 }
 
-var mainWindow;
-var splashWindow;
-
 // Protocol sBotics Communication
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
@@ -61,56 +56,29 @@ if (process.defaultApp) {
   app.setAsDefaultProtocolClient('sbotics');
 }
 
+// Windows Declaretion and Controller
+var authWindow;
+var splashWindow;
+
 const createWindow = () => {
   const { screen } = require('electron');
-  const primaryDisplay = screen.getPrimaryDisplay();
-  const { height } = primaryDisplay.workAreaSize;
-  const heightFinal = Math.round(height * 0.8);
-  const widthFinal = Math.round((16 * heightFinal) / 9);
+  const windows = new Windows(screen);
 
-  mainWindow = new BrowserWindow({
-    width: widthFinal,
-    height: heightFinal,
-    show: false,
-    autoHideMenuBar: true,
-    title: 'sBotics Launcher',
-    icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true,
-    },
-  });
+  // Auth Window Instance
+  authWindow = windows.auth();
+  authWindow.loadFile(path.join(__dirname, '/routes/auth.html'));
 
-  mainWindow.loadFile(path.join(__dirname, '/routes/main.html'));
-  splashWindow = new BrowserWindow({
-    width: 470,
-    height: 265,
-    resizable: false,
-    minimizable: false,
-    maximizable: false,
-    frame: false,
-    show: false,
-    alwaysOnTop: true,
-    title: 'sBotics Launcher',
-    icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true,
-    },
-  });
-
+  // Splash Window Instance
+  splashWindow = windows.splash();
   splashWindow.loadFile(path.join(__dirname, '/routes/splash.html'));
-
   splashWindow.once('ready-to-show', () => {
     splashWindow.show();
   });
 
-  mainWindow.once('ready-to-show', () => {
+  authWindow.once('ready-to-show', () => {
     setTimeout(() => {
       splashWindow.close();
-      mainWindow.show();
+      authWindow.show();
     }, 1500);
   });
 };
@@ -119,11 +87,10 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
 } else {
   app.on('second-instance', (event, commandLine, workingDirectory) => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-      console.log(encodeURI(commandLine[3]));
-      mainWindow.webContents.send(
+    if (authWindow) {
+      if (authWindow.isMinimized()) authWindow.restore();
+      authWindow.focus();
+      authWindow.webContents.send(
         'set_user_auth',
         commandLine[3].split('accessToken=')[1],
       );
@@ -138,10 +105,9 @@ if (!app.requestSingleInstanceLock()) {
   });
 
   app.on('open-url', (event, url) => {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
-    console.log(encodeURI(url));
-    mainWindow.webContents.send('set_user_auth', url.split('accessToken=')[1]);
+    if (authWindow.isMinimized()) authWindow.restore();
+    authWindow.focus();
+    authWindow.webContents.send('set_user_auth', url.split('accessToken=')[1]);
   });
 }
 
@@ -150,18 +116,10 @@ app.on('window-all-closed', function () {
 });
 
 
-
-
-//==> ipcMain <==
+// IpcMain Events
 ipcMain.on('get-version', (event) => {
   event.returnValue = app.getVersion();
 });
-
 ipcMain.on('get-lang', (event) => {
   event.returnValue = app.getLocale();
-});
-
-ipcMain.on('touch-bar', (event) => {
-  console.log(event);
-// window.setTouchBar(touchBar);
 });

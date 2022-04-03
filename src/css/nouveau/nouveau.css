@@ -433,7 +433,7 @@ ul.bot li {
     }
     .col-left .menu-logo {
         height: unset;
-        --img-margin: 10px;
+        --img-margin: 2px;
         margin: var(--img-margin);
         width: calc(100% - calc(2 * var(--img-margin)));
     }
