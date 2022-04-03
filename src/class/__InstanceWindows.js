@@ -7,6 +7,25 @@ class Windows {
     const { height } = this.primaryDisplay.workAreaSize;
     this.height = height;
   }
+  splash() {
+    return new BrowserWindow({
+      width: 470,
+      height: 265,
+      resizable: false,
+      minimizable: false,
+      maximizable: false,
+      frame: false,
+      show: false,
+      alwaysOnTop: true,
+      title: 'sBotics Launcher',
+      icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true,
+      },
+    });
+  }
   auth() {
     const height = Math.round(this.height * 0.8);
     return new BrowserWindow({
@@ -23,16 +42,13 @@ class Windows {
       },
     });
   }
-  splash() {
+  main() {
+    const height = Math.round(this.height * 0.8);
     return new BrowserWindow({
-      width: 470,
-      height: 265,
-      resizable: false,
-      minimizable: false,
-      maximizable: false,
-      frame: false,
+      width: Math.round((16 * height) / 9),
+      height: height,
       show: false,
-      alwaysOnTop: true,
+      autoHideMenuBar: true,
       title: 'sBotics Launcher',
       icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
       webPreferences: {

@@ -59,6 +59,7 @@ if (process.defaultApp) {
 // Windows Declaretion and Controller
 var authWindow;
 var splashWindow;
+var mainWindow;
 
 const createWindow = () => {
   const { screen } = require('electron');
@@ -75,10 +76,15 @@ const createWindow = () => {
     splashWindow.show();
   });
 
+  // Main Window Instance
+  mainWindow = windows.main();
+
   authWindow.once('ready-to-show', () => {
     setTimeout(() => {
       splashWindow.close();
-      authWindow.show();
+      if (authWindow) {
+        authWindow.show();
+      }
     }, 1500);
   });
 };
@@ -110,11 +116,9 @@ if (!app.requestSingleInstanceLock()) {
     authWindow.webContents.send('set_user_auth', url.split('accessToken=')[1]);
   });
 }
-
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
-
 
 // IpcMain Events
 ipcMain.on('get-version', (event) => {
@@ -122,4 +126,12 @@ ipcMain.on('get-version', (event) => {
 });
 ipcMain.on('get-lang', (event) => {
   event.returnValue = app.getLocale();
+});
+ipcMain.on('open-window-main', () => {
+  mainWindow.loadFile(path.join(__dirname, '/routes/main.html'));
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    authWindow.close();
+    authWindow = false;
+  });
 });

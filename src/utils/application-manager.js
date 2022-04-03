@@ -11,6 +11,10 @@ const SLMP = () => {
   }
 };
 
+const OpenMainWindow = () => {
+  return ipcRenderer.send('open-window-main');
+};
+
 const SystemGetLocale = () => {
   const locale = ipcRenderer.sendSync('get-lang').replace('-', '_');
   const languageAvarible = ['pt_BR'];
@@ -99,4 +103,5 @@ export {
   folderPathGsBotics,
   folderPathStreamingAssets,
   folderPathBlockEduc,
+  OpenMainWindow,
 };
