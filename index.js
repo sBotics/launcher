@@ -1,6 +1,7 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const Windows = require('./src/class/__InstanceWindows');
+const Windows = require('./src/class/__instance_windows');
+const WindowTouchBar = require('./src/class/__instance_touchbar');
 
 handleSquirrelEvent();
 
@@ -64,10 +65,12 @@ var mainWindow;
 const createWindow = () => {
   const { screen } = require('electron');
   const windows = new Windows(screen);
+  const touchbar = new WindowTouchBar();
 
   // Auth Window Instance
   authWindow = windows.auth();
   authWindow.loadFile(path.join(__dirname, '/routes/auth.html'));
+  authWindow.setTouchBar(touchbar.auth());
 
   // Splash Window Instance
   splashWindow = windows.splash();
@@ -78,6 +81,7 @@ const createWindow = () => {
 
   // Main Window Instance
   mainWindow = windows.main();
+  mainWindow.setTouchBar(touchbar.main());
 
   authWindow.once('ready-to-show', () => {
     setTimeout(() => {
