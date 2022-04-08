@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head>
+    <!-- Meta Config -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sBotics Launcher</title>
+
+    <!-- Import Bootstrap -->
+    <!-- <link rel="stylesheet" href="../src/import/Bootstrap/css/bootstrap.css" />
+    <script src="../src/import/Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../src/import/Bootstrap/js/bootstrap.js"></script> -->
+
+    <link rel="stylesheet" href="../src/css/public/style.css">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../src/css/nouveau/nouveau.css" />
+    <link rel="stylesheet" href="../src/css/nouveau/nouveau-diff.css" />
+    <link rel="stylesheet" href="../src/css/nouveau/nouveau-scroll-bar.css" />
+    <link rel="stylesheet" href="../src/css/nouveau/nouveau-config.css" />
+    <link rel="stylesheet" href="../src/css/nouveau/nouveau-alert.css" />
+
+    <!-- Import Utils -->
+    <!-- <script src="../src/utils/jquery.js"></script> -->
+<script src="../src/utils/jquery.js"></script>
+    <!-- Interface Controller -->
+    <!-- <script src="../src/class/__Interface_settings.js"></script> -->
+ <script src="../src/class/__Interface_settings.js"></script>
+</head>
+
+<body>
+    <div id="overlay"></div>
+
+    <div class="contents">
+        <!-- Start Menu Lateral -->
+        <div class="col-left">
+            <ul class="top">
+                <li>
+                    <a id="logoimg" class="block" href="#">
+                        <img class="menu-logo" src="../assets/logos/sBotics.svg" />
+                    </a>
+                </li>
+
+                <li>
+                    <a id="TutorialButton" class="block" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="sBotics Tutorial">
+                        <img class="menu-icons" src="../assets/icons/book.png" />
+                    </a>
+                </li>
+
+                <li>
+                    <a id="cBoticsButton" class="block">
+                        <img class="menu-icons" src="../assets/icons/cBotics.png" />
+                    </a>
+                </li>
+            </ul>
+            <ul class="bot">
+                <li>
+                    <a id="UpdateLanguageSbotics" class="flex items-center justify-center"
+                        style="text-decoration: none">
+                        <i class="fas fa-globe-americas menu-icons flex items-center justify-center text-[35px]"
+                            style="color: rgb(122, 0, 223); text-decoration: none;"></i>
+                    </a>
+                </li>
+                <li>
+                    <a id="UpdateFastModeActive" class="align-items-center justify-content-center"
+                        style="text-decoration: none; display: none" onclick="FastModeUpdate()">
+                        <i class="
+                  fas
+                  fa-tachometer-alt
+                  menu-icons
+                  d-flex
+                  align-items-center
+                  justify-content-center
+                " id="FastModeIcon" style="font-size: 35px; text-decoration: none"></i>
+                    </a>
+                </li>
+                <li>
+                    <a id="UpdateRepairSBotics" class="items-center justify-center text-red-500"
+                        onclick="RepairSbotics()">
+                        <i class="fas fa-tools menu-icons flex itesm-center justify-center text-[35px]"
+                            id="FastModeIcon" style="text-decoration: none"></i>
+                    </a>
+                </li>
+                <li>
+                    <a id="UserSettings" class="block">
+                        <img class="menu-icons rounded-[50%]" id="UserImgSettings" />
+                    </a>
+                </li>
+
+                <!-- <li>
+            <a
+              id="settings"
+              class="d-block"
+              onclick="InterfaceSettings('true')"
+            >
+              <img class="menu-icons" src="../assets/icons/config.png" />
+            </a>
+          </li> -->
+            </ul>
+        </div>
+        <!-- End Menu Lateral -->
+
+        <!-- Start Container sBotics -->
+        <div id="sbotics" class="col-right">
+            <div id="config-content" class="config-content">
+                <div class="config-container config-bg-color">
+                    <div class="p-2 h-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-full flex flex-row items-center justify-between">
+                                <h2 class="text-gray-500">Configurações</h2>
+                                <button type="button" onclick="InterfaceSettings()" class="btn-close btn-close-white"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="-mt-[5px] flex flex-row items-center">
+                                <hr class="w-50" />
+                                <div class="w-[12px] h-[12px] rounded-[50%] blcok border border-gray-500"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <i class="text-gray-500">3.0.0</i>
+                        </div>
+                    </div>
+                </div>
+                <div onclick="InterfaceSettings()" class="config-close-background">
+                    asdasd
+                </div>
+            </div>
+
+            <!-- Init Top Alert -->
+            <div class="top-container-absolute">
+                <!-- Start Alerts-->
+                <div id="top-alert-container" class="top-alert-container"></div>
+                <!-- End Alerts-->
+
+                <!-- Start ProgressBar -->
+                <div id="ProgreesBar" class="progress" style="width: 100%; height: 10px; border-radius: 0px"></div>
+                <!-- End ProgressBar -->
+
+                <!-- Start Download Report Button-->
+                <div class="w-100 d-flex justify-content-start align-content-center p-2">
+                    <button onclick="RelatorioDownloadManager(true)" class="buttonRelatoriodeDownload"
+                        id="buttonText_DownloadReport">
+                        Download Report
+                    </button>
+                </div>
+                <!-- End Download Report Button-->
+                <!-- Start Download Report Container-->
+                <div id="RelatorioDonwloadView"
+                    class="w-full h-full items-center justify-center fixed top-0 left-0 right-0 bottom-0 z-10 pt-[50px] pb-[50px] hidden"
+                    style="background-color: rgba(27, 26, 26, 0.425);" onclick="RelatorioDownloadManager(false)">
+                    <div class="container_relatorio_download absolute z-[99999]">
+                        <div class="w-full flex justify-between items-center">
+                            <h3 id="Text_DownloadReport" class="text-gray-800 font-[600]">
+                                Download Report
+                            </h3>
+                            <button onclick="RelatorioDownloadManager(false)"
+                                class="border-none rounded-[5px] text-white pt-[3px] pb-[3px]"
+                                style="background-color: #131313">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div id="relatorioDownloadContainer"></div>
+                    </div>
+                </div>
+                <!-- End Download Report Container -->
+            </div>
+            <!-- End Top Alert -->
+
+            <!-- Start Background Image -->
+            <div class="backdrop"></div>
+            <!-- End Background Image -->
+
+            <div class="container">
+                <div class="custom-row download">
+                    <div class="flex justify-center items-center lg:justify-start lg:items-center">
+                        <img class="logo mb-2" src="../assets/logos/logo.png" />
+                    </div>
+                    <div class="col-12 col-lg-5 box">
+                        <div id="MagicButtonContent">
+                            <button id="MagicButton" class="w-full disabled bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-4 py-2 focus:outline-none"></button>
+                        </div>
+                        <div class="line-separator">
+                            <div class="line"></div>
+                            <span id="Or">OR</span>
+                        </div>
+                        <button id="OpenFolderInstall" class="w-full bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-4 py-2 focus:outline-none MagicButtonCenter">
+                            <i class="fas fa-folder-open iconMagicButton"></i>
+                            <span id="TextMagicButtonNewFolder" class="textoMagicButton">
+                                Open installation folder
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="custom-row mt-2">
+                    <!-- Start sBotics Update Infomation -->
+                    <div class="col-5">
+                        <div style="margin-left: 10px">
+                            <span id="Text_Last_Version">Latest Version</span>
+                            <h2>
+                                <span id="Text_Version">Version</span>
+                                <span id="Version_sBotics"></span>
+                            </h2>
+                            <!-- <ul id="PatchNoteContainer" class="diff">
+                  <add>Adicionado com sucesso</add>
+                  <change>Adicionado com sucesso</change>
+                  <remove>Adicionado com sucesso</remove>
+                  <note>Olá Mundo!</note>
+                </ul> -->
+                        </div>
+                    </div>
+                    <!-- End sBotics Update Infomation -->
+
+                    <!-- Start cBotics Container -->
+                    <div id="ContainerCompetitionCBotics" class="col-12" style="display: none">
+                        <hr />
+                        <div style="margin-left: 10px; margin-right: 10px">
+                            <h2 class="mt-4" id="Text_cBoticsTitle">
+                                What will your next competition be?
+                            </h2>
+                            <p class="small-text light" id="Text_cBoticsDescription">
+                                Join your team, prepare your code and compete in the sBotics simulator with all of
+                                Brazil.
+                            </p>
+                            <div id="RowContainerCompetition" class="row"></div>
+                        </div>
+                    </div>
+                    <!-- End cBotics Container -->
+
+                    <!-- Start Description -->
+                    <div class="col-12 col-bottom">
+                        <div style="margin-top: -35px; margin-left: 10px; margin-right: 10px">
+                            <h2 class="mt-4" id="Text_Description">Description</h2>
+                            <p class="small-text light" id="Path_Note_Description">
+                                sBotics is a simulation platform designed to emulate various world-famous robotics
+                                competitions, where kits are commonly used to perform the required actions. This
+                                platform offers an alternative for those seeking to test and improve their skills in the
+                                field as well as being able to test programs without the risk of damaging physical
+                                parts.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- End Description -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Container sBotics -->
+
+    <!-- Scripts Init -->
+    <!-- <script src="../src/utils/env.js"></script>
+    <script type="module" src="../src/class/__index_manager.js"></script> -->
+<script type="module" src="../src/class/__index_manager.js"></script>
+</body>
+
+</html>

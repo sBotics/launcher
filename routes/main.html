@@ -1,265 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html>
 
 <head>
-    <!-- Meta Config -->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sBotics Launcher</title>
-
-    <!-- Import Bootstrap -->
-    <!-- <link rel="stylesheet" href="../src/import/Bootstrap/css/bootstrap.css" />
-    <script src="../src/import/Bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../src/import/Bootstrap/js/bootstrap.js"></script> -->
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/css/public/style.css">
-
-    <!-- Font -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../src/css/nouveau/nouveau.css" />
-    <link rel="stylesheet" href="../src/css/nouveau/nouveau-diff.css" />
-    <link rel="stylesheet" href="../src/css/nouveau/nouveau-scroll-bar.css" />
-    <link rel="stylesheet" href="../src/css/nouveau/nouveau-config.css" />
-    <link rel="stylesheet" href="../src/css/nouveau/nouveau-alert.css" />
-
-    <!-- Import Utils -->
-    <!-- <script src="../src/utils/jquery.js"></script> -->
-<script src="../src/utils/jquery.js"></script>
-    <!-- Interface Controller -->
-    <!-- <script src="../src/class/__Interface_settings.js"></script> -->
- <script src="../src/class/__Interface_settings.js"></script>
 </head>
 
-<body>
-    <div id="overlay"></div>
+<body class="h-screen bg-[url('../../../assets/Banners/zul_banner_B.png')] bg-no-repeat bg-center bg-cover">
 
-    <div class="contents">
-        <!-- Start Menu Lateral -->
-        <div class="col-left">
-            <ul class="top">
-                <li>
-                    <a id="logoimg" class="block" href="#">
-                        <img class="menu-logo" src="../assets/logos/sBotics.svg" />
-                    </a>
-                </li>
+    <!-- Lateral Esquerda -->
+    <div
+        class="w-[80px] h-screen fixed top-0 left-0 bottom-0 flex flex-col items-center justify-between py-[10px] px-[10px] border-r-[1px] border-[#B4B4B4]">
+        <!-- sBotics Logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+            <g id="Logo" transform="translate(-14 -336)">
+                <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
+                    transform="translate(14 336)" />
+                <g id="sBotics" transform="translate(30.953 350.555)">
+                    <circle id="Elipse_14" data-name="Elipse 14" cx="2.85" cy="2.85" r="2.85"
+                        transform="translate(5.542 11.952)" fill="#fff" />
+                    <circle id="Elipse_15" data-name="Elipse 15" cx="2.753" cy="2.753" r="2.753"
+                        transform="translate(14.543 11.747)" fill="#fff" />
+                    <ellipse id="Elipse_16" data-name="Elipse 16" cx="7.636" cy="3.097" rx="7.636" ry="3.097"
+                        transform="translate(5.684 19.08)" fill="#fff" />
+                    <path id="Caminho_33" data-name="Caminho 33"
+                        d="M182.895,128.619a6.632,6.632,0,0,1-.88-.61,4.3,4.3,0,0,1-1.48-2.458,2.766,2.766,0,0,1,1.413-3.051,4.078,4.078,0,0,1,2.461-.481,2.579,2.579,0,0,1,1.868,1.122,3.609,3.609,0,0,1,.308,3.876,2.861,2.861,0,0,1-1.514,1.377c-.127.054-.257.1-.378.152a10.142,10.142,0,0,0,.033,2.937c.208-.173.412-.339.613-.509a11.674,11.674,0,0,1,5.461-2.691,12.341,12.341,0,0,1,11.384,3.295c.073.069.148.136.226.208a31.241,31.241,0,0,0-.031-3.2.658.658,0,0,0-.269-.13,3.254,3.254,0,0,1-2.035-3.57,3.483,3.483,0,0,1,.76-1.836,2.73,2.73,0,0,1,2.144-1.052,4.437,4.437,0,0,1,1.708.311,2.81,2.81,0,0,1,1.781,3.432,4.318,4.318,0,0,1-2,2.67.639.639,0,0,0-.341.636c.021,1.368.02,2.737.026,4.1a1.189,1.189,0,0,1-.02.414.8.8,0,0,0,.128.746,12.224,12.224,0,0,1,1.576,5.148,12.422,12.422,0,0,1-10.414,13.251,12.153,12.153,0,0,1-10.875-3.546,10.729,10.729,0,0,1-2.6-3.892,12.625,12.625,0,0,1-.916-5.387,12.267,12.267,0,0,1,1.741-5.908.74.74,0,0,0,.1-.459c-.019-.658.006-1.317.008-1.975C182.9,130.576,182.895,129.615,182.895,128.619ZM193.64,142.21h-4.792c-.114,0-.229,0-.342,0a.5.5,0,0,0-.49.4,1.237,1.237,0,0,0,.163,1.017,4.13,4.13,0,0,0,1.038,1.149,7.584,7.584,0,0,0,3.34,1.465,4.045,4.045,0,0,0,1.392.127c.375-.053.751-.119,1.119-.208a7.136,7.136,0,0,0,3.289-1.652,4,4,0,0,0,.726-.872,1.344,1.344,0,0,0,.2-.871.55.55,0,0,0-.593-.557c-.1,0-.2,0-.3,0Zm-4.821-7.172h-.266a1.246,1.246,0,0,0-1.286.86,2.225,2.225,0,0,0-.056,1.556,1.363,1.363,0,0,0,.881.923,3.271,3.271,0,0,0,.509.142,1.6,1.6,0,0,0,1.651-.6,1.677,1.677,0,0,0,.177-1.888,1.452,1.452,0,0,0-1.5-.992.957.957,0,0,1-.117,0Zm9.441,0a1.371,1.371,0,0,0-1.456.674,1.746,1.746,0,0,0,1.09,2.83,2.128,2.128,0,0,0,1.038-.152,1.443,1.443,0,0,0,.945-1.054,2.182,2.182,0,0,0-.032-1.267,1.3,1.3,0,0,0-1.4-1.029Z"
+                        transform="translate(-180.474 -121.99)" fill="#30a9c2" />
+                </g>
+            </g>
+        </svg>
 
-                <li>
-                    <a id="TutorialButton" class="block" data-bs-toggle="tooltip" data-bs-placement="right"
-                        title="sBotics Tutorial">
-                        <img class="menu-icons" src="../assets/icons/book.png" />
-                    </a>
-                </li>
-
-                <li>
-                    <a id="cBoticsButton" class="block">
-                        <img class="menu-icons" src="../assets/icons/cBotics.png" />
-                    </a>
-                </li>
-            </ul>
-            <ul class="bot">
-                <li>
-                    <a id="UpdateLanguageSbotics" class="flex items-center justify-center"
-                        style="text-decoration: none">
-                        <i class="fas fa-globe-americas menu-icons flex items-center justify-center text-[35px]"
-                            style="color: rgb(122, 0, 223); text-decoration: none;"></i>
-                    </a>
-                </li>
-                <li>
-                    <a id="UpdateFastModeActive" class="align-items-center justify-content-center"
-                        style="text-decoration: none; display: none" onclick="FastModeUpdate()">
-                        <i class="
-                  fas
-                  fa-tachometer-alt
-                  menu-icons
-                  d-flex
-                  align-items-center
-                  justify-content-center
-                " id="FastModeIcon" style="font-size: 35px; text-decoration: none"></i>
-                    </a>
-                </li>
-                <li>
-                    <a id="UpdateRepairSBotics" class="items-center justify-center text-red-500"
-                        onclick="RepairSbotics()">
-                        <i class="fas fa-tools menu-icons flex itesm-center justify-center text-[35px]"
-                            id="FastModeIcon" style="text-decoration: none"></i>
-                    </a>
-                </li>
-                <li>
-                    <a id="UserSettings" class="block">
-                        <img class="menu-icons rounded-[50%]" id="UserImgSettings" />
-                    </a>
-                </li>
-
-                <!-- <li>
-            <a
-              id="settings"
-              class="d-block"
-              onclick="InterfaceSettings('true')"
-            >
-              <img class="menu-icons" src="../assets/icons/config.png" />
-            </a>
-          </li> -->
-            </ul>
-        </div>
-        <!-- End Menu Lateral -->
-
-        <!-- Start Container sBotics -->
-        <div id="sbotics" class="col-right">
-            <div id="config-content" class="config-content">
-                <div class="config-container config-bg-color">
-                    <div class="p-2 h-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-full flex flex-row items-center justify-between">
-                                <h2 class="text-gray-500">Configurações</h2>
-                                <button type="button" onclick="InterfaceSettings()" class="btn-close btn-close-white"
-                                    aria-label="Close"></button>
-                            </div>
-
-                            <div class="-mt-[5px] flex flex-row items-center">
-                                <hr class="w-50" />
-                                <div class="w-[12px] h-[12px] rounded-[50%] blcok border border-gray-500"></div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-between items-center">
-                            <i class="text-gray-500">3.0.0</i>
-                        </div>
-                    </div>
+        <div class="h-full flex flex-col items-center justify-center">
+            <button
+                class="group w-[60px] h-[60px] bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-pointer -mt-[60px] mb-[10px]">
+                <div
+                    class="w-full h-full bg-[#276774] group-hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="29.505" height="17.703" viewBox="0 0 29.505 17.703">
+                        <path id="gamepad-solid"
+                            d="M20.654,64H8.852a8.852,8.852,0,0,0,0,17.7h11.8a8.852,8.852,0,0,0,0-17.7Zm-9.262,9.958H9.917v1.475a1.106,1.106,0,1,1-2.213,0V73.958L6.27,73.917a1.087,1.087,0,1,1-.039-2.172H7.7V70.27a1.106,1.106,0,1,1,2.213,0v1.475h1.475A1.11,1.11,0,0,1,12.5,72.852,1.085,1.085,0,0,1,11.392,73.958Zm8.483,2.951a1.8,1.8,0,0,1-1.8-1.8,1.861,1.861,0,0,1,1.8-1.844,1.834,1.834,0,0,1,1.8,1.844A1.748,1.748,0,0,1,19.875,76.909Zm2.951-4.426a1.8,1.8,0,0,1-1.8-1.8,1.861,1.861,0,0,1,1.8-1.844,1.807,1.807,0,0,1,1.8,1.844A1.748,1.748,0,0,1,22.825,72.483Z"
+                            transform="translate(0 -64)" fill="#b9effb" />
+                    </svg>
                 </div>
-                <div onclick="InterfaceSettings()" class="config-close-background">
-                    asdasd
-                </div>
-            </div>
+            </button>
 
-            <!-- Init Top Alert -->
-            <div class="top-container-absolute">
-                <!-- Start Alerts-->
-                <div id="top-alert-container" class="top-alert-container"></div>
-                <!-- End Alerts-->
-
-                <!-- Start ProgressBar -->
-                <div id="ProgreesBar" class="progress" style="width: 100%; height: 10px; border-radius: 0px"></div>
-                <!-- End ProgressBar -->
-
-                <!-- Start Download Report Button-->
-                <div class="w-100 d-flex justify-content-start align-content-center p-2">
-                    <button onclick="RelatorioDownloadManager(true)" class="buttonRelatoriodeDownload"
-                        id="buttonText_DownloadReport">
-                        Download Report
-                    </button>
-                </div>
-                <!-- End Download Report Button-->
-                <!-- Start Download Report Container-->
-                <div id="RelatorioDonwloadView"
-                    class="w-full h-full items-center justify-center fixed top-0 left-0 right-0 bottom-0 z-10 pt-[50px] pb-[50px] hidden"
-                    style="background-color: rgba(27, 26, 26, 0.425);" onclick="RelatorioDownloadManager(false)">
-                    <div class="container_relatorio_download absolute z-[99999]">
-                        <div class="w-full flex justify-between items-center">
-                            <h3 id="Text_DownloadReport" class="text-gray-800 font-[600]">
-                                Download Report
-                            </h3>
-                            <button onclick="RelatorioDownloadManager(false)"
-                                class="border-none rounded-[5px] text-white pt-[3px] pb-[3px]"
-                                style="background-color: #131313">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div id="relatorioDownloadContainer"></div>
-                    </div>
-                </div>
-                <!-- End Download Report Container -->
-            </div>
-            <!-- End Top Alert -->
-
-            <!-- Start Background Image -->
-            <div class="backdrop"></div>
-            <!-- End Background Image -->
-
-            <div class="container">
-                <div class="custom-row download">
-                    <div class="flex justify-center items-center lg:justify-start lg:items-center">
-                        <img class="logo mb-2" src="../assets/logos/logo.png" />
-                    </div>
-                    <div class="col-12 col-lg-5 box">
-                        <div id="MagicButtonContent">
-                            <button id="MagicButton" class="w-full disabled bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-4 py-2 focus:outline-none"></button>
-                        </div>
-                        <div class="line-separator">
-                            <div class="line"></div>
-                            <span id="Or">OR</span>
-                        </div>
-                        <button id="OpenFolderInstall" class="w-full bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-4 py-2 focus:outline-none MagicButtonCenter">
-                            <i class="fas fa-folder-open iconMagicButton"></i>
-                            <span id="TextMagicButtonNewFolder" class="textoMagicButton">
-                                Open installation folder
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="custom-row mt-2">
-                    <!-- Start sBotics Update Infomation -->
-                    <div class="col-5">
-                        <div style="margin-left: 10px">
-                            <span id="Text_Last_Version">Latest Version</span>
-                            <h2>
-                                <span id="Text_Version">Version</span>
-                                <span id="Version_sBotics"></span>
-                            </h2>
-                            <!-- <ul id="PatchNoteContainer" class="diff">
-                  <add>Adicionado com sucesso</add>
-                  <change>Adicionado com sucesso</change>
-                  <remove>Adicionado com sucesso</remove>
-                  <note>Olá Mundo!</note>
-                </ul> -->
-                        </div>
-                    </div>
-                    <!-- End sBotics Update Infomation -->
-
-                    <!-- Start cBotics Container -->
-                    <div id="ContainerCompetitionCBotics" class="col-12" style="display: none">
-                        <hr />
-                        <div style="margin-left: 10px; margin-right: 10px">
-                            <h2 class="mt-4" id="Text_cBoticsTitle">
-                                What will your next competition be?
-                            </h2>
-                            <p class="small-text light" id="Text_cBoticsDescription">
-                                Join your team, prepare your code and compete in the sBotics simulator with all of
-                                Brazil.
-                            </p>
-                            <div id="RowContainerCompetition" class="row"></div>
-                        </div>
-                    </div>
-                    <!-- End cBotics Container -->
-
-                    <!-- Start Description -->
-                    <div class="col-12 col-bottom">
-                        <div style="margin-top: -35px; margin-left: 10px; margin-right: 10px">
-                            <h2 class="mt-4" id="Text_Description">Description</h2>
-                            <p class="small-text light" id="Path_Note_Description">
-                                sBotics is a simulation platform designed to emulate various world-famous robotics
-                                competitions, where kits are commonly used to perform the required actions. This
-                                platform offers an alternative for those seeking to test and improve their skills in the
-                                field as well as being able to test programs without the risk of damaging physical
-                                parts.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- End Description -->
-                </div>
+            <div class="w-[60px] bg-[#000000] flex flex-col items-center py-[7px] px-[7px] rounded-[22px] ">
+                <button
+                    class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#276774] flex items-center justify-center rounded-[16px] mb-[7px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]" width="20"
+                        height="26.67" viewBox="0 0 20 26.67">
+                        <path id="award-solid"
+                            d="M15,18.663c.728-.421.913-1.565,1.5-2.156s1.735-.775,2.156-1.5.009-1.8.228-2.62C19.1,11.59,19.956,10.86,19.956,10s-.9-1.59-1.112-2.382c-.219-.82.188-1.9-.227-2.62s-1.564-.913-2.155-1.5-.776-1.735-1.5-2.156-1.8-.009-2.62-.228C11.59.9,10.861,0,10,0S8.413.9,7.621,1.112C6.8,1.33,5.72.924,5,1.339S4.088,2.9,3.5,3.494,1.762,4.27,1.34,5s-.008,1.8-.228,2.617C.9,8.412,0,9.141,0,10s.9,1.59,1.112,2.382c.219.82-.188,1.9.227,2.62s1.565.911,2.155,1.5S4.27,18.241,5,18.663s1.8.008,2.619.228C8.413,19.1,9.142,20,10,20s1.59-.9,2.383-1.112C13.205,18.674,14.283,19.08,15,18.663ZM5.835,10A4.167,4.167,0,1,1,10,14.168,4.164,4.164,0,0,1,5.835,10ZM.09,22.565A1.25,1.25,0,0,0,1.5,24.252l2.354-.471,1.116,2.2a1.237,1.237,0,0,0,1.113.686h.053a1.235,1.235,0,0,0,1.106-.775l1.749-4.275a11.637,11.637,0,0,1-7.2-3.331Zm18.12-4.276a11.625,11.625,0,0,1-7.2,3.331l1.749,4.275a1.236,1.236,0,0,0,1.106.775c.02-.047-.006,0,.056,0a1.235,1.235,0,0,0,1.112-.684l1.116-2.2,2.354.471a1.25,1.25,0,0,0,1.406-1.688Z"
+                            transform="translate(-0.001)" />
+                    </svg>
+                </button>
+                <button
+                    class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]" width="20"
+                        height="22.857" viewBox="0 0 20 22.857">
+                        <path id="book-solid"
+                            d="M20,15V2.143A2.143,2.143,0,0,0,17.857,0H4.286A4.286,4.286,0,0,0,0,4.286V18.571a4.286,4.286,0,0,0,4.286,4.286H18.571a1.386,1.386,0,0,0,.714-2.6V16.627A2.271,2.271,0,0,0,20,15ZM6.388,5.714H14.96a.726.726,0,0,1,.754.714A.716.716,0,0,1,15,7.143H6.388a.715.715,0,0,1,0-1.429Zm0,2.857H14.96a.726.726,0,0,1,.754.714A.716.716,0,0,1,15,10H6.388a.715.715,0,0,1,0-1.429ZM17.143,20H4.286a1.429,1.429,0,0,1,0-2.857H17.143Z" />
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
-    <!-- End Container sBotics -->
+
 
     <!-- Scripts Init -->
-    <!-- <script src="../src/utils/env.js"></script>
-    <script type="module" src="../src/class/__index_manager.js"></script> -->
-<script type="module" src="../src/class/__index_manager.js"></script>
+    <script src="../src/utils/env.js"></script>
 </body>
 
 </html>
