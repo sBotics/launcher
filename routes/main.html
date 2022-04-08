@@ -9,12 +9,11 @@
 </head>
 
 <body class="h-screen bg-[url('../../../assets/Banners/zul_banner_B.png')] bg-no-repeat bg-center bg-cover">
-
     <!-- Lateral Esquerda -->
     <div
-        class="w-[80px] h-screen fixed top-0 left-0 bottom-0 flex flex-col items-center justify-between py-[10px] px-[10px] border-r-[1px] border-[#B4B4B4]">
+        class="w-full md:w-[80px] h-[80px] md:h-screen fixed md:top-0 left-0 bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-t-[1px] md:border-r-[1px] border-[#B4B4B4]">
         <!-- sBotics Logo SVG -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+        <svg xmlns="http://www.w3.org/2000/svg" class="hidden md:block" width="60" height="60" viewBox="0 0 60 60">
             <g id="Logo" transform="translate(-14 -336)">
                 <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
                     transform="translate(14 336)" />
@@ -31,10 +30,10 @@
                 </g>
             </g>
         </svg>
-
-        <div class="h-full flex flex-col items-center justify-center">
+        <!-- Opções do Menu Lateral -->
+        <div class="w-full h-full md:w-auto flex flex-row md:flex-col items-center justify-center">
             <button
-                class="group w-[60px] h-[60px] bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-pointer -mt-[60px] mb-[10px]">
+                class="group w-[60px] h-[60px] bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-pointer mr-[10px] md:-mt-[60px] md:mb-[10px]">
                 <div
                     class="w-full h-full bg-[#276774] group-hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="29.505" height="17.703" viewBox="0 0 29.505 17.703">
@@ -45,9 +44,9 @@
                 </div>
             </button>
 
-            <div class="w-[60px] bg-[#000000] flex flex-col items-center py-[7px] px-[7px] rounded-[22px] ">
+            <div class="w-auto h-[60px] md:w-[60px] md:h-auto bg-[#000000] flex flex-row md:flex-col items-center py-[7px] px-[7px] rounded-[22px] ">
                 <button
-                    class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#276774] flex items-center justify-center rounded-[16px] mb-[7px]">
+                    class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#276774] flex items-center justify-center rounded-[16px] mr-[7px] md:mb-[7px]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]" width="20"
                         height="26.67" viewBox="0 0 20 26.67">
                         <path id="award-solid"
@@ -67,6 +66,32 @@
         </div>
     </div>
 
+    <!-- Lateral Direita -->
+    <div
+        class="w-full h-[80px] md:w-[80px] md:h-screen fixed top-0 right-0 md:bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-b-[1px] md:border-l-[1px] border-[#B4B4B4]">
+        <!-- sBotics Logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="block md:hidden" width="60" height="60" viewBox="0 0 60 60">
+            <g id="Logo" transform="translate(-14 -336)">
+                <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
+                    transform="translate(14 336)" />
+                <g id="sBotics" transform="translate(30.953 350.555)">
+                    <circle id="Elipse_14" data-name="Elipse 14" cx="2.85" cy="2.85" r="2.85"
+                        transform="translate(5.542 11.952)" fill="#fff" />
+                    <circle id="Elipse_15" data-name="Elipse 15" cx="2.753" cy="2.753" r="2.753"
+                        transform="translate(14.543 11.747)" fill="#fff" />
+                    <ellipse id="Elipse_16" data-name="Elipse 16" cx="7.636" cy="3.097" rx="7.636" ry="3.097"
+                        transform="translate(5.684 19.08)" fill="#fff" />
+                    <path id="Caminho_33" data-name="Caminho 33"
+                        d="M182.895,128.619a6.632,6.632,0,0,1-.88-.61,4.3,4.3,0,0,1-1.48-2.458,2.766,2.766,0,0,1,1.413-3.051,4.078,4.078,0,0,1,2.461-.481,2.579,2.579,0,0,1,1.868,1.122,3.609,3.609,0,0,1,.308,3.876,2.861,2.861,0,0,1-1.514,1.377c-.127.054-.257.1-.378.152a10.142,10.142,0,0,0,.033,2.937c.208-.173.412-.339.613-.509a11.674,11.674,0,0,1,5.461-2.691,12.341,12.341,0,0,1,11.384,3.295c.073.069.148.136.226.208a31.241,31.241,0,0,0-.031-3.2.658.658,0,0,0-.269-.13,3.254,3.254,0,0,1-2.035-3.57,3.483,3.483,0,0,1,.76-1.836,2.73,2.73,0,0,1,2.144-1.052,4.437,4.437,0,0,1,1.708.311,2.81,2.81,0,0,1,1.781,3.432,4.318,4.318,0,0,1-2,2.67.639.639,0,0,0-.341.636c.021,1.368.02,2.737.026,4.1a1.189,1.189,0,0,1-.02.414.8.8,0,0,0,.128.746,12.224,12.224,0,0,1,1.576,5.148,12.422,12.422,0,0,1-10.414,13.251,12.153,12.153,0,0,1-10.875-3.546,10.729,10.729,0,0,1-2.6-3.892,12.625,12.625,0,0,1-.916-5.387,12.267,12.267,0,0,1,1.741-5.908.74.74,0,0,0,.1-.459c-.019-.658.006-1.317.008-1.975C182.9,130.576,182.895,129.615,182.895,128.619ZM193.64,142.21h-4.792c-.114,0-.229,0-.342,0a.5.5,0,0,0-.49.4,1.237,1.237,0,0,0,.163,1.017,4.13,4.13,0,0,0,1.038,1.149,7.584,7.584,0,0,0,3.34,1.465,4.045,4.045,0,0,0,1.392.127c.375-.053.751-.119,1.119-.208a7.136,7.136,0,0,0,3.289-1.652,4,4,0,0,0,.726-.872,1.344,1.344,0,0,0,.2-.871.55.55,0,0,0-.593-.557c-.1,0-.2,0-.3,0Zm-4.821-7.172h-.266a1.246,1.246,0,0,0-1.286.86,2.225,2.225,0,0,0-.056,1.556,1.363,1.363,0,0,0,.881.923,3.271,3.271,0,0,0,.509.142,1.6,1.6,0,0,0,1.651-.6,1.677,1.677,0,0,0,.177-1.888,1.452,1.452,0,0,0-1.5-.992.957.957,0,0,1-.117,0Zm9.441,0a1.371,1.371,0,0,0-1.456.674,1.746,1.746,0,0,0,1.09,2.83,2.128,2.128,0,0,0,1.038-.152,1.443,1.443,0,0,0,.945-1.054,2.182,2.182,0,0,0-.032-1.267,1.3,1.3,0,0,0-1.4-1.029Z"
+                        transform="translate(-180.474 -121.99)" fill="#30a9c2" />
+                </g>
+            </g>
+        </svg>
+        <!-- Imagem do Usuario -->
+        <div class="w-[60px] h-[60px] bg-[#000000] rounded-full py-[10px] px-[10px] ">
+            <img class="w-full h-full rounded-full" src="https://ui-avatars.com/api/?name=Julio%20Cesar%20Vera%20Neto&color=025F70&background=D4E9ED" alt="ImageUser">
+        </div>
+    </div>
 
     <!-- Scripts Init -->
     <script src="../src/utils/env.js"></script>
