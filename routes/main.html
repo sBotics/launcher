@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="../src/css/public/style.css">
 </head>
 
-<body class="h-screen bg-[url('../../../assets/Banners/zul_banner_B.png')] bg-no-repeat bg-center bg-cover">
-    <!-- Lateral Esquerda -->
+<body
+    class="h-screen bg-no-repeat bg-center bg-cover" 
+    style="background-image: linear-gradient(rgba(29, 29, 38, 0.39) 0%, rgba(9, 9, 12, 0.96) 46.03%, rgba(8, 8, 10, 0.95) 60.67%, #000 100%), url('../assets/Banners/zul_banner_B.png');"
+>
+<!-- Lateral Esquerda -->
     <div
-        class="w-full md:w-[80px] h-[80px] md:h-screen fixed md:top-0 left-0 bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-t-[1px] md:border-r-[1px] border-[#B4B4B4]">
+        class="w-full md:w-[80px] h-[80px] md:h-screen fixed md:top-0 left-0 bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-t-0 md:border-r-[1px] border-[#A8A8A8] bg-[#000000] bg-opacity-100 md:bg-opacity-0">
         <!-- sBotics Logo SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" class="hidden md:block" width="60" height="60" viewBox="0 0 60 60">
             <g id="Logo" transform="translate(-14 -336)">
@@ -33,7 +36,7 @@
         <!-- Opções do Menu Lateral -->
         <div class="w-full h-full md:w-auto flex flex-row md:flex-col items-center justify-center">
             <button
-                class="group w-[60px] h-[60px] bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-pointer mr-[10px] md:mr-0 md:-mt-[60px] md:mb-[10px]">
+                class="group w-[60px] h-[60px] bg-[#1A1D20] md:bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-pointer mr-[10px] md:mr-0 md:-mt-[60px] md:mb-[10px]">
                 <div
                     class="w-full h-full bg-[#276774] group-hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="29.505" height="17.703" viewBox="0 0 29.505 17.703">
@@ -43,8 +46,8 @@
                     </svg>
                 </div>
             </button>
-
-            <div class="w-auto h-[60px] md:w-[60px] md:h-auto bg-[#000000] flex flex-row md:flex-col items-center py-[7px] px-[7px] rounded-[22px] ">
+            <div
+                class="w-auto h-[60px] md:w-[60px] md:h-auto bg-[#1A1D20] md:bg-[#000000] flex flex-row md:flex-col items-center py-[7px] px-[7px] rounded-[22px] ">
                 <button
                     class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#276774] flex items-center justify-center rounded-[16px] mr-[7px] md:mr-0 md:mb-[7px]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]" width="20"
@@ -55,7 +58,7 @@
                     </svg>
                 </button>
                 <button
-                    class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
+                    class="group w-[46px] h-[46px] bg-[#292D31] md:bg-[#292D31] hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]" width="20"
                         height="22.857" viewBox="0 0 20 22.857">
                         <path id="book-solid"
@@ -68,12 +71,12 @@
 
     <!-- Lateral Direita -->
     <div
-        class="w-full h-[80px] md:w-[80px] md:h-screen fixed top-0 right-0 md:bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-b-[1px] md:border-l-[1px] border-[#B4B4B4]">
+        class="w-full h-[80px] md:w-[80px] md:h-screen fixed top-0 right-0 md:bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-b-0 md:border-l-[1px] border-[#A8A8A8] bg-[#000000] bg-opacity-100 md:bg-opacity-0">
         <!-- sBotics Logo SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" class="block md:hidden" width="60" height="60" viewBox="0 0 60 60">
             <g id="Logo" transform="translate(-14 -336)">
                 <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
-                    transform="translate(14 336)" />
+                    transform="translate(14 336)" class="fill-[#1A1D20]" />
                 <g id="sBotics" transform="translate(30.953 350.555)">
                     <circle id="Elipse_14" data-name="Elipse 14" cx="2.85" cy="2.85" r="2.85"
                         transform="translate(5.542 11.952)" fill="#fff" />
@@ -88,9 +91,11 @@
             </g>
         </svg>
         <!-- Imagem do Usuario -->
-        <div class="w-[60px] h-[60px] bg-[#000000] rounded-full py-[10px] px-[10px] ">
-            <img class="w-full h-full rounded-full" src="https://ui-avatars.com/api/?name=Julio%20Cesar%20Vera%20Neto&color=025F70&background=D4E9ED" alt="ImageUser">
-        </div>
+        <a href="#" class="w-[60px] h-[60px] bg-[#1A1D20] md:bg-[#000000] hover:bg-[#1C4F5A] rounded-full py-[10px] px-[10px] cursor-pointer">
+            <img class="w-full h-full rounded-full"
+                src="https://ui-avatars.com/api/?name=Julio%20Cesar%20Vera%20Neto&color=025F70&background=D4E9ED"
+                alt="ImageUser">
+        </a>
     </div>
 
     <!-- Scripts Init -->
