@@ -139,3 +139,7 @@ ipcMain.on('open-window-main', () => {
     authWindow = false;
   });
 });
+ipcMain.on('open-window-auth', () => {
+  mainWindow.close();
+  createWindow();
+});

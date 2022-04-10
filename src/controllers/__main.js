@@ -5,28 +5,23 @@ import { GetMacAddress } from '../utils/mac-address-manager.js';
 
 window.onload = () => {
   (async () => {
+    let application = new Application();
     let userData = new FileUser().open();
-    console.log(userData);
     const macAddress = await GetMacAddress();
     if (
       !userData ||
       !userData['logged'] ||
       userData['macAddress'] != macAddress
     ) {
-      document.getElementById('form_authentication').style.display = 'flex';
-      document.getElementById('animation_loading').style.display = 'none';
+      application.openAuthWindows();
     }
-    console.log(userData['accessToken']);
     UserData({ accessToken: userData['accessToken'] })
       .then(function (response) {
-        document.getElementById('form_authentication').style.display = 'none';
-        document.getElementById('animation_loading').style.display = 'none';
-        console.log('Tentou');
-        new Application().openMainWindow();
+        console.log(response);
+        LoadingController(false);
       })
       .catch(function (error) {
-        document.getElementById('form_authentication').style.display = 'flex';
-        document.getElementById('animation_loading').style.display = 'none';
+        application.openAuthWindows();
       });
   })();
 };

@@ -1,8 +1,8 @@
 let ipcRenderer = require('electron').ipcRenderer;
 let shell = require('electron').shell;
 import { URLdictionary, UserData } from '../utils/connection-manager.js';
-import { CreateUserFile, OpenUserFile } from '../class/__file_user.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
+import { FileUser } from '../class/__instance_file_user.js';
 
 const Action = (openURL) => {
   document.getElementById('form_auth').style.display = 'none';
@@ -44,9 +44,11 @@ ipcRenderer.on('set_user_auth', (event, arg) => {
     .then((response) => {
       console.log(response);
       (async () => {
+        let fileUser = new FileUser();
+
         const macAddress = (await GetMacAddress()) ? await GetMacAddress() : '';
         if (
-          !CreateUserFile({
+          !fileUser.create({
             data: {
               nickname: response['nickname'],
               name: response['name'],
@@ -61,13 +63,17 @@ ipcRenderer.on('set_user_auth', (event, arg) => {
           })
         ) {
           // Adicionar um alert dizendo que aconteceu um erro inesperado e adicionar um código de erro
+          console.log(
+            'Adicionar um alert dizendo que aconteceu um erro inesperado e adicionar um código de erro',
+          );
           return;
         }
-
         location.reload();
       })();
     })
     .catch((err) => {
-      // Adicionar um alert dizendo que aconteceu um erro ao validar o accessToken e adicionar um código de erro
+      console.log(
+        'Adicionar um alert dizendo que aconteceu um erro ao validar o accessToken e adicionar um código de erro',
+      );
     });
 });

@@ -19,9 +19,15 @@ module.exports = {
       sans: ['sans-serif'],
     },
     extend: {
-      transitionProperty: {
-        height: 'height',
-      },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            h1: {
+              color: theme('colors.gray.300'),
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [require('@tailwindcss/typography')],
