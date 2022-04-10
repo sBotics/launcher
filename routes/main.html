@@ -229,59 +229,33 @@
         </div>
 
         <!-- Content Patch Note -->
-        <div class="">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br> <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            asda
+        <div
+            class="w-full bg-[#000000] py-[20px] px-[20px] flex flex-col mt-[200px] md:mt-[50px] mb-[50px] rounded-[22px]">
+            <span class="text-[12px] font-semibold text-[#9F9F9F] uppercase">Ultima Versão</span>
+            <span class="text-[20px] font-medium text-white">1.6.1.15</span>
+            <div id="__container_center_sbotics_patch_note"
+                class="w-full prose max-w-none bg-[#292D31] mt-[20px] rounded-[12px]"></div>
+        </div>
+
+        <!-- Container Footer -->
+        <div class="w-full flex flex-col md:flex-row items-center justify-between py-[10px] md:py-0">
+            <p class="text-gray-400 text-sm text-center sm:text-left">
+                © 2022 sBotics - Natalnet • All rights reserved
+            </p>
+            <span class="text-center text-gray-400 text-sm">
+                Made with ❤️ by the sBotics team
+            </span>
         </div>
 
     </div>
 
     <!-- Scripts Init -->
     <script src="../src/utils/env.js"></script>
+    <script type="module">
+        var md = require('markdown-it')();
+        var result = md.render('# markdown-it rulezz!');
+        document.getElementById('__container_center_sbotics_patch_note').innerHTML = result;
+    </script>
     <script>
         function isScrolledIntoView() {
             const element = document.getElementById('__container_center_sbotics_action');
