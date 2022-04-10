@@ -18,7 +18,11 @@ module.exports = {
     fontFamily: {
       sans: ['sans-serif'],
     },
-    extend: {},
+    extend: {
+      transitionProperty: {
+        height: 'height',
+      },
+    },
   },
   plugins: [],
 };
