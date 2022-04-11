@@ -61,8 +61,10 @@ if (process.defaultApp) {
 var authWindow;
 var splashWindow;
 var mainWindow;
+var windowsAllClose = false;
+var mainWindowIsOpen = false;
 
-const createWindow = () => {
+const createWindow = (accessToken = null) => {
   const { screen } = require('electron');
   const windows = new Windows(screen);
   const touchbar = new WindowTouchBar();
@@ -84,10 +86,25 @@ const createWindow = () => {
   mainWindow.setTouchBar(touchbar.main());
 
   authWindow.once('ready-to-show', () => {
+    authWindow.on('close', function () {
+      if (!splashWindow.isDestroyed()) {
+        splashWindow.close();
+      }
+      if (!mainWindowIsOpen) {
+        mainWindow.close();
+      }
+    });
+
     setTimeout(() => {
-      splashWindow.close();
+      if (!splashWindow.isDestroyed()) {
+        splashWindow.close();
+      }
       if (authWindow) {
         authWindow.show();
+        if (accessToken) {
+          authWindow.focus();
+          authWindow.webContents.send('set_user_auth', accessToken);
+        }
       }
     }, 1500);
   });
@@ -115,12 +132,18 @@ if (!app.requestSingleInstanceLock()) {
   });
 
   app.on('open-url', (event, url) => {
+    if (windowsAllClose) {
+      createWindow(url.split('accessToken=')[1]);
+      return;
+    }
     if (authWindow.isMinimized()) authWindow.restore();
     authWindow.focus();
     authWindow.webContents.send('set_user_auth', url.split('accessToken=')[1]);
   });
 }
 app.on('window-all-closed', function () {
+  console.log('O eventos de fechar todas as telas foram acionados');
+  windowsAllClose = true;
   if (process.platform !== 'darwin') app.quit();
 });
 
@@ -135,6 +158,7 @@ ipcMain.on('open-window-main', () => {
   mainWindow.loadFile(path.join(__dirname, '/routes/main.html'));
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
+    mainWindowIsOpen = true;
     authWindow.close();
     authWindow = false;
   });

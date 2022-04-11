@@ -26,13 +26,14 @@ const config = {
     osxSign: {
       identity: 'Developer ID Application: Julio Cesar Vera Neto (5UQ7TRCVCT)',
       'hardened-runtime': true,
-      'gatekeeper-assess': false,
       entitlements: 'entitlements.plist',
       'entitlements-inherit': 'entitlements.plist',
       'signature-flags': 'library',
+      verbose: true,
     },
     osxNotarize: {
-       
+      appleId: '',
+      appleIdPassword: '',
     },
   },
   makers: [
