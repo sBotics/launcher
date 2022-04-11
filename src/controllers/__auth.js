@@ -19,9 +19,19 @@ window.onload = () => {
     console.log(userData['accessToken']);
     UserData({ accessToken: userData['accessToken'] })
       .then(function (response) {
+        console.log(response);
         document.getElementById('form_authentication').style.display = 'none';
         document.getElementById('animation_loading').style.display = 'none';
-        console.log('Tentou');
+        new FileUser().update({
+          data: {
+            nickname: response['nickname'],
+            name: response['name'],
+            email: response['email'],
+            profilePicture: response['profile_photo_path'],
+            preferredLanguage: response['preferred_language'],
+            preferredTimezone: response['preferred_timezone'],
+          },
+        });
         new Application().openMainWindow();
       })
       .catch(function (error) {

@@ -28,12 +28,7 @@ const CheckDimension = () => {
   return window.innerWidth > 768;
 };
 
-const LoadingController = (state) => {
-  document.getElementById('__main_container').style.display = state ? 'none' :'block';
-  document.getElementById('animation_loading').style.display = state ? 'block' :'none';
-};
-
-document.getElementById('__container_center').addEventListener('scroll', () => {
+const CheckScrollBar = () => {
   if (CheckDimension()) {
     if (!isScrolledIntoView()) {
       document
@@ -75,10 +70,30 @@ document.getElementById('__container_center').addEventListener('scroll', () => {
         .classList.add('opacity-100');
     }
   }
+};
+
+document.getElementById('__container_center').addEventListener('scroll', () => {
+  CheckScrollBar();
 });
 
-window.addEventListener('resize', function () {
+window.addEventListener('resize', () => {
+  CheckScrollBar();
+});
+
+window.onload = () => {
   CheckDimension();
-});
+};
 
-CheckDimension();
+const LoadingController = (state) => {
+  document.getElementById('__main_container').style.display = state
+    ? 'none'
+    : 'block';
+  document.getElementById('animation_loading').style.display = state
+    ? 'block'
+    : 'none';
+};
+
+const LoadingUserAccount = (data) => {
+  console.log('user');
+  document.querySelector('#ButtonUser').querySelector('img').src = 'https://';
+};
