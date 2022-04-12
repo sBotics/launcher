@@ -5,8 +5,7 @@ import { UserData } from '../utils/connection-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 
 const startPipeLine = (data) => {
-//   console.log(data['getUser']);
-  LoadingUserAccount();
+  LoadingUserAccount(data['getUser']);
   LoadingController(false);
 };
 
@@ -38,6 +37,7 @@ window.onload = () => {
         }
       })
       .catch(function (error) {
+        console.error(error);
         application.openAuthWindows();
       });
   })();

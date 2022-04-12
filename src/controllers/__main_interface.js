@@ -94,6 +94,5 @@ const LoadingController = (state) => {
 };
 
 const LoadingUserAccount = (data) => {
-  console.log('user');
-  document.querySelector('#ButtonUser').querySelector('img').src = 'https://';
+  document.querySelector('#ButtonUser').querySelector('img').src = data['profile_photo_path'];
 };

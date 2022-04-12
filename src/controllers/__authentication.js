@@ -3,6 +3,7 @@ let shell = require('electron').shell;
 import { URLdictionary, UserData } from '../utils/connection-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 import { FileUser } from '../class/__instance_file_user.js';
+import { Connection } from '../class/__instance_connection.js';
 
 const Action = (openURL) => {
   document.getElementById('form_auth').style.display = 'none';
@@ -38,11 +39,9 @@ ipcRenderer.on('__touchbar', (event, arg) => {
 
 ipcRenderer.on('set_user_auth', (event, arg) => {
   const accessToken = arg.replace('SBOTICS', '|');
-  UserData({
-    accessToken: accessToken,
-  })
+  new Connection()
+    .getUser({ accessToken: accessToken })
     .then((response) => {
-      console.log(response);
       (async () => {
         let fileUser = new FileUser();
 
@@ -62,7 +61,6 @@ ipcRenderer.on('set_user_auth', (event, arg) => {
             },
           })
         ) {
-          // Adicionar um alert dizendo que aconteceu um erro inesperado e adicionar um código de erro
           console.log(
             'Adicionar um alert dizendo que aconteceu um erro inesperado e adicionar um código de erro',
           );

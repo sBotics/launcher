@@ -24,7 +24,7 @@ class Connection {
       if (!options.accessToken) reject(false);
 
       axios
-        .get(`${URLdictionary['auth']}/api/user`, {
+        .get(`${this.getDictionary()['auth']}/api/user`, {
           headers: {
             Authorization: `Bearer ${options.accessToken}`,
           },
