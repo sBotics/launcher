@@ -4,7 +4,8 @@ import { FileUser } from '../class/__instance_file_user.js';
 import { UserData } from '../utils/connection-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 
-const startPipeLine = () => {
+const startPipeLine = (data) => {
+//   console.log(data['getUser']);
   LoadingUserAccount();
   LoadingController(false);
 };
