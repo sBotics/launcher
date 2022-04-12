@@ -1,3 +1,5 @@
+let shell = require('electron').shell;
+
 const isScrolledIntoView = () => {
   const element = document.getElementById('__container_center_sbotics_action');
   const docViewTop = document.getElementById('__container_center').scrollTop;
@@ -95,4 +97,8 @@ const LoadingController = (state) => {
 
 const LoadingUserAccount = (data) => {
   document.querySelector('#ButtonUser').querySelector('img').src = data['profile_photo_path'];
+};
+
+const OpenExternalLink = (link) => {
+    shell.openExternal(link);
 };

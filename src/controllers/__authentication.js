@@ -1,6 +1,5 @@
 let ipcRenderer = require('electron').ipcRenderer;
 let shell = require('electron').shell;
-import { URLdictionary, UserData } from '../utils/connection-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 import { FileUser } from '../class/__instance_file_user.js';
 import { Connection } from '../class/__instance_connection.js';
@@ -15,11 +14,11 @@ const Action = (openURL) => {
 };
 
 window.Login = () => {
-  Action(URLdictionary['login']);
+  Action(new Connection().getDictionary()['login']);
 };
 
 window.Register = () => {
-  Action(URLdictionary['register']);
+  Action(new Connection().getDictionary()['register']);
 };
 
 window.TryAgain = (url) => {
@@ -29,10 +28,10 @@ window.TryAgain = (url) => {
 ipcRenderer.on('__touchbar', (event, arg) => {
   switch (arg.action) {
     case 'register':
-      Action(URLdictionary['register']);
+      Action(new Connection().getDictionary()['register']);
       break;
     default:
-      Action(URLdictionary['login']);
+      Action(new Connection().getDictionary()['login']);
       break;
   }
 });

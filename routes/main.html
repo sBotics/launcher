@@ -47,7 +47,7 @@
         <div
             class="w-full md:w-[80px] h-[80px] md:h-screen fixed md:top-0 left-0 bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-t-0 md:border-r-[1px] border-[#A8A8A8] bg-[#000000] bg-opacity-100 md:bg-opacity-0">
             <!-- sBotics Logo SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="hidden md:block" width="60" height="60" viewBox="0 0 60 60">
+            <svg onclick='OpenExternalLink("https://sbotics.net")' xmlns="http://www.w3.org/2000/svg" class="hidden md:block" width="60" height="60" viewBox="0 0 60 60">
                 <g id="Logo" transform="translate(-14 -336)">
                     <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
                         transform="translate(14 336)" />
@@ -67,9 +67,9 @@
             <!-- Opções do Menu Lateral -->
             <div class="w-full h-full md:w-auto flex flex-row md:flex-col items-center justify-center">
                 <button
-                    class="group w-[60px] h-[60px] bg-[#1A1D20] md:bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-pointer mr-[10px] md:mr-0 md:-mt-[60px] md:mb-[10px]">
+                    class="group w-[60px] h-[60px] bg-[#1A1D20] md:bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-default mr-[10px] md:mr-0 md:-mt-[60px] md:mb-[10px]">
                     <div
-                        class="w-full h-full bg-[#276774] group-hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
+                        class="w-full h-full bg-[#276774] flex items-center justify-center rounded-[16px]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="29.505" height="17.703"
                             viewBox="0 0 29.505 17.703">
                             <path id="gamepad-solid"
@@ -81,16 +81,18 @@
                 <div
                     class="w-auto h-[60px] md:w-[60px] md:h-auto bg-[#1A1D20] md:bg-[#000000] flex flex-row md:flex-col items-center py-[7px] px-[7px] rounded-[22px] ">
                     <button
-                        class="group w-[46px] h-[46px] bg-[#292D31] hover:bg-[#276774] flex items-center justify-center rounded-[16px] mr-[7px] md:mr-0 md:mb-[7px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]"
-                            width="20" height="26.67" viewBox="0 0 20 26.67">
+                        class="group w-[46px] h-[46px] bg-[#292D31] flex items-center justify-center rounded-[16px] mr-[7px] md:mr-0 md:mb-[7px] disabled:bg-[#1a1a1a]"
+                        disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f]" width="20" height="26.67"
+                            viewBox="0 0 20 26.67">
                             <path id="award-solid"
                                 d="M15,18.663c.728-.421.913-1.565,1.5-2.156s1.735-.775,2.156-1.5.009-1.8.228-2.62C19.1,11.59,19.956,10.86,19.956,10s-.9-1.59-1.112-2.382c-.219-.82.188-1.9-.227-2.62s-1.564-.913-2.155-1.5-.776-1.735-1.5-2.156-1.8-.009-2.62-.228C11.59.9,10.861,0,10,0S8.413.9,7.621,1.112C6.8,1.33,5.72.924,5,1.339S4.088,2.9,3.5,3.494,1.762,4.27,1.34,5s-.008,1.8-.228,2.617C.9,8.412,0,9.141,0,10s.9,1.59,1.112,2.382c.219.82-.188,1.9.227,2.62s1.565.911,2.155,1.5S4.27,18.241,5,18.663s1.8.008,2.619.228C8.413,19.1,9.142,20,10,20s1.59-.9,2.383-1.112C13.205,18.674,14.283,19.08,15,18.663ZM5.835,10A4.167,4.167,0,1,1,10,14.168,4.164,4.164,0,0,1,5.835,10ZM.09,22.565A1.25,1.25,0,0,0,1.5,24.252l2.354-.471,1.116,2.2a1.237,1.237,0,0,0,1.113.686h.053a1.235,1.235,0,0,0,1.106-.775l1.749-4.275a11.637,11.637,0,0,1-7.2-3.331Zm18.12-4.276a11.625,11.625,0,0,1-7.2,3.331l1.749,4.275a1.236,1.236,0,0,0,1.106.775c.02-.047-.006,0,.056,0a1.235,1.235,0,0,0,1.112-.684l1.116-2.2,2.354.471a1.25,1.25,0,0,0,1.406-1.688Z"
                                 transform="translate(-0.001)" />
                         </svg>
                     </button>
                     <button
-                        class="group w-[46px] h-[46px] bg-[#292D31] md:bg-[#292D31] hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]">
+                        class="group w-[46px] h-[46px] bg-[#292D31] md:bg-[#292D31] hover:bg-[#1C4F5A] flex items-center justify-center rounded-[16px]"
+                        onclick='OpenExternalLink("https://docs.sbotics.net")'>
                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#9f9f9f] group-hover:fill-[#b9effb]"
                             width="20" height="22.857" viewBox="0 0 20 22.857">
                             <path id="book-solid"
@@ -105,7 +107,7 @@
         <div
             class="w-full h-[80px] md:w-[80px] md:h-screen fixed top-0 right-0 md:bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-b-0 md:border-l-[1px] border-[#A8A8A8] bg-[#000000] bg-opacity-100 md:bg-opacity-0">
             <!-- sBotics Logo SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="block md:hidden" width="60" height="60" viewBox="0 0 60 60">
+            <svg onclick='OpenExternalLink("https://sbotics.net")' xmlns="http://www.w3.org/2000/svg" class="block md:hidden" width="60" height="60" viewBox="0 0 60 60">
                 <g id="Logo" transform="translate(-14 -336)">
                     <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
                         transform="translate(14 336)" class="fill-[#1A1D20]" />
@@ -123,10 +125,10 @@
                 </g>
             </svg>
             <!-- Imagem do Usuario -->
-            <a id="ButtonUser" href="#"
+            <button id="ButtonUser" onclick='OpenExternalLink("https://auth.sbotics.net/user/profile")'
                 class="w-[60px] h-[60px] bg-[#1A1D20] md:bg-[#000000] hover:bg-[#1C4F5A] rounded-full py-[10px] px-[10px] cursor-pointer">
                 <img class="w-full h-full rounded-full" alt="ImageUser">
-            </a>
+            </button>
         </div>
 
         <!-- Container Fixo -->
@@ -278,7 +280,14 @@
                 </span>
             </div>
         </div>
+
+        <!-- Container Web -->
+        <!-- <iframe
+            class="hidden fixed w-full h-screen z-50 left-0 right-0 md:top-0 md:bottom-0 pt-[80px] pb-[80px] md:pt-0 md:pb-0 md:px-[80px]"
+            src="https://auth.sbotics.net" allow loading="lazy" referrerpolicy="origin-when-cross-origin"> </iframe> -->
+
     </div>
+
 
     <!-- Scripts Init -->
     <script src="../src/utils/env.js"></script>
