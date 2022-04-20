@@ -1,13 +1,16 @@
 import { Application } from '../class/__instance_application.js';
+import { Connection } from '../class/__instance_connection.js';
+import { Exception } from '../class/__instance_exception.js';
 import { FileUser } from '../class/__instance_file_user.js';
-import { UserData } from '../utils/connection-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 
 window.onload = () => {
   (async () => {
+    let connection = new Connection();
+    let application = new Application();
     let userData = new FileUser().open();
-    console.log(userData);
     const macAddress = await GetMacAddress();
+
     if (
       !userData ||
       !userData['logged'] ||
@@ -16,27 +19,34 @@ window.onload = () => {
       document.getElementById('form_authentication').style.display = 'flex';
       document.getElementById('animation_loading').style.display = 'none';
     }
-    console.log(userData['accessToken']);
-    UserData({ accessToken: userData['accessToken'] })
+
+    connection
+      .getUser({ accessToken: userData['accessToken'] })
       .then(function (response) {
-        console.log(response);
         document.getElementById('form_authentication').style.display = 'none';
         document.getElementById('animation_loading').style.display = 'none';
         new FileUser().update({
           data: {
-            nickname: response['nickname'],
-            name: response['name'],
-            email: response['email'],
-            profilePicture: response['profile_photo_path'],
-            preferredLanguage: response['preferred_language'],
-            preferredTimezone: response['preferred_timezone'],
+            nickname: response.data['nickname'],
+            name: response.data['name'],
+            email: response.data['email'],
+            profilePicture: response.data['profile_photo_path'],
+            preferredLanguage: response.data['preferred_language'],
+            preferredTimezone: response.data['preferred_timezone'],
           },
         });
         new Application().openMainWindow();
       })
       .catch(function (error) {
-        document.getElementById('form_authentication').style.display = 'flex';
-        document.getElementById('animation_loading').style.display = 'none';
+        if (error.response.status == 401) {
+          document.getElementById('form_authentication').style.display = 'flex';
+          document.getElementById('animation_loading').style.display = 'none';
+        } else {
+          new Exception().create({
+            status: error.response.status,
+            message: error.response.data.message,
+          });
+        }
       });
   })();
 };

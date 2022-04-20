@@ -43,9 +43,17 @@ window.onload = () => {
       })
       .catch(function (error) {
         if (error.response.status == 401) {
-          window.location.href = '../routes/error.html';
+          application.openAuthWindows();
+        } else {
+          try {
+            new Exception().create({
+              status: error.response.status,
+              message: error.response.data.message,
+            });
+          } catch (error) {
+            new Exception().create();
+          }
         }
-        // application.openAuthWindows();
       });
   })();
 };

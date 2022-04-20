@@ -3,6 +3,7 @@ let shell = require('electron').shell;
 import { GetMacAddress } from '../utils/mac-address-manager.js';
 import { FileUser } from '../class/__instance_file_user.js';
 import { Connection } from '../class/__instance_connection.js';
+import { Exception } from '../class/__instance_exception.js';
 
 const Action = (openURL) => {
   document.getElementById('form_auth').style.display = 'none';
@@ -38,6 +39,7 @@ ipcRenderer.on('__touchbar', (event, arg) => {
 
 ipcRenderer.on('set_user_auth', (event, arg) => {
   const accessToken = arg.replace('SBOTICS', '|');
+  console.log(accessToken);
   new Connection()
     .getUser({ accessToken: accessToken })
     .then((response) => {
@@ -60,17 +62,18 @@ ipcRenderer.on('set_user_auth', (event, arg) => {
             },
           })
         ) {
-          console.log(
-            'Adicionar um alert dizendo que aconteceu um erro inesperado e adicionar um código de erro',
-          );
+          new Exception().create({
+            status: 500,
+          });
           return;
         }
         location.reload();
       })();
     })
-    .catch((err) => {
-      console.log(
-        'Adicionar um alert dizendo que aconteceu um erro ao validar o accessToken e adicionar um código de erro',
-      );
+    .catch((error) => {
+      new Exception().create({
+        status: error.response.status,
+        message: error.response.data.message,
+      });
     });
 });

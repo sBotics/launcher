@@ -8,7 +8,7 @@ export async function LoadingDownloadController() {
   connection
     .getRelease({ platform: application.getOSText() })
     .then(function (response) {
-      console.log(response.data)
+      const data = response.data;
     })
     .catch(function (error) {
       console.error(error.data.status);
