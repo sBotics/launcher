@@ -36,9 +36,9 @@ class Application {
   }
   getOSText() {
     const platforms = {
-      win32: 'windows',
-      darwin: 'macOS',
-      linux: 'linux',
+      win32: 'Windows',
+      darwin: 'OSX',
+      linux: 'Linux',
     };
     return platforms[this.getOS()];
   }

@@ -1,12 +1,17 @@
 import { Application } from '../class/__instance_application.js';
 import { Connection } from '../class/__instance_connection.js';
 import { FileUser } from '../class/__instance_file_user.js';
-import { UserData } from '../utils/connection-manager.js';
 import { GetMacAddress } from '../utils/mac-address-manager.js';
+import { LoadingDownloadController } from './__main_download.js';
 
 const startPipeLine = (data) => {
-  LoadingUserAccount(data['getUser']);
-  LoadingController(false);
+  try {
+    LoadingUserAccount(data['getUser']);
+    LoadingController(false);
+    LoadingDownloadController();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 window.onload = () => {
@@ -30,15 +35,17 @@ window.onload = () => {
         try {
           startPipeLine({
             userFile: userFile,
-            getUser: response,
+            getUser: response.data,
           });
         } catch (error) {
           console.error(error);
         }
       })
       .catch(function (error) {
-        console.error(error);
-        application.openAuthWindows();
+        if (error.response.status == 401) {
+          window.location.href = '../routes/error.html';
+        }
+        // application.openAuthWindows();
       });
   })();
 };
