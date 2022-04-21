@@ -942,6 +942,26 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 1.5rem;
 }
 
+.left-\[10px\] {
+  left: 10px;
+}
+
+.left-\[20px\] {
+  left: 20px;
+}
+
+.bottom-\[20px\] {
+  bottom: 20px;
+}
+
+.bottom-\[10px\] {
+  bottom: 10px;
+}
+
+.bottom-\[13px\] {
+  bottom: 13px;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -952,6 +972,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .m-5 {
   margin: 1.25rem;
+}
+
+.-m-\[5px\] {
+  margin: -5px;
 }
 
 .mx-auto {
@@ -1055,6 +1079,26 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mb-\[1px\] {
   margin-bottom: 1px;
+}
+
+.-mb-\[5px\] {
+  margin-bottom: -5px;
+}
+
+.-mb-\[10px\] {
+  margin-bottom: -10px;
+}
+
+.-mb-\[50px\] {
+  margin-bottom: -50px;
+}
+
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
+.-ml-3 {
+  margin-left: -0.75rem;
 }
 
 .block {
@@ -1224,6 +1268,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -1388,6 +1436,46 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(219 234 254 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(129 140 248 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
+}
+
+.bg-green-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
+.bg-blue-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
+
+.bg-gray-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.bg-orange-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 88 12 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-100 {
   --tw-bg-opacity: 1;
 }
@@ -1419,6 +1507,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.p-\[5px\] {
+  padding: 5px;
 }
 
 .py-4 {
@@ -1624,6 +1716,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-\[10px\] {
   font-size: 10px;
+}
+
+.text-\[25px\] {
+  font-size: 25px;
 }
 
 .font-bold {
