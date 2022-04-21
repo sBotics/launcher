@@ -33,6 +33,9 @@ module.exports = {
     fontFamily: {
       sans: ['sans-serif'],
     },
+    transitionProperty: {
+      height: 'height',
+    },
     extend: {
       typography: (theme) => ({
         DEFAULT: {
