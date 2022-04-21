@@ -12,9 +12,9 @@ const startPipeLine = (data) => {
     LoadingUserAccount(data['getUser']);
     LoadingController(false);
 
-    new MagicButton({
-      mode: 'start',
-    });
+    // new MagicButton({
+    //   mode: 'process'
+    // });
 
     // new Alerts().createTop({
     //   states: 'success',

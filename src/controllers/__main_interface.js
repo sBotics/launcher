@@ -82,9 +82,7 @@ window.addEventListener('resize', () => {
   CheckScrollBar();
 });
 
-window.onload = () => {
-  CheckDimension();
-};
+CheckScrollBar();
 
 const LoadingController = (state) => {
   document.getElementById('__main_container').style.display = state
