@@ -34,7 +34,8 @@ class MagicButton {
         state: true,
       },
       fail: {
-        theme: 'bg-red-600 text-white uppercase flex items-center justify-center',
+        theme:
+          'bg-red-600 text-white uppercase flex items-center justify-center',
         text: '',
         state: false,
       },
@@ -47,7 +48,7 @@ class MagicButton {
         mode: '',
         defaultModes: this.modes(),
         elementContentButtonA: '__container_magic_button',
-        elementContentButtonB: '__container_magic_button',
+        elementContentButtonB: '__container_fixed_magic_button',
         text: '',
       },
       options,
@@ -65,7 +66,19 @@ class MagicButton {
 
     document.getElementById(
       elementContentButtonA,
-    ).innerHTML = `<button data-mode=${mode} data-state=${defaultModes.state} class="w-full h-[38px] xl:h-[45px] rounded-[8px] lg:rounded-[10px] ${defaultModes.theme}" ${!defaultModes.state ? "disabled" : ""}>${textButton}</button>`;
+    ).innerHTML = `<button data-mode=${mode} data-state=${
+      defaultModes.state
+    } class="w-full h-[38px] xl:h-[45px] rounded-[8px] lg:rounded-[10px] ${
+      defaultModes.theme
+    }" ${!defaultModes.state ? 'disabled' : ''}>${textButton}</button>`;
+
+    document.getElementById(
+      elementContentButtonB,
+    ).innerHTML = `<button data-mode=${mode} data-state=${
+      defaultModes.state
+    } class="w-full h-[38px] xl:h-[45px] rounded-[8px] lg:rounded-[10px] ${
+      defaultModes.theme
+    }" ${!defaultModes.state ? 'disabled' : ''}>${textButton}</button>`;
   }
 }
 export { MagicButton };
