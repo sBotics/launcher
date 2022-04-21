@@ -102,3 +102,7 @@ const LoadingUserAccount = (data) => {
 const OpenExternalLink = (link) => {
     shell.openExternal(link);
 };
+
+const CloseAlert = (id_Alert) => {
+    document.getElementById(id_Alert).style.display = "none";
+}

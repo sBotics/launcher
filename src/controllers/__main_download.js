@@ -9,6 +9,7 @@ export async function LoadingDownloadController() {
     .getRelease({ platform: application.getOSText() })
     .then(function (response) {
       const data = response.data;
+      console.log(JSON.parse(data.content));
     })
     .catch(function (error) {
       console.error(error.data.status);

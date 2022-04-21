@@ -64,14 +64,14 @@ const GetPathNote = async () => {
 };
 
 const InterfaceLoad = async () => {
-//   IndexTranslator();
-//   GetImageUser();
-//   GetPathNote();
+  IndexTranslator();
+  GetImageUser();
+  GetPathNote();
   backdrop({ elementName: 'backdrop' });
-//   ReportDownloadButton(false);
-//   NextCompetition();
-//   FastModeLoad();
-//   CheckAlerts();
+  ReportDownloadButton(false);
+  NextCompetition();
+  FastModeLoad();
+  CheckAlerts();
 };
 
 const FailApplication = (message, mode = 0) => {

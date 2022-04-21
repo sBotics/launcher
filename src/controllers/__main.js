@@ -1,3 +1,4 @@
+import { Alerts } from '../class/__instance_alerts.js';
 import { Application } from '../class/__instance_application.js';
 import { Connection } from '../class/__instance_connection.js';
 import { FileUser } from '../class/__instance_file_user.js';
@@ -8,6 +9,20 @@ const startPipeLine = (data) => {
   try {
     LoadingUserAccount(data['getUser']);
     LoadingController(false);
+
+    new Alerts().createTop({
+      states: 'success',
+      message: 'sBotics instalado com sucesso! Pronto para abrir.',
+    });
+    new Alerts().createTop({
+      states: 'success',
+      html: `<h5 class=\"alert-heading\"><strong>Parabéns às equipes classificadas e a todos que participaram das etapas estaduais!</strong></h5><p>A lista das equipes classificadas para a etapa Nacional já está disponível em nosso site: <a href=\"http://www.obr.org.br/modalidade-pratica/etapa-nacional\" class=\"\" target=\"_blank\">obr.org.br/modalidade-pratica/etapa-nacional</a>!</p>`,
+      message: ``,
+      fixed: false,
+      icon: true,
+      timeOutVIew: 0,
+    });
+
     LoadingDownloadController();
   } catch (error) {
     console.log(error);

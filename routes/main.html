@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../src/css/public/style.css">
     <link rel="stylesheet" href="../src/css/public/loading_animation.css">
     <link rel="stylesheet" href="../src/css/public/scrollbar.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" />
 </head>
 
 <body>
@@ -47,7 +48,8 @@
         <div
             class="w-full md:w-[80px] h-[80px] md:h-screen fixed md:top-0 left-0 bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-t-0 md:border-r-[1px] border-[#A8A8A8] bg-[#000000] bg-opacity-100 md:bg-opacity-0">
             <!-- sBotics Logo SVG -->
-            <svg onclick='OpenExternalLink("https://sbotics.net")' xmlns="http://www.w3.org/2000/svg" class="hidden md:block" width="60" height="60" viewBox="0 0 60 60">
+            <svg onclick='OpenExternalLink("https://sbotics.net")' xmlns="http://www.w3.org/2000/svg"
+                class="hidden md:block" width="60" height="60" viewBox="0 0 60 60">
                 <g id="Logo" transform="translate(-14 -336)">
                     <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
                         transform="translate(14 336)" />
@@ -68,8 +70,7 @@
             <div class="w-full h-full md:w-auto flex flex-row md:flex-col items-center justify-center">
                 <button
                     class="group w-[60px] h-[60px] bg-[#1A1D20] md:bg-[#000000] flex items-center justify-center py-[7px] px-[7px] rounded-[22px] cursor-default mr-[10px] md:mr-0 md:-mt-[60px] md:mb-[10px]">
-                    <div
-                        class="w-full h-full bg-[#276774] flex items-center justify-center rounded-[16px]">
+                    <div class="w-full h-full bg-[#276774] flex items-center justify-center rounded-[16px]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="29.505" height="17.703"
                             viewBox="0 0 29.505 17.703">
                             <path id="gamepad-solid"
@@ -107,7 +108,8 @@
         <div
             class="w-full h-[80px] md:w-[80px] md:h-screen fixed top-0 right-0 md:bottom-0 flex flex-row md:flex-col items-center justify-between py-[10px] px-[10px] border-b-0 md:border-l-[1px] border-[#A8A8A8] bg-[#000000] bg-opacity-100 md:bg-opacity-0">
             <!-- sBotics Logo SVG -->
-            <svg onclick='OpenExternalLink("https://sbotics.net")' xmlns="http://www.w3.org/2000/svg" class="block md:hidden" width="60" height="60" viewBox="0 0 60 60">
+            <svg onclick='OpenExternalLink("https://sbotics.net")' xmlns="http://www.w3.org/2000/svg"
+                class="block md:hidden" width="60" height="60" viewBox="0 0 60 60">
                 <g id="Logo" transform="translate(-14 -336)">
                     <rect id="Retângulo_130" data-name="Retângulo 130" width="60" height="60" rx="30"
                         transform="translate(14 336)" class="fill-[#1A1D20]" />
@@ -191,8 +193,10 @@
                         Abrir Pasta de Instalação
                     </button>
                 </div>
-
             </div>
+
+            <!-- Content Alerts -->
+            <div id="__container_top_alert" class="w-full relative"></div>
         </div>
 
         <!-- Container Central -->
@@ -280,12 +284,6 @@
                 </span>
             </div>
         </div>
-
-        <!-- Container Web -->
-        <!-- <iframe
-            class="hidden fixed w-full h-screen z-50 left-0 right-0 md:top-0 md:bottom-0 pt-[80px] pb-[80px] md:pt-0 md:pb-0 md:px-[80px]"
-            src="https://auth.sbotics.net" allow loading="lazy" referrerpolicy="origin-when-cross-origin"> </iframe> -->
-
     </div>
 
 

@@ -10,10 +10,10 @@ const DefaultConfiguration = {
   language: application.getLocale(),
   folderPath: application.getFolderPathLauncher(),
   languageSimulator: application.getLocale().replace('_US', ''),
-  currentSboticsVersion: '',
+  sBoticsVersionInstalled: '',
 };
 
-class FileConfi {
+class FileConfig {
   constructor() {}
   create(options) {
     options = extend(
@@ -108,4 +108,4 @@ class FileConfi {
   }
 }
 
-export { FileConfi };
+export { FileConfig };
