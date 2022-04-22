@@ -97,7 +97,7 @@ class Alerts {
       const fixedState = options.fixed;
       const iconState = options.icon;
 
-      const init = `<div id="Alert__${idInner}" class="w-full py-3 px-5 mb-4 text-base ${alertContainer}" role="alert"> ${
+      const init = `<div id="Alert__${idInner}" class="w-full py-3 px-5 text-base ${alertContainer}" role="alert"> ${
         !fixedState
           ? `<button onclick="CloseAlert('Alert__${idInner}')" type="button" class="right-6 absolute"> <span class="text-2xl">&times;</span></button>`
           : ``

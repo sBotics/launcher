@@ -195,26 +195,8 @@
             <div id="__container_top_alert" class="w-full relative"></div>
 
             <!-- Content ProgressBar -->
-            <div class="w-full h-[15px] relative flex justify-start items-end bg-[#1118272a]">
-                <!-- PIXEL DE INTERAÇÃO -->
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-red-500" style="height: 99%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-green-500" style="height: 20%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-blue-500" style="height: 30%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-orange-500" style="height: 40%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-red-500" style="height: 99%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-green-500" style="height: 20%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-blue-500" style="height: 30%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-orange-500" style="height: 40%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-red-500" style="height: 99%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-green-500" style="height: 20%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-blue-500" style="height: 30%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-orange-500" style="height: 40%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-red-500" style="height: 99%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-green-500" style="height: 20%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-blue-500" style="height: 30%;"></div>
-                <div class="w-full block transition-height duration-[2000ms] ease-in-out bg-orange-500" style="height: 40%;"></div>
-
-            </div>
+            <div id="__container_progress_bar"
+                class="w-full h-[35px] relative hidden justify-start items-end bg-[#1118272a]"></div>
 
             <!-- Container Central -->
             <div id="__container_center"
@@ -301,14 +283,13 @@
             </div>
         </div>
 
-
         <!-- Scripts Init -->
         <script src="../src/utils/env.js"></script>
         <!-- <script type="module">
-        var md = require('markdown-it')();
-        var result = md.render('# Teste');
-        document.getElementById('__container_center_sbotics_patch_note').innerHTML = result;
-    </script> -->
+            var md = require('markdown-it')();
+            var result = md.render('# Teste');
+            document.getElementById('__container_center_sbotics_patch_note').innerHTML = result;
+        </script> -->
         <script src="../src/controllers/__main_interface.js"></script>
         <script type="module" src="../src/controllers/__main.js"></script>
 </body>
