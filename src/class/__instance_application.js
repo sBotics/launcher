@@ -77,5 +77,8 @@ class Application {
   openInstallFolder() {
     shell.openPath(this.getFolderPathSboticsSimulation());
   }
+  restartApp() {
+    return ipcRenderer.send('restart-app');
+  }
 }
 export { Application };

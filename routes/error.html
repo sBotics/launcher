@@ -36,6 +36,10 @@
                     </div> -->
                     <div class="w-16 h-1 bg-zul-500 my-3 md:my-6"></div>
                     <p id="text_message" class="text-[#606F7B] text-2xl md:text-3xl font-light mb-8 leading-normal"></p>
+                    <div class="mt-[15px]">
+                        <p id="text_name" class="text-xl text-gray-700"></p>
+                        <p id="text_description" class="text-xl text-gray-700"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,9 +49,28 @@
             <img class="object-cover w-full h-screen hidden md:block" src="../assets/Banners/zul_banner_B.png">
         </div>
     </div>
-    <script>
+    <script type="module">
+        import { Application } from '../src/class/__instance_application.js';
+
         document.getElementById('text_status').innerHTML = sessionStorage.getItem('Exception_Status');
         document.getElementById('text_message').innerHTML = sessionStorage.getItem('Exception_Message');
+
+        let application = new Application();
+
+        if (application.SLMP()) {
+            if (sessionStorage.getItem('Exception_ERROR_Name') && sessionStorage.getItem('Exception_ERROR_Message')) {
+                document.getElementById('text_name').innerHTML = `<strong class="font-bold">Instâncias: </strong>${sessionStorage.getItem('Exception_ERROR_Name')}`;
+                document.getElementById('text_description').innerHTML = `<strong class="font-bold">Descrição: </strong>${sessionStorage.getItem('Exception_ERROR_Message')}`;
+            }
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && (event.which === 82)) {
+                event.preventDefault();
+                console.log("Deu certo");
+                application.restartApp();
+            }
+        })
     </script>
 </body>
 

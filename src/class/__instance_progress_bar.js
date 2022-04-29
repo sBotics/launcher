@@ -5,16 +5,16 @@ class ProgressBar {
   defaultState() {
     return {
       warning: {
-        bg: 'bg-orange-500',
+        bg: 'bg-orange--',
       },
       danger: {
-        bg: 'bg-red-500',
+        bg: 'bg-red--',
       },
       success: {
-        bg: 'bg-green-500',
+        bg: 'bg-green--',
       },
       info: {
-        bg: 'bg-blue-500',
+        bg: 'bg-blue--',
       },
     };
   }

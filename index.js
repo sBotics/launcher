@@ -167,3 +167,7 @@ ipcMain.on('open-window-auth', () => {
   mainWindow.close();
   createWindow();
 });
+ipcMain.on('restart-app', () => {
+  app.relaunch();
+  app.exit();
+});
