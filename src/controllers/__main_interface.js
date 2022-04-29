@@ -94,13 +94,34 @@ const LoadingController = (state) => {
 };
 
 const LoadingUserAccount = (data) => {
-  document.querySelector('#ButtonUser').querySelector('img').src = data['profile_photo_path'];
+  document.querySelector('#ButtonUser').querySelector('img').src =
+    data['profile_photo_path'];
 };
 
 const OpenExternalLink = (link) => {
-    shell.openExternal(link);
+  shell.openExternal(link);
 };
 
 const CloseAlert = (id_Alert) => {
-    document.getElementById(id_Alert).style.display = "none";
-}
+  document.getElementById(id_Alert).style.display = 'none';
+};
+
+const PatchNotes = async (version, tag, patch_notes) => {
+  document.getElementById('__patch_note_version').innerHTML = version;
+  document
+    .getElementById('__patch_note_tag_new')
+    .classList.add(tag ? 'block' : 'hidden');
+  document
+    .getElementById('__patch_note_tag_new')
+    .classList.remove(tag ? 'hidden' : 'block');
+  document.getElementById('__patch_note_text').innerHTML = patch_notes;
+  document
+    .getElementById('__container_patch_notes_animation')
+    .classList.add('hidden');
+  document
+    .getElementById('__container_patch_notes')
+    .classList.remove('hidden');
+  document
+    .getElementById('__container_patch_notes')
+    .classList.add('block');
+};

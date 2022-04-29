@@ -36,6 +36,11 @@ window.onload = () => {
       application.openAuthWindows();
     }
 
+    startPipeLine({
+      userFile: userFile,
+      getUser: userFile,
+    });
+
     connection
       .getUser({ accessToken: userFile['accessToken'] })
       .then(function (response) {

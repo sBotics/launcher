@@ -46,10 +46,10 @@ class Application {
     return `${os.homedir()}/sBotics`;
   }
   getFolderPathLauncher() {
-    return `${getFolderDefault()}/Launcher`;
+    return `${this.getFolderDefault()}/Launcher`;
   }
   getFolderPathSboticsSimulation() {
-    return `${getFolderDefault()}/Applications/sBotics_simulation`;
+    return `${this.getFolderDefault()}/Applications/sBotics_simulation`;
   }
   getFolderPathSboticsSimulationStreamingAssets() {
     const platforms = {

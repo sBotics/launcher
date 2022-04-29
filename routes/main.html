@@ -264,11 +264,33 @@
                 <!-- Content Patch Note -->
                 <div
                     class="w-full bg-[#000000] py-[20px] px-[20px] flex flex-col mt-[200px] md:mt-[50px] mb-[50px] rounded-[22px]">
-                    <span class="text-[12px] font-semibold text-[#9F9F9F] uppercase">Ultima Versão</span>
-                    <span class="text-[20px] font-medium text-white">1.6.1.15</span>
-                    <article id="__container_center_sbotics_patch_note"
-                        class="w-full prose max-w-none bg-[#292D31] mt-[10px] py-[10px] px-[10px] rounded-[12px]">
-                    </article>
+
+                    <div id="__container_patch_notes_animation" class="w-full animate-pulse">
+                        <div class="w-full flex flex-row justify-between items-start">
+                            <div class="flex flex-col">
+                                <div class="w-[100px] h-[18px] bg-gray-700 rounded block"></div>
+                                <div class="w-[80px] h-[30px] mt-[10px] bg-gray-700 rounded block"></div>
+                            </div>
+                            <div class="w-[62px] h-[31px] bg-gray-700 rounded-full block"></div>
+                        </div>
+                        <article class="w-full h-[50px] bg-gray-700 mt-[10px] rounded-[12px]">
+                        </article>
+                    </div>
+                    <div id="__container_patch_notes" class="w-full hidden">
+                        <div class="w-full flex flex-row justify-between items-start">
+                            <div class="flex flex-col">
+                                <span class="text-[12px] font-semibold text-[#9F9F9F] uppercase">Ultima Versão</span>
+                                <span id="__patch_note_version"
+                                    class="text-[20px] font-medium text-white">1.6.1.15</span>
+                            </div>
+                            <div id="__patch_note_tag_new"
+                                class="py-[5px] px-[10px] bg-red-500 rounded-full text-white text-[14px] font-bold hidden">
+                                NOVO</div>
+                        </div>
+                        <article id="__patch_note_text"
+                            class="w-full prose max-w-none bg-[#292D31] mt-[10px] py-[10px] px-[10px] rounded-[12px]">
+                        </article>
+                    </div>
                 </div>
 
                 <!-- Container Footer -->
@@ -285,11 +307,6 @@
 
         <!-- Scripts Init -->
         <script src="../src/utils/env.js"></script>
-        <!-- <script type="module">
-            var md = require('markdown-it')();
-            var result = md.render('# Teste');
-            document.getElementById('__container_center_sbotics_patch_note').innerHTML = result;
-        </script> -->
         <script src="../src/controllers/__main_interface.js"></script>
         <script type="module" src="../src/controllers/__main.js"></script>
 </body>

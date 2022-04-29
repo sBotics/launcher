@@ -29,6 +29,7 @@ module.exports = {
       orange: colors.orange,
       yellow: colors.yellow,
       blue: colors.blue,
+      slate: colors.slate,
     },
     fontFamily: {
       sans: ['sans-serif'],

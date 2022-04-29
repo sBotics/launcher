@@ -55,7 +55,7 @@ class FileConfig {
 
     const fileFind = !FindSync(defaultPathSave)
       ? createConfigNotFind
-        ? !CreateConfig()
+        ? !this.create()
           ? false
           : true
         : false
@@ -103,7 +103,7 @@ class FileConfig {
         data: JSON.stringify({ ...content, ...options.data }),
       });
       return SaveSync(defaultPath, data);
-    } else if (createConfigNotFind) return CreateConfig({ data: options.data });
+    } else if (createConfigNotFind) return this.create({ data: options.data });
     else return false;
   }
 }

@@ -1,3 +1,5 @@
+import { Application } from './__instance_application.js';
+
 let extend = require('extend-shallow');
 
 class Exception {
@@ -18,11 +20,15 @@ class Exception {
       },
       options,
     );
+
     sessionStorage.setItem('Exception_Status', options.status);
     sessionStorage.setItem('Exception_Message', options.message);
     sessionStorage.setItem('Exception_ERROR_Name', options.error_name);
     sessionStorage.setItem('Exception_ERROR_Message', options.error_message);
-    window.location.href = '../routes/error.html';
+
+    if (!new Application().SLMP()) {
+      window.location.href = '../routes/error.html';
+    }
   }
   default() {
     sessionStorage.setItem('Exception_Status', this.textsDefault()['status']);
