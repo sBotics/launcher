@@ -61,9 +61,9 @@ class Application {
   }
   getFolderPathSboticsSimulationBlockEduc() {
     const platforms = {
-      win32: `/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/`,
-      darwin: `/wEduc/sBotics/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/`,
-      linux: `/wEduc/sBotics/sBotics_Data/StreamingAssets/Addons/`,
+      win32: `/sBotics/Applications/sBotics_simulation/sBotics_Data/StreamingAssets/Addons/`,
+      darwin: `/sBotics/Applications/sBotics_simulation/sBotics.app/Contents/Resources/Data/StreamingAssets/Addons/`,
+      linux: `/sBotics/Applications/sBotics_simulation/sBotics_Data/StreamingAssets/Addons/`,
     };
     var os = process.platform.toLowerCase();
     return platforms[os];
@@ -79,6 +79,9 @@ class Application {
   }
   restartApp() {
     return ipcRenderer.send('restart-app');
+  }
+  closeAll() {
+    return ipcRenderer.send('close-app');
   }
 }
 export { Application };

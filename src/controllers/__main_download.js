@@ -3,6 +3,9 @@ let hljs = require('highlight.js');
 let swal = require('sweetalert2');
 let Downloader = require('nodejs-file-downloader');
 let fs = require('fs-extra');
+let path = require('path');
+var child = require('child_process').spawn;
+let os = require('os');
 let markdown = require('markdown-it')({
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
@@ -29,6 +32,7 @@ import { Connection } from '../class/__instance_connection.js';
 import { MagicButton } from '../class/__instance_magic_button.js';
 import { Exception } from '../class/__instance_exception.js';
 import { FileConfig } from '../class/__instance_file_config.js';
+import { FileUser } from '../class/__instance_file_user.js';
 import { ExtractSync, FileSizeSync, FindSync } from '../utils/files-manager.js';
 import { ProgressBar } from '../class/__instance_progress_bar.js';
 import { Time } from '../class/__instance_time.js';
@@ -37,6 +41,7 @@ let alert = new Alerts();
 let connection = new Connection();
 let application = new Application();
 let fileConfig = new FileConfig();
+let fileUser = new FileUser();
 let progressBar = new ProgressBar();
 let time = new Time();
 
@@ -47,6 +52,88 @@ let dataVersion = null;
 
 function BlackList() {
   return [''];
+}
+
+function OpenSbotics() {
+  new MagicButton({
+    mode: 'process',
+    text: 'Iniciando sBotics! Aguarde...',
+  });
+
+  setTimeout(() => {
+    var string_execute;
+    const configData = fileConfig.open();
+    const userData = fileUser.open();
+    switch (application.getOSFolder()) {
+      case 'macOS':
+        string_execute = path.join(
+          application.getFolderPathSboticsSimulation(),
+          'sBotics.app',
+          'Contents',
+          'MacOS',
+          'sBotics',
+        );
+        break;
+      case 'Windows':
+        string_execute = path.join(
+          application.getFolderPathSboticsSimulation(),
+          'sBotics.exe',
+        );
+        break;
+      case 'Linux':
+        string_execute = path.join(
+          application.getFolderPathSboticsSimulation(),
+          'sBotics.x86_64',
+        );
+        break;
+    }
+    if (application.getOSFolder().includes('Linux')) {
+      fs.chmodSync(
+        path.join(
+          application.getFolderPathSboticsSimulation(),
+          'sBotics.x86_64',
+        ),
+        0o777,
+      );
+      try {
+        fs.chmodSync(
+          path.join(os.homedir() + folderPathBlockEduc(), 'BlockEduc.AppImage'),
+          0o777,
+        );
+      } catch (error) {}
+    }
+    if (application.getOSFolder().includes('macOS')) {
+      fs.chmodSync(
+        path.join(
+          application.getFolderPathSboticsSimulation(),
+          'sBotics.app',
+          'Contents',
+          'MacOS',
+          'sBotics',
+        ),
+        0o777,
+      );
+      try {
+        fs.chmodSync(
+          path.join(
+            os.homedir() +
+              application.getFolderPathSboticsSimulationBlockEduc(),
+            'BlockEduc.app',
+          ),
+          0o777,
+        );
+      } catch (error) {}
+    }
+    var executablePath = string_execute;
+    const languageAvarible = ['pt_BR'];
+    const lang =
+      languageAvarible.indexOf(configData['languageSimulator']) > -1
+        ? 'pt_BR'
+        : 'en';
+    var parameters = ['--lang', lang, '--auth_token', userData['accessToken']];
+    child(executablePath, parameters, { detached: true });
+    application.closeAll();
+  }, 200);
 }
 
 const FailDownload = (options) => {
@@ -502,7 +589,7 @@ async function FilesVerification(options) {
 
   if (filesFind == dataUpdateFiles) {
     if (autoOpen) {
-      application.OpenSbotics();
+      OpenSbotics();
     } else {
       new MagicButton({
         mode: 'start',

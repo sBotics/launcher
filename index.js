@@ -171,3 +171,6 @@ ipcMain.on('restart-app', () => {
   app.relaunch();
   app.exit();
 });
+ipcMain.on('close-app', () => {
+  app.exit();
+});
