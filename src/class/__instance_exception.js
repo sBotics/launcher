@@ -26,11 +26,13 @@ class Exception {
     sessionStorage.setItem('Exception_ERROR_Name', options.error_name);
     sessionStorage.setItem('Exception_ERROR_Message', options.error_message);
 
-    if (!new Application().SLMP()) {
-      window.location.href = '../routes/error.html';
-    } else {
-      console.error(`${options.error_name} - ${options.error_message}`);
-    }
+    window.location.href = '../routes/error.html';
+
+    // if (!new Application().SLMP()) {
+    //   window.location.href = '../routes/error.html';
+    // } else {
+    //   console.error(`${options.error_name} - ${options.error_message}`);
+    // }
   }
   default() {
     sessionStorage.setItem('Exception_Status', this.textsDefault()['status']);
