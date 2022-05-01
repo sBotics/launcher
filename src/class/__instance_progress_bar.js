@@ -17,7 +17,7 @@ class ProgressBar {
         bg: 'bg-blue-500',
       },
       fileOK: {
-        bg: 'text-indigo-500',
+        bg: 'bg-indigo-500',
       },
     };
   }
@@ -64,7 +64,7 @@ class ProgressBar {
 
     document.getElementById(options.progressBarContainer).innerHTML += `${
       options.grid
-        ? '<div class="w-full h-full flex justify-start items-end border-[1px] border-white">'
+        ? '<div class="w-full h-full flex justify-start items-end border-[1px] border-[#A8A8A8]">'
         : ''
     } <div id="${options.prefix}_${
       options.id
@@ -86,20 +86,30 @@ class ProgressBar {
       options,
     );
 
-    const processProgressBar = document.getElementById(
-      `${options.prefix}_${options.id}`,
-    );
-
-    processProgressBar.classList.remove(`${this.defaultState()['warning'].bg}`);
-    processProgressBar.classList.remove(`${this.defaultState()['danger'].bg}`);
-    processProgressBar.classList.remove(`${this.defaultState()['success'].bg}`);
-    processProgressBar.classList.remove(`${this.defaultState()['info'].bg}`);
-    processProgressBar.classList.add(
-      `${options.state ? this.defaultState()[options.state].bg : ''}`,
-    );
-    processProgressBar.style.height = `${
-      options.percentage > 100 ? 100 : options.percentage
-    }%`;
+    try {
+      const processProgressBar = document.getElementById(
+        `${options.prefix}_${options.id}`,
+      );
+      processProgressBar.classList.remove(
+        `${this.defaultState()['warning'].bg}`,
+      );
+      processProgressBar.classList.remove(
+        `${this.defaultState()['danger'].bg}`,
+      );
+      processProgressBar.classList.remove(
+        `${this.defaultState()['success'].bg}`,
+      );
+      processProgressBar.classList.remove(`${this.defaultState()['info'].bg}`);
+      processProgressBar.classList.remove(
+        `${this.defaultState()['fileOK'].bg}`,
+      );
+      processProgressBar.classList.add(
+        `${options.state ? this.defaultState()[options.state].bg : ''}`,
+      );
+      processProgressBar.style.height = `${
+        options.percentage > 100 ? 100 : options.percentage
+      }%`;
+    } catch (error) {}
   }
 }
 

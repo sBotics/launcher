@@ -41,6 +41,7 @@ let progressBar = new ProgressBar();
 let time = new Time();
 
 let dataContent = null;
+let dataVersion = null;
 
 // ===========================
 
@@ -266,12 +267,6 @@ const DownloadsBoticsEvent = (options) => {
                 'Falha ao instalar o sBotics! Verifique a sua conexão com a internet.',
             });
           else {
-            // UpdateConfig({
-            //   data: {
-            //     currentSboticsVersion: localStorage.getItem('versionSbotics'),
-            //   },
-            // });
-
             FilesVerification({
               autoInstall: true,
               modeText: 'Procurando atualização! Por favor, espere...',
@@ -364,7 +359,7 @@ function CheckFile(options) {
   const pathDownload = `Applications/sBotics_simulation/${path + name}`;
   const forceInstall = options.forceInstall;
 
-  if (forceInstall) {
+  if (forceInstall == true) {
     if (FileSizeSync(pathDownload).size != size) {
       return BlackList().indexOf(pathDownload) > -1;
     }
@@ -382,6 +377,7 @@ function CheckFile(options) {
     }
     return true;
   }
+
   return false;
 }
 
@@ -400,7 +396,8 @@ function CheckFileUpdate(options) {
     progressBar.clear();
     progressBar.styleHeight('large');
 
-    let filesID = dataContent['data'].length + 1;
+    let dataUpdateFiles = dataContent['data'].length;
+    let filesID = dataUpdateFiles + 1;
     let filesFind = 0;
     let filesNotFind = 0;
 
@@ -446,6 +443,7 @@ function CheckFileUpdate(options) {
       filesFind: filesFind,
       filesNotFind: filesNotFind,
       forceInstall: forceInstall,
+      dataUpdateFiles: dataUpdateFiles,
     };
   } catch (error) {
     console.error(error);
@@ -459,12 +457,13 @@ function CheckFileUpdate(options) {
 
 async function FilesVerification(options) {
   progressBar.clear();
+  progressBar.activate();
 
   options = extend(
     {
       modeText: '',
       autoOpen: false,
-      autoInstall: true,
+      autoInstall: false,
       installCheck: false,
       typeModel: '',
     },
@@ -496,6 +495,8 @@ async function FilesVerification(options) {
     });
   }
 
+  const configs = fileConfig.open();
+  const versionInstalled = configs.sBoticsVersionInstalled;
   const filesFind = checkFileUpdate.filesFind;
   const dataUpdateFiles = checkFileUpdate.dataUpdateFiles;
 
@@ -508,44 +509,90 @@ async function FilesVerification(options) {
       });
 
       if (installCheck) {
+        fileConfig.create({
+          data: {
+            sBoticsVersionInstalled: dataVersion,
+          },
+        });
         switch (typeModel) {
           case 'install':
             alert.createTop({
               states: 'success',
-              message: `${message} - sBotics instalado com sucesso! Pronto para abrir.`,
+              message: 'sBotics instalado com sucesso! Pronto para abrir.',
             });
+            setTimeout(() => {
+              progressBar.disable({ clear: true });
+            }, 100);
             break;
           case 'update':
             alert.createTop({
               states: 'success',
-              message: `${message} - sBotics atualizado com sucesso! Pronto para abrir.`,
+              message: 'sBotics atualizado com sucesso! Pronto para abrir.',
             });
+            setTimeout(() => {
+              progressBar.disable({ clear: true });
+            }, 100);
+            break;
+          case 'repair_installation':
+            alert.createTop({
+              states: 'success',
+              message: 'sBotics reparado com sucesso! Pronto para abrir.',
+            });
+            setTimeout(() => {
+              progressBar.disable({ clear: true });
+            }, 100);
             break;
         }
       }
     }
   } else {
-    if (autoInstall) {
-      setTimeout(() => {
-        DownloadsBotics({
-          modeText: 'Instalando o sBotics! Por favor, espere...',
-          type: 'install',
-        });
-      }, 500);
-    } else {
-      if (filesFind > 0) {
+    // Verificar se a versão instalada é a mesma da versão da att
+    if (versionInstalled != dataVersion && filesFind > 0) {
+      // Atualizar
+      if (autoInstall) {
+        setTimeout(() => {
+          DownloadsBotics({
+            modeText: 'Atualizando o sBotics! Por favor, espere...',
+            type: 'update',
+          });
+        }, 500);
+      } else {
         new MagicButton({
           mode: 'update',
         });
+      }
+    } else if (filesFind == 0) {
+      // Instalar
+      if (autoInstall) {
+        setTimeout(() => {
+          DownloadsBotics({
+            modeText: 'Instalando o sBotics! Por favor, espere...',
+            type: 'install',
+          });
+        }, 500);
       } else {
         new MagicButton({
           mode: 'install',
         });
       }
+    } else {
+      // Recuperar
+      if (autoInstall) {
+        setTimeout(() => {
+          DownloadsBotics({
+            modeText: 'Instalando o sBotics! Por favor, espere...',
+            type: 'repair_installation',
+          });
+        }, 500);
+      } else {
+        new MagicButton({
+          mode: 'repair_installation',
+        });
+      }
     }
   }
 }
-
+let hasExec = false;
 function start(options) {
   options = extend(
     {
@@ -563,12 +610,12 @@ function start(options) {
   const version = options.version;
   const content = options.content;
 
+  const configs = fileConfig.open();
+  const versionInstalled = configs.sBoticsVersionInstalled;
+
   const patch_notes = options.patch_notes.filter(
     (object) => object.language == application.getLocale(),
   )[0];
-
-  const configs = fileConfig.open();
-  const versionInstalled = configs.sBoticsVersionInstalled;
 
   PatchNotes(
     version,
@@ -576,9 +623,12 @@ function start(options) {
     markdown.render(patch_notes.line_text),
   );
 
-  FilesVerification({
-    modeText: 'Procurando atualização! Por favor, espere...',
-  });
+  if (!hasExec) {
+    FilesVerification({
+      modeText: 'Procurando atualização! Por favor, espere...',
+    });
+    hasExec = true;
+  }
 }
 
 export async function LoadingDownloadController() {
@@ -590,13 +640,13 @@ export async function LoadingDownloadController() {
     mode: 'process',
     text: 'Procurando Atualização...',
   });
-
   connection
     .getRelease({ platform: application.getOSText() })
     .then(function (response) {
       try {
         const data = response.data;
         dataContent = data.content;
+        dataVersion = data.version;
         start({
           name: data.name,
           type: data.type,
@@ -661,11 +711,34 @@ window.OpenInstallFolder = function OpenInstallFolder() {
   }
 };
 
-window.MagicButtonAction = function MagicButtonAction(action) {
-  switch (action) {
+window.MagicButton = function MagicButton(mode, state) {
+  if (!state) return;
+  switch (mode) {
     case 'install':
+      DownloadsBotics({
+        modeText: 'Instalando o sBotics! Por favor, espere...',
+        type: 'install',
+      });
       break;
-
+    case 'update':
+      DownloadsBotics({
+        modeText: 'Atualizando o sBotics! Por favor, espere...',
+        type: 'update',
+      });
+      break;
+    case 'repair_installation':
+      DownloadsBotics({
+        modeText: 'Reparando o sBotics! Por favor, espere...',
+        type: 'repair_installation',
+      });
+      break;
+    case 'start':
+      FilesVerification({
+        modelText:
+          'Verificando a integridade do arquivo para abrir o sBotics! Por favor, espere...',
+        autoOpen: true,
+      });
+      break;
     default:
       break;
   }

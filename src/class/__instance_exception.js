@@ -28,6 +28,8 @@ class Exception {
 
     if (!new Application().SLMP()) {
       window.location.href = '../routes/error.html';
+    } else {
+      console.error(`${options.error_name} - ${options.error_message}`);
     }
   }
   default() {

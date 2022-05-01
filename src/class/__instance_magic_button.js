@@ -113,7 +113,7 @@ class MagicButton {
 
     document.getElementById(
       options.elementContentButtonA,
-    ).innerHTML = `<button data-mode=${mode} data-state=${
+    ).innerHTML = `<button onclick="MagicButton('${mode}', '${defaultModes.button_A.state}')" data-mode=${mode} data-state=${
       defaultModes.button_A.state
     } class="w-full h-[38px] xl:h-[45px] rounded-[8px] lg:rounded-[10px] ${
       defaultModes.button_A.theme
@@ -127,7 +127,7 @@ class MagicButton {
       options.elementContentButtonB,
     );
 
-    contentButtonBInner.innerHTML = `<button data-mode=${mode} data-state=${
+    contentButtonBInner.innerHTML = `<button onclick="MagicButton('${mode}', '${defaultModes.button_B.state}')" data-mode=${mode} data-state=${
       defaultModes.button_B.state
     } class="py-[8px] md:py-[8px] md:px-[40px] lg:py-[10px] lg:px-[80px] xl:px-[110px] rounded-[8px] lg:rounded-[10px] mr-0 md:mr-[5px] lg:mr-[15px] mt-[15px] md:mt-0 ${
       defaultModes.button_B.theme
