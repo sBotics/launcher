@@ -33,10 +33,10 @@ class WindowTouchBar {
   main() {
     return new TouchBar({
       items: [
-        new TouchBarButton({
-          label: 'Apenas um teste',
-          click: () => {},
-        }),
+        // new TouchBarButton({
+        //   label: 'Apenas um teste',
+        //   click: () => {},
+        // }),
       ],
     });
   }
