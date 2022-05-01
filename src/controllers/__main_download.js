@@ -1,6 +1,8 @@
 let extend = require('extend-shallow');
 let hljs = require('highlight.js');
 let swal = require('sweetalert2');
+let Downloader = require('nodejs-file-downloader');
+let fs = require('fs-extra');
 let markdown = require('markdown-it')({
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
@@ -27,20 +29,24 @@ import { Connection } from '../class/__instance_connection.js';
 import { MagicButton } from '../class/__instance_magic_button.js';
 import { Exception } from '../class/__instance_exception.js';
 import { FileConfig } from '../class/__instance_file_config.js';
-import { FileSizeSync, FindSync } from '../utils/files-manager.js';
+import { ExtractSync, FileSizeSync, FindSync } from '../utils/files-manager.js';
 import { ProgressBar } from '../class/__instance_progress_bar.js';
+import { Time } from '../class/__instance_time.js';
 
 let alert = new Alerts();
 let connection = new Connection();
 let application = new Application();
 let fileConfig = new FileConfig();
 let progressBar = new ProgressBar();
+let time = new Time();
 
 let dataContent = null;
 
-const blackList = []; // Indica para o verificador, ignorar os caminhos contidos dentro dessa lista
-
 // ===========================
+
+function BlackList() {
+  return [''];
+}
 
 const FailDownload = (options) => {
   options = extend(
@@ -87,6 +93,258 @@ const FailDownload = (options) => {
   }
 };
 
+const DownloadsUpdate = async (options) => {
+  options = extend(
+    {
+      path: '',
+      pathURL: '',
+      name: '',
+      prefix: '',
+      size: '',
+      id: '',
+      format: '',
+      lastUpdatedAt: '',
+    },
+    options,
+  );
+
+  const path = options.path;
+  const pathURL = options.pathURL;
+  const name = options.name;
+  const prefix = options.prefix;
+  const size = options.size;
+  const id = options.id;
+  const format = options.format;
+  const lastUpdatedAt = options.lastUpdatedAt;
+
+  if (!name || !prefix) return 'teste';
+
+  const backupConfig = true;
+
+  return new Promise((resolve, reject) => {
+    if (
+      CheckFile({
+        path: path,
+        name: name,
+        size: size,
+        lastUpdatedAt: lastUpdatedAt,
+      })
+    ) {
+      return resolve({ state: 'ok', id: id });
+    }
+
+    (async () => {
+      // REVISAR - Se o item estiver na blacklist faz backup do mesmo
+      //   if (BlackList().indexOf(`Applications/sBotics_simulation/${path + name}`) > -1) {
+      //     CreateBackupStreamingAssets({
+      //       fileName: name,
+      //       backupConfig: backupConfig,
+      //     });
+      //   }
+
+      //   AddEvent(id, path + name);  REVISAR - Adiciona um evento ao relatorio
+      const downloader = new Downloader({
+        url: pathURL,
+        directory: application.getFolderPathSboticsSimulation() + '/' + path,
+        fileName: name,
+        cloneFiles: false,
+        maxAttempts: 5,
+        timeout: 50000,
+        onProgress: function (percentage, chunk, remainingSize) {
+          //   UpdateEventParcent(id, percentage); REVISAR - Atualiza a porcentagem do evento no ralatorio
+          progressBar.update({
+            percentage: percentage,
+            id: id,
+            state: 'success',
+          });
+        },
+        shouldStop: function (error) {
+          if (application.SLMP()) {
+            console.info('Falhou: ' + path + name);
+            console.error(error);
+          }
+          if (error.statusCode && error.statusCode === 404) {
+            return true;
+          }
+        },
+      });
+
+      try {
+        await downloader.download();
+        // StreamingAssets({
+        //   fileName: name,
+        //   backupConfig: backupConfig,
+        // });
+        if (format == 'zip') {
+          if (ExtractSync('Applications/sBotics_simulation/' + path + name)) {
+            resolve({ state: 'update', id: id });
+          } else {
+            reject({ state: false, id: id });
+          }
+        } else {
+          resolve({ state: 'update', id: id });
+        }
+      } catch (error) {
+        console.log(error);
+        reject({ state: false, id: id });
+      }
+    })();
+  });
+};
+
+const DownloadsBoticsEvent = (options) => {
+  options = extend(
+    {
+      dataContent: '',
+      type: '',
+    },
+    options,
+  );
+
+  const data = options.dataContent;
+
+  const dataUpdateLength = data['data'].length;
+  var filesID = dataUpdateLength + 1;
+  var filesPast = 0;
+  var success = 0;
+
+  data['data'].map((dataContent) => {
+    const fileID = --filesID;
+    progressBar.create({
+      percentage: 5,
+      id: fileID,
+      state: 'info',
+      grid: true,
+    });
+    DownloadsUpdate({
+      path: dataContent.path,
+      pathURL: dataContent.download,
+      name: dataContent.name,
+      size: dataContent.size,
+      prefix: `${application.getOSFolder()}/`,
+      id: fileID,
+      format: dataContent.format,
+      lastUpdatedAt: dataContent.last_updated_at,
+    })
+      .then((resp) => {
+        success = success + 1;
+        if (resp.state == 'ok') {
+          progressBar.update({
+            percentage: 100,
+            id: resp.id,
+            state: 'fileOK',
+          });
+        } else if (resp.state == 'update') {
+          // console.log(dataUpdate.path + dataUpdate.name);
+          progressBar.update({
+            percentage: 100,
+            id: resp.id,
+            state: 'success',
+          });
+        } else {
+          progressBar.update({
+            percentage: 100,
+            id: resp.id,
+            state: 'danger',
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        progressBar.update({
+          percentage: 100,
+          id: err.id,
+          state: 'danger',
+        });
+      })
+      .then(() => {
+        filesPast = filesPast + 1;
+        if (filesPast == dataUpdateLength)
+          if (success != filesPast)
+            FailDownload({
+              message:
+                'Falha ao instalar o sBotics! Verifique a sua conexão com a internet.',
+            });
+          else {
+            // UpdateConfig({
+            //   data: {
+            //     currentSboticsVersion: localStorage.getItem('versionSbotics'),
+            //   },
+            // });
+
+            FilesVerification({
+              autoInstall: true,
+              modeText: 'Procurando atualização! Por favor, espere...',
+              installCheck: true,
+              typeModel: options.type,
+            });
+          }
+      });
+  });
+};
+
+const DownloadsBotics = async (options) => {
+  progressBar.clear();
+  //  ClearEvent(); - Limpa o historico de download
+  //  ReportDownloadButton(true); - Ativa o relatorio de download
+
+  options = extend(
+    {
+      modeText: '',
+      type: '',
+    },
+    options,
+  );
+
+  const modeText = options.modeText;
+  const type = options.type;
+  let dataContentDownload = JSON.parse(dataContent);
+
+  new MagicButton({
+    mode: 'process',
+    text: modeText,
+  });
+
+  if (!dataContentDownload) {
+    return FailDownload({
+      message: 'Falha no Download! Ao procurar por atualização do sBotics.',
+    });
+  }
+
+  const forceInstall = dataContentDownload['force'];
+
+  try {
+    if (forceInstall == true) {
+      if (FindSync('Applications/sBotics_simulation/')) {
+        fs.remove(application.getFolderPathSboticsSimulation())
+          .then(() => {
+            return DownloadsBoticsEvent({
+              dataContent: dataContentDownload,
+              type: type,
+            });
+          })
+          .catch((err) => {
+            return DownloadsBoticsEvent({
+              dataContent: dataContentDownload,
+              type: type,
+            });
+          });
+      } else {
+        return DownloadsBoticsEvent({
+          dataContent: dataContentDownload,
+          type: type,
+        });
+      }
+    }
+    return DownloadsBoticsEvent({
+      dataContent: dataContentDownload,
+      type: type,
+    });
+  } catch (error) {
+    return FailDownload({ message: `Falha no Download! - ${error}` });
+  }
+};
+
 function CheckFile(options) {
   options = extend(
     {
@@ -103,29 +361,28 @@ function CheckFile(options) {
   const name = options.name;
   const size = options.size;
   const lastUpdatedAt = options.lastUpdatedAt;
-  const pathDownload = `sBotics/${path + name}`;
+  const pathDownload = `Applications/sBotics_simulation/${path + name}`;
   const forceInstall = options.forceInstall;
 
   if (forceInstall) {
     if (FileSizeSync(pathDownload).size != size) {
-      if (BlackList.indexOf(pathDownload) > -1) return true;
-      else return false;
+      return BlackList().indexOf(pathDownload) > -1;
     }
     return false;
   }
 
   if (FindSync(pathDownload)) {
-    const donwloadFileTime = ParseTime(lastUpdatedAt);
-    const saveFileTime = Math.floor(FileSizeSync(pathDownload).mtimeMs);
-    if (donwloadFileTime >= saveFileTime) {
-      return BlackList.indexOf(pathDownload) > -1;
+    if (
+      time.ParseTime(lastUpdatedAt) >=
+      Math.floor(FileSizeSync(pathDownload).mtimeMs)
+    ) {
+      return BlackList().indexOf(pathDownload) > -1;
     } else if (FileSizeSync(pathDownload).size != size) {
-      return BlackList.indexOf(pathDownload) > -1;
+      return BlackList().indexOf(pathDownload) > -1;
     }
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 function CheckFileUpdate(options) {
@@ -138,13 +395,7 @@ function CheckFileUpdate(options) {
   try {
     const dataContent = JSON.parse(options.dataContent);
 
-    // localStorage.setItem('versionSbotics', dataUpdate['version']);
-
-    // MODO DO FORCE INSTALL QUE VEM DIRETAMENTE DO ARQUIVO
-    // const forceInstall = ForceInstallManager({
-    //   forceInstall: dataUpdate['force'],
-    //   newSboticsVersion: dataUpdate['version'],
-    // });
+    const forceInstall = dataContent['force'];
 
     progressBar.clear();
     progressBar.styleHeight('large');
@@ -160,49 +411,49 @@ function CheckFileUpdate(options) {
         percentage: 5,
         id: fileID,
         state: 'info',
-        grid: false,
+        grid: true,
       });
 
-      //   progressBar.update({
-      //     percentage: 100,
-      //     id: fileID,
-      //     state: 'success',
-      //   });
-
       if (
-        CheckUpdate({
-          path: dataUpdate.path,
-          name: dataUpdate.name,
-          size: dataUpdate.size,
-          lastUpdatedAt: dataUpdate.last_updated_at,
+        CheckFile({
+          path: dataContent.path,
+          name: dataContent.name,
+          size: dataContent.size,
+          lastUpdatedAt: dataContent.last_updated_at,
           forceInstall: forceInstall,
         })
       ) {
-        Update({
-          id: fileID,
-          addState: 'sbotics-okfiles',
-          removeState: 'info',
-        });
+        setTimeout(() => {
+          progressBar.update({
+            percentage: 100,
+            id: fileID,
+            state: 'fileOK',
+          });
+        }, 10);
         filesFind = filesFind + 1;
       } else {
-        Update({
-          id: fileID,
-          addState: 'warning',
-          removeState: 'info',
-        });
+        setTimeout(() => {
+          progressBar.update({
+            percentage: 100,
+            id: fileID,
+            state: 'warning',
+          });
+        }, 10);
         filesNotFind = filesNotFind + 1;
       }
     });
-    // return {
-    //   filesFind: filesFind,
-    //   filesNotFind: filesNotFind,
-    //   dataUpdateFiles: dataUpdateFilesSize,
-    //   forceInstall: forceInstall,
-    // };
-    return true;
+    return {
+      filesFind: filesFind,
+      filesNotFind: filesNotFind,
+      forceInstall: forceInstall,
+    };
   } catch (error) {
-    console.log(error);
-    return false;
+    console.error(error);
+    new Exception().create({
+      status: 515,
+      error_name: error.name,
+      error_message: error.message,
+    });
   }
 }
 
@@ -213,7 +464,7 @@ async function FilesVerification(options) {
     {
       modeText: '',
       autoOpen: false,
-      autoInstall: false,
+      autoInstall: true,
       installCheck: false,
       typeModel: '',
     },
@@ -238,7 +489,7 @@ async function FilesVerification(options) {
   }
 
   const checkFileUpdate = CheckFileUpdate({ dataContent: dataContent });
-
+  console.log(checkFileUpdate);
   if (!checkFileUpdate) {
     return FailDownload({
       message: 'Fracasso! Ao verificar arquivos sBotics.',
@@ -274,14 +525,16 @@ async function FilesVerification(options) {
       }
     }
   } else {
-    if (autoInstall)
-      DownloadsBotics({
-        modeText: Lang('Installing sBotics! Please wait...'),
-        type: 'install',
-      });
-    else {
+    if (autoInstall) {
+      setTimeout(() => {
+        DownloadsBotics({
+          modeText: 'Instalando o sBotics! Por favor, espere...',
+          type: 'install',
+        });
+      }, 500);
+    } else {
       if (filesFind > 0) {
-        MagicButton({
+        new MagicButton({
           mode: 'update',
         });
       } else {
@@ -323,16 +576,9 @@ function start(options) {
     markdown.render(patch_notes.line_text),
   );
 
-  if (!versionInstalled || versionInstalled != version) {
-    new MagicButton({
-      mode: 'install',
-    });
-  } else {
-    new MagicButton({
-      mode: 'process',
-      text: 'Verificando Integridade dos Arquivos...',
-    });
-  }
+  FilesVerification({
+    modeText: 'Procurando atualização! Por favor, espere...',
+  });
 }
 
 export async function LoadingDownloadController() {
@@ -390,7 +636,7 @@ export async function LoadingDownloadController() {
 }
 
 window.OpenInstallFolder = function OpenInstallFolder() {
-  if (FindSync('sBotics/')) {
+  if (FindSync('Applications/sBotics_simulation/')) {
     application.openInstallFolder();
   } else {
     FilesVerification({
@@ -406,11 +652,10 @@ window.OpenInstallFolder = function OpenInstallFolder() {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          console.log('Instalando o sBotics! Por favor, espere...');
-          // DownloadsBotics({
-          //   modeText: Lang('Instalando o sBotics! Por favor, espere...'),
-          //   type: 'install',
-          // });
+          DownloadsBotics({
+            modeText: 'Instalando o sBotics! Por favor, espere...',
+            type: 'install',
+          });
         }
       });
   }

@@ -16,6 +16,9 @@ class ProgressBar {
       info: {
         bg: 'bg-blue-500',
       },
+      fileOK: {
+        bg: 'text-indigo-500',
+      },
     };
   }
   clear() {
@@ -78,6 +81,7 @@ class ProgressBar {
         state: '',
         id: '',
         prefix: '__sBotics_Download',
+        timeout: 300,
       },
       options,
     );
@@ -93,7 +97,6 @@ class ProgressBar {
     processProgressBar.classList.add(
       `${options.state ? this.defaultState()[options.state].bg : ''}`,
     );
-
     processProgressBar.style.height = `${
       options.percentage > 100 ? 100 : options.percentage
     }%`;
