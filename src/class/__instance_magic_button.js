@@ -1,5 +1,7 @@
 var extend = require('extend-shallow');
 
+let buttonsInstances = false;
+
 class MagicButton {
   modes() {
     return {
@@ -133,7 +135,19 @@ class MagicButton {
       !text
         ? defaultModes.button_B.text
         : `<span class="text-[11px] lg:text-[14px] font-medium">${text}</span>`
-    }</button> ${contentButtonBInner.innerHTML}`;
+    }</button> 
+    <div
+        class="w-full flex md:hidden flex-row items-center justify-between mt-[8px] md:mt-0 mb-[8px] md:mb-0">
+        <hr class="w-1/2 text-white" />
+        <span class="text-[#9F9F9F] font-bold uppercase px-[15px]">ou</span>
+        <hr class="w-1/2 bg-white" />
+    </div>
+    <button
+        class="py-[8px] md:py-[8px] md:px-[20px] lg:py-[10px] lg:px-[26px] bg-[#292D31] text-[11px] lg:text-[14px] font-medium text-[#9F9F9F] rounded-[8px] lg:rounded-[10px] uppercase"
+        onclick="OpenInstallFolder()">
+        Abrir Pasta de Instalação
+    </button>
+    `;
   }
 }
 export { MagicButton };

@@ -118,10 +118,7 @@ const PatchNotes = async (version, tag, patch_notes) => {
   document
     .getElementById('__container_patch_notes_animation')
     .classList.add('hidden');
-  document
-    .getElementById('__container_patch_notes')
-    .classList.remove('hidden');
-  document
-    .getElementById('__container_patch_notes')
-    .classList.add('block');
+  document.getElementById('__container_patch_notes').classList.remove('hidden');
+  document.getElementById('__container_patch_notes').classList.add('block');
 };
+
