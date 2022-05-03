@@ -7,7 +7,8 @@ class Windows {
     const { height } = this.primaryDisplay.workAreaSize;
     this.height = height;
   }
-  splash() {
+  splash() { 
+console.log(__dirname);
     return new BrowserWindow({
       width: 470,
       height: 265,
@@ -18,7 +19,7 @@ class Windows {
       show: false,
       alwaysOnTop: true,
       title: 'sBotics Launcher',
-      icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
+      icon: path.join(__dirname, '../../assets/icons/icon.png'),
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -34,7 +35,7 @@ class Windows {
       show: false,
       autoHideMenuBar: true,
       title: 'sBotics Launcher',
-      icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
+      icon: path.join(__dirname, '../../assets/icons/icon.png'),
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -50,7 +51,7 @@ class Windows {
       show: false,
       autoHideMenuBar: true,
       title: 'sBotics Launcher',
-      icon: path.join(__dirname, '/assets/icons/app/icon.ico'),
+      icon: path.join(__dirname, '../../assets/icons/icon.png'),
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
