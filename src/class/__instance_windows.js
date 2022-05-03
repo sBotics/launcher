@@ -7,8 +7,8 @@ class Windows {
     const { height } = this.primaryDisplay.workAreaSize;
     this.height = height;
   }
-  splash() { 
-console.log(__dirname);
+  splash() {
+    console.log(__dirname);
     return new BrowserWindow({
       width: 470,
       height: 265,
@@ -32,6 +32,8 @@ console.log(__dirname);
     return new BrowserWindow({
       width: Math.round((16 * height) / 9),
       height: height,
+      minHeight: 600,
+      minWidth: 600,
       show: false,
       autoHideMenuBar: true,
       title: 'sBotics Launcher',
@@ -48,6 +50,8 @@ console.log(__dirname);
     return new BrowserWindow({
       width: Math.round((16 * height) / 9),
       height: height,
+      minHeight: 600,
+      minWidth: 600,
       show: false,
       autoHideMenuBar: true,
       title: 'sBotics Launcher',
