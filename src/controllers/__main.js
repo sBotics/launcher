@@ -7,6 +7,14 @@ import { LoadingDownloadController } from './__main_download.js';
 import { Exception } from '../class/__instance_exception.js';
 import { ProgressBar } from '../class/__instance_progress_bar.js';
 
+window.ExitAccount = function ExitAccount() {
+  new FileUser().create({
+    accessToken: null,
+    logged: false,
+  });
+  new Application().restartApp();
+};
+
 const startPipeLine = (data) => {
   try {
     LoadingUserAccount(data['getUser']);

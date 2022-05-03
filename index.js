@@ -117,13 +117,14 @@ if (!app.requestSingleInstanceLock()) {
     if (authWindow) {
       if (authWindow.isMinimized()) authWindow.restore();
       authWindow.focus();
-        console.log(event);
-        console.log(commandLine);
-        console.log(workingDirectory);
-      authWindow.webContents.send(
-        'set_user_auth',
-        commandLine[3].split('accessToken=')[1],
-      );
+      commandLine.forEach((command) => {
+        if (command.indexOf('sbotics://') != -1) {
+          authWindow.webContents.send(
+            'set_user_auth',
+            command.split('accessToken=')[1],
+          );
+        }
+      });
     }
   });
 
