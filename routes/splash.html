@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/public/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" />
+</head>
+
+<body class="bg-sbotics_gray-100 font-sans select-none relative">
+    <button onclick="CloseAll()" id="button-close" class="hidden absolute px-[15px] top-0 right-0 bg-red-300 text-red-700 cursor-pointer hover:bg-red-400 hover:text-red-100">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="w-full h-full grid grid-cols-2">
+        <div class="h-screen col-span-1 flex flex-col justify-center items-center pt-[28px] pb-[28px]">
+            <img class="w-[130px] rounded-[21px] shadow-lg" src="../assets/logos/sBotics_Mark.svg"
+                alt="sBotics Launcher">
+        </div>
+        <div class="h-screen col-span-1 flex flex-col justify-between pt-[28px] pb-[35px]">
+            <div class="flex flex-col">
+                <span class="font-bold text-[50px] text-sbotics_gray-900">sBotics</span>
+                <span class="font-bold text-xs text-sbotics_gray-400 -mt-[15px]" id="text-version"></span>
+                <div class="w-full h-full pr-[25px] mt-[15px]">
+                    <p class="font-bold text-sm text-gray-800" id="text-update-state"></p>
+                    <div class="hidden w-full h-[6px] bg-gray-200 rounded-full shadow transition-width duration-[200ms] ease-in-out"
+                        id="container-progress-bar">
+                        <div id="progress-progress-bar" class="h-full block bg-green-300 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[10px] text-sbotics_gray-400">© 2022 sBotics - Natalnet</span>
+                <span class="text-[10px] text-sbotics_gray-400">Made with ❤️ by the sBotics team</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Init -->
+    <script src="../src/utils/env.js"></script>
+    <script type="module" src="../src/controllers/__splash.js"></script>
+</body>
+
+</html>

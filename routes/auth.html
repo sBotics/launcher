@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/public/style.css">
+    <link rel="stylesheet" href="../src/css/public/loading_animation.css">
+    <link rel="stylesheet" href="../src/css/public/scrollbar.css">
+</head>
+
+<body>
+    <div id="animation_loading" class="loader">
+        <div class="box box0">
+            <div></div>
+        </div>
+        <div class="box box1">
+            <div></div>
+        </div>
+        <div class="box box2">
+            <div></div>
+        </div>
+        <div class="box box3">
+            <div></div>
+        </div>
+        <div class="box box4">
+            <div></div>
+        </div>
+        <div class="box box5">
+            <div></div>
+        </div>
+        <div class="box box6">
+            <div></div>
+        </div>
+        <div class="box box7">
+            <div></div>
+        </div>
+        <div class="ground">
+            <div></div>
+        </div>
+    </div>
+
+    <div id="form_authentication"
+        class="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-screen bg-gray-200 overflow-auto hidden flex-col itesm-center justify-between">
+        <div class="h-full container mx-auto">
+            <div id="view_auth" class="w-full h-full py-4 px-5 flex-col justify-center items-center hidden">
+                <img class="h-40 mb-9" src="../assets/logos/sBotics_Auth_Mark.svg" alt="sBotics Logo">
+                <h1 class="text-4xl font-bold text-center text-gray-700">Iníciando sBotics AUTH</h1>
+                <h3 class="text-xl font-medium text-center text-gray-700 mt-4">Você será redirecionado em alguns
+                    instantes.
+                </h3>
+                <p class="text-base font-normal text-center text-gray-500">Se nada acontecer em alguns instantes, <a
+                        href="#" id="view_auth_link" class="font-bold">clique aqui</a> e tente novamente.</p>
+            </div>
+
+            <!-- Container Login -->
+            <div id="form_auth" class="h-full flex items-center justify-center">
+                <div class="py-[10px] px-[10px] md:py-0 md:px-0 xl:px-[80px">
+                    <div class="w-full h-full flex flex-row justify-between">
+                        <div
+                            class="hidden md:block w-1/2 bg-[url('../../../assets/Banners/zul_banner_B.png')] bg-no-repeat first-letter:bg-cover bg-center md:rounded-l-xl">
+                        </div>
+                        <div class="w-full md:w-1/2 bg-white rounded-xl md:rounded-l-none md:rounded-r-xl py-[45px]">
+                            <div class="w-full flex justify-center">
+                                <img class="h-[40px] xl:h-[50px]" src="../assets/logos/sBotics_Logotype.svg" alt="">
+                            </div>
+                            <div class="pt-[32px] px-[45px]">
+                                <p class="text-md font-bold text-gray-800">
+                                    sBotics Launcher é um programa executável que permite ao usuário o acesso ao
+                                    simulador e
+                                    outras informações sobre nossos sistemas.
+                                </p>
+                                <p class="text-md text-gray-900 mt-[20px]">
+                                    Para continuar, é necessario criar uma conta ou acessar sua conta
+                                </p>
+
+                                <button onclick="Login()"
+                                    class="group w-full px-6 py-[10px] flex flex-row items-center justify-between border bg-transparent border-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-md cursor-pointer mt-[10px]">
+                                    <svg class="h-5 w-5 text-gray-700 group-hover:text-gray-300"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <div class="w-full flex justify-center">
+                                        <span
+                                            class="-ml-5 text-xs font-bold uppercase text-gray-700 group-hover:text-gray-300">
+                                            Acessar Conta
+                                        </span>
+                                    </div>
+                                </button>
+                                <div class="w-full flex flex-row justify-between items-center mt-4 mb-4">
+                                    <hr class="w-full border-t border-gray-600" />
+                                    <span class="pl-3 px-3 text-sm font-bold text-gray-600 uppercase"> OU
+                                    </span>
+                                    <hr class="w-full border-t border-gray-600" />
+                                </div>
+                                <button onclick="Register()"
+                                    class="group w-full px-6 py-[10px] flex flex-row items-center justify-between bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-md cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <div class="w-full flex justify-center">
+                                        <span class="-ml-5 text-xs font-bold uppercase text-gray-300 ">
+                                            Crie a sua conta aqui
+                                        </span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto py-4 px-5 flex flex-col md:flex-row items-center justify-between">
+            <p class="text-gray-500 text-sm text-center">
+                © 2022 sBotics - Natalnet • All rights reserved
+            </p>
+            <span class="text-center text-gray-500 text-sm">
+                Made with ❤️ by the sBotics team
+            </span>
+        </div>
+    </div>
+
+    <!-- Scripts Init -->
+    <script src="../src/utils/env.js"></script>
+    <script type="module" src="../src/controllers/__authentication.js"></script>
+    <script type="module" src="../src/controllers/__auth.js"></script>
+</body>
+
+</html>
