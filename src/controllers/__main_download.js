@@ -129,7 +129,7 @@ function OpenSbotics() {
     const lang =
       languageAvarible.indexOf(configData['languageSimulator']) > -1
         ? 'pt_BR'
-        : 'en';
+        : 'en_US';
     var parameters = ['--lang', lang, '--auth_token', userData['accessToken']];
     child(executablePath, parameters, { detached: true });
     application.closeAll();
@@ -679,7 +679,7 @@ async function FilesVerification(options) {
     }
   }
 }
-let hasExec = false;
+
 function start(options) {
   options = extend(
     {
@@ -704,18 +704,16 @@ function start(options) {
     (object) => object.language == application.getLocale(),
   )[0];
 
-  PatchNotes(
-    version,
-    !versionInstalled || versionInstalled != version,
-    markdown.render(patch_notes.line_text),
-  );
-
-  if (!hasExec) {
-    FilesVerification({
-      modeText: 'Procurando atualização! Por favor, espere...',
-    });
-    hasExec = true;
-  }
+  try {
+    PatchNotes(
+      version,
+      !versionInstalled || versionInstalled != version,
+      markdown.render(patch_notes.line_text),
+    );
+  } catch (error) {}
+  FilesVerification({
+    modeText: 'Procurando atualização! Por favor, espere...',
+  });
 }
 
 export async function LoadingDownloadController() {

@@ -1,7 +1,13 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, autoUpdater } = require('electron');
 const path = require('path');
 const Windows = require('./src/class/__instance_windows');
 const WindowTouchBar = require('./src/class/__instance_touchbar');
+const log = require('electron-log');
+const packageJson = require('./package.json');
+const { version, isBeta } = packageJson;
+require('update-electron-app')({
+  logger: log,
+});
 
 handleSquirrelEvent();
 
@@ -65,14 +71,17 @@ var windowsAllClose = false;
 var mainWindowIsOpen = false;
 
 const createWindow = (accessToken = null) => {
-  const { screen } = require('electron');
-  const windows = new Windows(screen);
-  const touchbar = new WindowTouchBar();
+  let { screen } = require('electron');
+  let windows = new Windows(screen);
+  let touchbar = new WindowTouchBar();
 
   // Auth Window Instance
   authWindow = windows.auth();
-  authWindow.loadFile(path.join(__dirname, '/routes/auth.html'));
-  authWindow.setTouchBar(touchbar.auth());
+
+  // if (process.platform.toLowerCase() == 'linux') {
+  //  authWindow.loadFile(path.join(__dirname, '/routes/auth.html'));
+  //  authWindow.setTouchBar(new WindowTouchBar().auth());
+  // }
 
   // Splash Window Instance
   splashWindow = windows.splash();
@@ -145,15 +154,21 @@ if (!app.requestSingleInstanceLock()) {
     authWindow.webContents.send('set_user_auth', url.split('accessToken=')[1]);
   });
 }
+
 app.on('window-all-closed', function () {
-  console.log('O eventos de fechar todas as telas foram acionados');
   windowsAllClose = true;
   if (process.platform !== 'darwin') app.quit();
 });
 
 // IpcMain Events
+ipcMain.on('is-packaged', (event) => {
+  event.returnValue = app.isPackaged;
+});
 ipcMain.on('get-version', (event) => {
-  event.returnValue = app.getVersion();
+  event.returnValue = version;
+});
+ipcMain.on('get-release-type', (event) => {
+  event.returnValue = isBeta ? 'BETA' : '';
 });
 ipcMain.on('get-lang', (event) => {
   event.returnValue = app.getLocale();
@@ -171,10 +186,49 @@ ipcMain.on('open-window-auth', () => {
   mainWindow.close();
   createWindow();
 });
+ipcMain.on('instance-window-auth', () => {
+  if (!splashWindow.isDestroyed()) {
+    authWindow.loadFile(path.join(__dirname, '/routes/auth.html'));
+    authWindow.setTouchBar(new WindowTouchBar().auth());
+  }
+});
 ipcMain.on('restart-app', () => {
   app.relaunch();
   app.exit();
 });
 ipcMain.on('close-app', () => {
   app.exit();
+});
+
+// AutoUpdater
+autoUpdater.on('update-not-available', (info) => {
+    if (!splashWindow.isDestroyed()) {
+        splashWindow.webContents.send('autoUpdateNotAvailable', {
+            state: true,
+        });
+    }
+  // if (!splashWindow.isDestroyed()) {
+  //  authWindow.loadFile(path.join(__dirname, '/routes/auth.html'));
+  //  authWindow.setTouchBar(new WindowTouchBar().auth());
+  // }
+});
+
+autoUpdater.on('error', (error) => {
+  if (!splashWindow.isDestroyed()) {
+    splashWindow.webContents.send('autoUpdateError', {
+      message: error,
+    });
+  }
+});
+
+autoUpdater.on('update-available', (info) => {
+  if (!splashWindow.isDestroyed()) {
+    splashWindow.webContents.send('autoUpdateAvailable', {
+      state: true,
+    });
+  }
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  autoUpdater.quitAndInstall();
 });

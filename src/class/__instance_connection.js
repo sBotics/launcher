@@ -11,7 +11,20 @@ class Connection {
       myIp: 'http://meuip.com/api/meuip.php',
       userProfile: `https://auth.sbotics.net/user/profile`,
       release: `https://sbotics.net/api/release`,
+      lastRelease: `https://api.github.com/repos/sbotics/launcher/releases/latest`,
     };
+  }
+  getLastRelease() {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`${this.getDictionary()['lastRelease']}`)
+        .then(function (response) {
+          resolve(response);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    });
   }
   getUser(options) {
     options = extend(

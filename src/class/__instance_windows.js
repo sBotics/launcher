@@ -1,4 +1,4 @@
-const { BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 class Windows {
@@ -18,9 +18,10 @@ class Windows {
       frame: false,
       show: false,
       alwaysOnTop: true,
-      title: 'sBotics Launcher',
+      title: 'sBotics',
       icon: path.join(__dirname, '../../assets/icons/icon.png'),
       webPreferences: {
+        // devTools: !app.isPackaged,
         nodeIntegration: true,
         contextIsolation: false,
         enableRemoteModule: true,
@@ -36,9 +37,10 @@ class Windows {
       minWidth: 600,
       show: false,
       autoHideMenuBar: true,
-      title: 'sBotics Launcher',
+      title: 'sBotics',
       icon: path.join(__dirname, '../../assets/icons/icon.png'),
       webPreferences: {
+        // devTools: !app.isPackaged,
         nodeIntegration: true,
         contextIsolation: false,
         enableRemoteModule: true,
@@ -54,9 +56,10 @@ class Windows {
       minWidth: 600,
       show: false,
       autoHideMenuBar: true,
-      title: 'sBotics Launcher',
+      title: 'sBotics',
       icon: path.join(__dirname, '../../assets/icons/icon.png'),
       webPreferences: {
+        devTools: !app.isPackaged,
         nodeIntegration: true,
         contextIsolation: false,
         enableRemoteModule: true,

@@ -36,6 +36,7 @@ module.exports = {
     },
     transitionProperty: {
       height: 'height',
+      width: 'width',
     },
     extend: {
       typography: (theme) => ({
