@@ -88,6 +88,7 @@ const CopySync = (originalPath, newPath) => {
     return false;
   }
 };
+
 const ExtractSync = (path) => {
   try {
     return __sBoticsFilesManager.extractZip(path);
