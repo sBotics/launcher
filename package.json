@@ -45,7 +45,7 @@
         "highlight.js": "^11.5.1",
         "highlightjs-copy": "^1.0.3",
         "jquery": "^3.6.0",
-        "luxon": "^2.0.2",
+        "luxon": "^2.5.2",
         "macaddress": "^0.5.2",
         "markdown-it": "^12.3.2",
         "nodejs-file-downloader": "^4.7.3",
